@@ -1,0 +1,31 @@
+/* header */
+
+.search-container {
+  background-color: hsla(0, 0%, 100%, 0.1);
+  border-radius: 20px;
+}
+
+.header-btn {
+  background-color: hsla(0, 0%, 100%, 0.1);
+  border-radius: 20px;
+}
+.header-btn:hover {
+  filter: brightness(0.9);
+}
+
+.header-title {
+  display: none;
+  font-size: 12px;
+  width: auto;
+  position: absolute;
+  color: #dadada;
+  bottom: -80%;
+  background-color: #333;
+  padding: 4px 0;
+  width: 150%;
+  border-radius: 4px;
+}
+
+.header-btn:hover .header-title {
+  display: inline-block;
+}
