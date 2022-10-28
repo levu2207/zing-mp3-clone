@@ -1,11 +1,20 @@
 /* sidebar */
 .zm-sidebar {
-  height: calc(100vh - 90px);
   width: 240px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 90px;
+  z-index: 50;
+}
+
+.zm-side-wrapper {
+  width: 240px;
+  position: relative;
 }
 .zm-brand {
   height: 70px;
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   padding: 0 25px 0 28px;
   display: flex;
@@ -36,6 +45,8 @@
 }
 
 .sidebar-playlist {
+  position: absolute;
   display: flex;
   align-items: center;
+  bottom: 0;
 }

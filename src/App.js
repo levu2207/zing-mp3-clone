@@ -4,11 +4,11 @@ import DefaultLayout from './containers/DefaultLayout'
 
 function App() {
   return (
-    <>
+    <div className="App bg-bg">
       <Routes>
         <Route path="/*" element={<DefaultLayout />}></Route>
       </Routes>
-    </>
+    </div>
   )
 }
 

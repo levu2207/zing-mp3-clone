@@ -1,0 +1,13 @@
+/* default layout */
+.zm-main {
+  /* width: calc(100% - 570px); */
+  width: 100%;
+  min-height: 100%;
+  padding: 0 59px;
+  margin-left: 240px;
+}
+.container {
+  width: 100%;
+  margin-top: 70px;
+  min-height: calc(100% - 158px);
+}

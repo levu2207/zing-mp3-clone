@@ -1,0 +1,26 @@
+/* Tabs sorter */
+.tabs {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+}
+
+.tabs button {
+  font-weight: 500;
+  border: 1px solid #ffffff1a;
+  cursor: pointer;
+  margin: 0px 15px 0px 0px;
+  padding: 4px 24px;
+  border-radius: 100px;
+  color: #ffffff;
+}
+
+.tabs button:hover {
+  border: 1px solid white;
+}
+
+.tabs button.active-tabs {
+  background-color: #9b4de0;
+  border: 1px solid #9b4de0;
+}

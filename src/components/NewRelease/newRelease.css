@@ -1,0 +1,5 @@
+/* song */
+.song-item:hover {
+  background-color: #2a213a;
+  border-radius: 8px;
+}

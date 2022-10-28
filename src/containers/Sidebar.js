@@ -5,8 +5,8 @@ import { NavLink, Link } from 'react-router-dom'
 
 const Sidebar = () => {
   return (
-    <aside className="zm-sidebar bg-sidebar relative z-50 pt-[70px] pb-[54px]">
-      <div className="zm-side-wrapper flex flex-col w-full h-full border-b border-border">
+    <div className="zm-sidebar bg-sidebar">
+      <div className="zm-side-wrapper flex flex-col h-full">
         {/* logo */}
         <Link to="/" className="zm-brand">
           <img src={logo} alt="failed" className="zm-logo w-[120px] h-10" />
@@ -186,12 +186,12 @@ const Sidebar = () => {
         </div>
 
         {/* playlist */}
-        <button className="sidebar-playlist absolute bottom-0 h-[54px] w-full px-7">
+        <button className="sidebar-playlist h-[54px] w-full px-7 border-t border-border">
           <i className="fa-regular fa-plus text-[18px] text-white mr-2.5" />
           <span className="text-white">Tạo playlist mới</span>
         </button>
       </div>
-    </aside>
+    </div>
   )
 }
 

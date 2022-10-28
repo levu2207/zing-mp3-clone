@@ -1,4 +1,27 @@
 /* header */
+.level {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.level .header-left {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 0;
+}
+.level .header-right {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 0;
+}
 
 .search-container {
   background-color: hsla(0, 0%, 100%, 0.1);
