@@ -4,8 +4,11 @@ import Tabs from '../Tabs/Tabs'
 import Album from './Album'
 import Song from './Song'
 import './newRelease.css'
+import { useSelector } from 'react-redux'
 
-const NewRelease = ({ newRelease }) => {
+const NewRelease = () => {
+  const newRelease = useSelector((state) => state.home.newRelease)
+
   const [newReleaseList] = newRelease.items
   const songs = newReleaseList.song
   const albums = newReleaseList.album

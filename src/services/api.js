@@ -4,6 +4,8 @@ import axios from 'axios'
 const url = {
   baseUrl: process.env.REACT_APP_API_BASE_URL,
   home: '/home',
+  song: '/song',
+  songInfo: '/song-info',
   top100: '/top100',
 }
 

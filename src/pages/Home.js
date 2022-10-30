@@ -19,6 +19,7 @@ import {
   loadZingChart,
 } from '../redux/reducers/homeSlice'
 import mp3Service from '../services/mp3Services'
+import './home.css'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -42,13 +43,12 @@ const Home = () => {
   // }, [dispatch])
 
   const banner = useSelector((state) => state.home.banner)
-  const newRelease = useSelector((state) => state.home.newRelease)
 
   return (
     <div className="home w-full h-full">
       <Banner banner={banner} />
 
-      <NewRelease newRelease={newRelease} />
+      <NewRelease />
     </div>
   )
 }

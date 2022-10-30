@@ -2,4 +2,33 @@
 .song-item:hover {
   background-color: #2a213a;
   border-radius: 8px;
+  cursor: default;
+}
+.song-item.active-play {
+  background-color: #2a213a;
+  border-radius: 8px;
+}
+.play-icon:hover {
+  cursor: pointer;
+}
+.play-icon:hover i {
+  display: block;
+}
+
+/* album */
+.album-item:hover {
+  background-color: #2a213a;
+  border-radius: 8px;
+  cursor: default;
+}
+.album-item:hover img[alt='album'] {
+  transform: translateX(-10%);
+  transition: 0.7s;
+}
+.album-item:hover img[alt='disk'] {
+  transform: rotate(120deg);
+  transition: 0.7s;
+}
+.album-item:hover i {
+  display: block;
 }

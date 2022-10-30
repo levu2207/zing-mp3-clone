@@ -1,10 +1,10 @@
 import React from 'react'
-import Player from './Player'
-import Sidebar from './Sidebar'
-import Header from './Header'
-import routes from '../routers/router'
 import { Route, Routes } from 'react-router-dom'
+import routes from '../routers/router'
 import './defaultLayout.css'
+import Header from './Header'
+import Player from './Player/Player'
+import Sidebar from './Sidebar'
 
 const DefaultLayout = () => {
   return (

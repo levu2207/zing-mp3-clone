@@ -1,0 +1,16 @@
+/* add library */
+.add-library {
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add-library:hover {
+  background-color: #ffffff1a;
+  cursor: pointer;
+}
+.add-library i {
+  color: #ffffff;
+}
