@@ -13,7 +13,7 @@ const instance = axios.create({
   baseURL: url.baseUrl,
   header: {
     'Content-Type': 'application/json',
-    Accept: '*/*',
+    Accept: 'application/json',
   },
 })
 
