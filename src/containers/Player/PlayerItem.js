@@ -6,7 +6,7 @@ import truncateText from '../../utils/truncateText'
 
 const PlayerItem = () => {
   const song = useSelector((state) => state.play.playItem)
-
+  console.log(song)
   return (
     <>
       {song !== {} ? (
