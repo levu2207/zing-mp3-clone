@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 import './banner.css'
 
-const Banner = ({ banner }) => {
+const Banner = () => {
+  const banner = useSelector((state) => state.home.banner)
   const bannerList = banner.items
 
   useEffect(() => {

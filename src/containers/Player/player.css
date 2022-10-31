@@ -1,0 +1,13 @@
+/* player music */
+.audio-btn {
+  font-size: 16px;
+}
+.audio-play {
+  width: 40px;
+  height: 40px;
+  border: 1px solid white;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

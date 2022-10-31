@@ -1,5 +1,7 @@
 /* add library */
-.add-library {
+.add-library,
+.audio-btn,
+.option {
   width: 32px;
   height: 32px;
   border-radius: 100%;
@@ -7,10 +9,15 @@
   justify-content: center;
   align-items: center;
 }
-.add-library:hover {
+.add-library:hover,
+.audio-btn:hover,
+.option:hover {
   background-color: #ffffff1a;
   cursor: pointer;
 }
 .add-library i {
+  color: #ffffff;
+}
+.option svg {
   color: #ffffff;
 }

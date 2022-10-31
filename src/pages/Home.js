@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import Banner from '../components/Banner/Banner'
 import NewRelease from '../components/NewRelease/NewRelease'
 import {
@@ -23,6 +23,8 @@ import './home.css'
 
 const Home = () => {
   const dispatch = useDispatch()
+  const [loading, setLoading] = useState(true)
+
   useEffect(() => {
     mp3Service.getHome().then((res) => {
       dispatch(loadBanner(res.data.items[0]))
@@ -39,17 +41,23 @@ const Home = () => {
       dispatch(loadAlbumArtist(res.data.items[14]))
       dispatch(loadRadio(res.data.items[15]))
       dispatch(loadEvent(res.data.items[16]))
+      setLoading(false)
     })
-  }, [dispatch])
-
-  const banner = useSelector((state) => state.home.banner)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
-    <div className="home w-full h-full">
-      <Banner banner={banner} />
+    <>
+      {loading ? (
+        <p>dang loading</p>
+      ) : (
+        <div className="home w-full h-full">
+          <Banner />
 
-      <NewRelease />
-    </div>
+          <NewRelease />
+        </div>
+      )}
+    </>
   )
 }
 
