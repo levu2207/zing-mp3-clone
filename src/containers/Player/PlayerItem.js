@@ -9,7 +9,7 @@ const PlayerItem = () => {
 
   return (
     <>
-      {song ? (
+      {song !== {} ? (
         <div className="player-item flex items-center">
           <div className="player-item-img w-[64px] h-[64px] mr-2.5 relative">
             <img className="w-full h-full rounded" src={song.thumbnail} alt="song" />
