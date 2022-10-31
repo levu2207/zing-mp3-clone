@@ -11,7 +11,7 @@ const playSlice = createSlice({
 
   reducers: {
     addPlaySong(state, action) {
-      state.isPlaying = true
+      // state.isPlaying = true
       state.playItem = action.payload
     },
     playSong(state) {

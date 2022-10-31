@@ -1,13 +1,41 @@
 /* player music */
+.player-wrapper .ant-row {
+  height: 100%;
+  align-items: center;
+}
 .audio-btn {
   font-size: 16px;
+  margin: 0 10px;
 }
 .audio-play {
-  width: 40px;
-  height: 40px;
-  border: 1px solid white;
+  font-size: 40px;
+  font-weight: 200;
+  margin: 0 10px;
+}
+.audio-play:hover {
+  color: #c273ed;
+}
+.progress-bar {
+  position: relative;
+}
+.progress-bar .ant-progress-bg {
+  height: 3px !important;
+}
+.progress-bar:hover {
+  cursor: pointer;
+}
+.ant-progress-bg::after {
+  content: '';
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
   border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: white;
+}
+.progress-bar:hover .ant-progress-bg {
+  height: 5px !important;
 }

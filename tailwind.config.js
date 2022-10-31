@@ -13,6 +13,7 @@ module.exports = {
         'text-sidebar': '#dadada',
         'active-sidebar': 'rgba(41,21,71,0.8)',
         'border-sidebar': '#9b4de0',
+        'hover-player-bg': '#c273ed',
       },
     },
   },
