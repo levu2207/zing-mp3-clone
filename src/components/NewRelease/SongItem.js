@@ -36,8 +36,6 @@ const SongItem = ({ song }) => {
         const source = data.data['128']
         console.log('source', source)
 
-        setLoadMusic(false)
-
         dispatch(
           addPlaySong({
             ...item,
@@ -46,24 +44,28 @@ const SongItem = ({ song }) => {
         )
         audio.play()
         dispatch(playSong())
-      } else if (data.err < 0) {
         setLoadMusic(false)
-        audio.play()
-        dispatch(playSong())
-        // const newData = await axios.get(data.url)
-        // if (newData.err === 0) {
-        //   console.log('reload-source', newData)
+      } else {
+        const newData = await axios.get(data.url)
+        if (newData.err === 0) {
+          console.log('reload-source', newData)
 
-        //   setLoadMusic(false)
+          const newSource = newData.data['128']
+          dispatch(
+            addPlaySong({
+              ...item,
+              source: newSource,
+            })
+          )
 
-        //   const newSource = newData.data['128']
-        //   dispatch(
-        //     addPlaySong({
-        //       ...item,
-        //       source: newSource,
-        //     })
-        //   )
-        //   dispatch(playSong())
+          audio.play()
+          dispatch(playSong())
+          setLoadMusic(false)
+        } else {
+          setLoadMusic(false)
+          audio.play()
+          dispatch(playSong())
+        }
       }
     }
   }

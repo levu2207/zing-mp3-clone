@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Banner from '../components/Banner/Banner'
@@ -43,6 +44,13 @@ const Home = () => {
       dispatch(loadEvent(res.data.items[16]))
       setLoading(false)
     })
+    axios
+      .get(
+        'https://zingmp3.vn/api/v2/song/get/streaming?id=Z6W8AIO9&ctime=1667277878&version=1.7.53&sig=c6d589e391b84c27e9d0c14c5bac9089bbf75d251b2fca2d58d8097cc6689fe012fea39c10b6c5618d4d78a0380207e853d3b32adb266c71ac4c16546a30616b&apiKey=X5BM3w8N7MKozC0B85o4KMlzLZKhV00y'
+      )
+      .then((res) => {
+        console.log(res)
+      })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
