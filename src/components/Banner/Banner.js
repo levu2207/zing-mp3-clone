@@ -34,18 +34,24 @@ const Banner = () => {
 
   return (
     <div className="gallery py-8">
-      <div onClick={() => handlePrev()} id="banner-prev">
-        <i className="fa-solid fa-chevron-left"></i>
-      </div>
-      <div id="banner-slider" className="gallery-container">
-        {bannerList.map((item) => (
-          <div key={item.encodeId} className="gallery-item" onClick={() => handleClickBanner(item)}>
-            <img src={item.banner} alt="banner" />
-          </div>
-        ))}
-      </div>
-      <div onClick={() => handleNext()} id="banner-next">
-        <i className="fa-solid fa-chevron-right"></i>
+      <div className="gallery-wrapper">
+        <div onClick={() => handlePrev()} id="banner-prev">
+          <i className="fa-solid fa-chevron-left"></i>
+        </div>
+        <div id="banner-slider" className="gallery-container">
+          {bannerList.map((item) => (
+            <div
+              key={item.encodeId}
+              className="gallery-item"
+              onClick={() => handleClickBanner(item)}
+            >
+              <img src={item.banner} alt="banner" />
+            </div>
+          ))}
+        </div>
+        <div onClick={() => handleNext()} id="banner-next">
+          <i className="fa-solid fa-chevron-right"></i>
+        </div>
       </div>
     </div>
   )

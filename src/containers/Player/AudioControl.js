@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { pauseSong, playSong } from '../../redux/reducers/playSlice'
+import {
+  addPlaySong,
+  pauseSong,
+  playSong,
+  randomAction,
+  repeatAction,
+} from '../../redux/reducers/playSlice'
+import mp3Service from '../../services/mp3Services'
 import ProgressBar from './ProgressBar'
+import { toast } from 'react-toastify'
 
-const AudioControl = () => {
+const AudioControl = ({ song }) => {
+  const listSong = useSelector((state) => state.play.playList)
   const isPlaying = useSelector((state) => state.play.isPlaying)
-  const playItem = useSelector((state) => state.play.playItem)
+  const isRandom = useSelector((state) => state.play.isRandom)
+  const isRepeat = useSelector((state) => state.play.isRepeat)
   const dispatch = useDispatch()
 
   const [percent, setPercent] = useState(0)
@@ -17,13 +27,78 @@ const AudioControl = () => {
     setDuration(audio.duration)
     setCurrentTime(audio.currentTime)
     setPercent((audio.currentTime / audio.duration) * 100)
+
+    // auto next
+    if (audio.currentTime === audio.duration) {
+      if (isRepeat) {
+        audio.currentTime = 0
+        audio.play()
+      } else {
+        if (isRandom) {
+          const newSong = randomSong(listSong, song)
+          if (newSong.source) {
+            dispatch(addPlaySong(newSong))
+            audio.src = song.source
+            audio.play()
+            dispatch(playSong())
+          } else {
+            toast.error('load nhạc bị lỗi')
+          }
+        } else {
+          nextSong(listSong, song)
+          audio.src = song.source
+          audio.play()
+          dispatch(playSong())
+        }
+      }
+    }
+  }
+
+  const getSongSource = (id) => {
+    mp3Service.getSong(id).then((res) => {
+      if (res.err === 0) {
+        const source = res.data
+        return Object.values(source)
+      } else return -1
+    })
+  }
+
+  const randomSong = (list, current) => {
+    const currentIndex = list.findIndex((item) => item.id === current.id)
+    let newIndex
+    let linkMusic
+    do {
+      newIndex = Math.floor(Math.random() * list.length)
+      linkMusic = getSongSource(list[newIndex].encodeId)
+      console.log(linkMusic)
+    } while (newIndex === currentIndex || linkMusic === -1)
+
+    return {
+      ...list[newIndex],
+      source: linkMusic[0],
+    }
+  }
+
+  const nextSong = (list, current) => {
+    const index = list.findIndex((item) => item.id === current.id)
+    if (index >= list.length - 1) {
+    }
+  }
+
+  const prevSong = (list, current) => {
+    const index = list.findIndex((item) => item.id === current.id)
+    if (index === 0) {
+      dispatch(addPlaySong(list[list.length - 1]))
+    }
+    dispatch(addPlaySong(list[index - 1]))
   }
 
   useEffect(() => {
+    const audio = document.getElementById('audio')
+    audio.pause()
     if (isPlaying) {
       dispatch(pauseSong())
     }
-    // isPlaying ? dispatch(playSong()) : dispatch(pauseSong())
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -39,14 +114,26 @@ const AudioControl = () => {
     }
   }
 
+  const handleRandom = (e) => {
+    dispatch(randomAction())
+  }
+
+  const handlePrev = (e) => {}
+
+  const handleNext = (e) => {}
+
+  const handleRepeat = (e) => {
+    dispatch(repeatAction())
+  }
+
   return (
     <>
       {/* audio control */}
       <div className="audio-control h-[50px] flex justify-center items-center text-white">
-        <button className="audio-shuffle audio-btn">
-          <i className="fa-solid fa-shuffle"></i>
+        <button onClick={(e) => handleRandom(e)} className="audio-shuffle audio-btn">
+          <i className={`fa-solid fa-shuffle ${isRandom ? 'active-color' : ''}`}></i>
         </button>
-        <button className="audio-prev audio-btn">
+        <button onClick={(e) => handlePrev(e)} className="audio-prev audio-btn">
           <i className="fa-solid fa-backward-step"></i>
         </button>
         <button className="audio-play" onClick={() => handlePlay()}>
@@ -78,39 +165,16 @@ const AudioControl = () => {
             </svg>
           )}
         </button>
-        <button className="audio-next audio-btn">
+        <button onClick={(e) => handleNext(e)} className="audio-next audio-btn">
           <i className="fa-solid fa-forward-step"></i>
         </button>
-        <button className="audio-random audio-btn text-2xl">
-          <svg
-            stroke="currentColor"
-            fill="none"
-            strokeWidth={0}
-            viewBox="0 0 24 24"
-            height="1em"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M18.3701 7.99993L13.8701 10.598V8.99993H6.88989V12.9999H4.88989V6.99993H13.8701V5.40186L18.3701 7.99993Z"
-              fill="currentColor"
-            />
-            <path
-              d="M10.1299 16.9999H19.1101V10.9999H17.1101V14.9999H10.1299V13.4019L5.62988 15.9999L10.1299 18.598V16.9999Z"
-              fill="currentColor"
-            />
-          </svg>
+        <button onClick={(e) => handleRepeat(e)} className="audio-random audio-btn">
+          <i className={`fa-solid fa-repeat ${isRepeat ? 'active-color' : ''}`}></i>
         </button>
       </div>
       {/* audio player */}
       <div id="playMusic">
-        <audio
-          autoPlay
-          // onPlay={() => handlePlaying()}
-          onTimeUpdate={() => handlePercent()}
-          id="audio"
-          src={playItem.source}
-        ></audio>
+        <audio autoPlay onTimeUpdate={() => handlePercent()} id="audio" src={song.source}></audio>
       </div>
 
       {/* progress bar */}

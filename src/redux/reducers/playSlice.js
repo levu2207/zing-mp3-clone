@@ -4,15 +4,28 @@ const playSlice = createSlice({
   name: 'play',
 
   initialState: {
+    volume: 100,
+    isMute: false,
+    isLoadMusic: false,
     isPlaying: false,
+    isRandom: false,
+    isRepeat: false,
     playItem: {},
     playList: [],
+    recentMusic: [],
   },
 
   reducers: {
+    changeVolume(state, action) {
+      state.volume = action.payload
+    },
     addPlaySong(state, action) {
-      // state.isPlaying = true
-      state.playItem = action.payload
+      const song = action.payload
+      state.playItem = song
+
+      const index = state.recentMusic.findIndex((item) => item.encodeId === song.encodeId)
+      if (index !== -1) return
+      else state.recentMusic.push(song)
     },
     playSong(state) {
       state.isPlaying = true
@@ -24,8 +37,49 @@ const playSlice = createSlice({
       state.isPlaying = false
       state.playItem = {}
     },
+    randomAction(state) {
+      state.isRandom = !state.isRandom
+    },
+    repeatAction(state) {
+      state.isRepeat = !state.isRepeat
+    },
+    onMute(state) {
+      state.isMute = true
+    },
+    offMute(state) {
+      state.isMute = false
+    },
+    startLoadMusic(state) {
+      state.isLoadMusic = true
+    },
+    endLoadMusic(state) {
+      state.isLoadMusic = false
+    },
+
+    // add playlist
+    addPlayList(state, action) {
+      state.playList = action.payload
+    },
+    clearPlayList(state) {
+      state.playList = []
+      state.recentMusic = []
+    },
   },
 })
 
-export const { addPlaySong, playSong, pauseSong, clearPlayItem } = playSlice.actions
+export const {
+  changeVolume,
+  addPlaySong,
+  playSong,
+  pauseSong,
+  clearPlayItem,
+  addPlayList,
+  clearPlayList,
+  randomAction,
+  repeatAction,
+  onMute,
+  offMute,
+  startLoadMusic,
+  endLoadMusic,
+} = playSlice.actions
 export default playSlice.reducer

@@ -7,8 +7,8 @@ const Song = ({ songs }) => {
     <div className="text-white">
       <Row gutter={16}>
         {songs.map((song) => (
-          <Col key={song.encodeId} xs={24} md={12} xl={8}>
-            <SongItem song={song} />
+          <Col key={song.encodeId} xs={24} md={12} xl={8} style={{ height: '80px' }}>
+            <SongItem song={song} library={false} />
           </Col>
         ))}
       </Row>

@@ -12,6 +12,7 @@ const url = {
 const instance = axios.create({
   baseURL: url.baseUrl,
   header: {
+    // 'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
@@ -31,7 +32,7 @@ instance.interceptors.request.use((request) => {
 // Add a response interceptor
 instance.interceptors.response.use(
   (response) => response.data,
-  (error) => error.response.error
+  (error) => error.response
 )
 
 const api = {

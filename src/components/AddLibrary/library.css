@@ -21,3 +21,7 @@
 .option svg {
   color: #ffffff;
 }
+.option.is-hover {
+  background-color: #ffffff1a;
+  cursor: pointer;
+}

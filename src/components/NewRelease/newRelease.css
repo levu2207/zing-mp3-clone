@@ -1,11 +1,21 @@
 /* song */
+.song-item {
+  object-fit: cover;
+}
 .song-item:hover {
   background-color: #2a213a;
   border-radius: 8px;
   cursor: default;
 }
+.song-item:hover .song-bonus {
+  display: flex;
+}
 .song-item.active-play {
   background-color: #2a213a;
+  border-radius: 8px;
+}
+.song-item.active-play-list {
+  background-color: #9b4de0;
   border-radius: 8px;
 }
 .play-icon:hover {

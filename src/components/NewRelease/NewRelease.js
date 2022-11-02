@@ -1,18 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import Tabs from '../Tabs/Tabs'
 import Album from './Album'
 import Song from './Song'
 import './newRelease.css'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { addPlayList } from '../../redux/reducers/playSlice'
 
 const NewRelease = () => {
+  const dispatch = useDispatch()
   const newRelease = useSelector((state) => state.home.newRelease)
   const newReleaseList = newRelease.items
   const keys = Object.keys(newReleaseList)
 
   const tab1 = newReleaseList[keys[0]]
   const tab2 = newReleaseList[keys[1]]
+
+  useEffect(() => {
+    if (keys[0] === 'vPop') {
+      dispatch(addPlayList(tab1))
+    } else if (keys[1] === 'vPop') {
+      dispatch(addPlayList(tab2))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [keys[0]])
 
   const [currentTab, setCurrentTab] = useState('1')
 

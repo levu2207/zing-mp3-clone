@@ -1,8 +1,8 @@
 /* gallery  banner */
-.gallery {
+
+.gallery-wrapper {
   position: relative;
 }
-
 .gallery-container {
   height: calc(0.175 * (100vw - 360px));
   position: relative;

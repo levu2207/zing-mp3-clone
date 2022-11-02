@@ -3,6 +3,9 @@
   height: 100%;
   align-items: center;
 }
+.player-item-img img {
+  height: 64px;
+}
 .audio-btn {
   font-size: 16px;
   margin: 0 10px;
@@ -15,27 +18,53 @@
 .audio-play:hover {
   color: #c273ed;
 }
+.audio-btn > i.active-color {
+  color: #9b4de0;
+}
+/* progress bar */
 .progress-bar {
   position: relative;
+  width: 100%;
+  height: 3px;
+  background-color: #ffffff1d;
+  border-radius: 999px;
 }
-.progress-bar .ant-progress-bg {
-  height: 3px !important;
+
+.player-sub .sub-item {
+  margin: 0 4px;
+  font-size: 14px;
+  opacity: 0.8;
 }
-.progress-bar:hover {
-  cursor: pointer;
+.volume-bar {
+  position: relative;
+  width: 80px;
+  height: 3px;
+  background-color: #ffffff1d;
+  border-radius: 999px;
 }
-.ant-progress-bg::after {
-  content: '';
-  display: block;
+.progress-bar .progress-slider,
+.volume-bar .volume-slider {
+  height: 100%;
+  border-radius: 999px;
   position: absolute;
-  right: 0;
+  background-color: #fff;
+  opacity: 0.8;
+  z-index: 10;
+}
+.progress-bar:hover,
+.volume-bar:hover {
+  cursor: pointer;
+  height: 5px;
+}
+.progress-bar:hover .progress-dot,
+.volume-bar:hover .volume-dot {
+  position: absolute;
+  right: -6px;
   top: 50%;
   transform: translateY(-50%);
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 100%;
-  background-color: white;
-}
-.progress-bar:hover .ant-progress-bg {
-  height: 5px !important;
+  z-index: 20;
+  background-color: #fff;
 }

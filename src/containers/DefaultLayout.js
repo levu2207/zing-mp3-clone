@@ -4,16 +4,17 @@ import routes from '../routers/router'
 import './defaultLayout.css'
 import Header from './Header'
 import Player from './Player/Player'
+import PlayList from './PlayList/PlayList'
 import Sidebar from './Sidebar'
 
 const DefaultLayout = () => {
   return (
     <>
       <Header />
-      <div className="flex w-full">
+      <div className="flex w-full relative">
         <Sidebar />
         <div className="zm-main relative">
-          <div className="container mb-[90px]">
+          <div className="container">
             <Routes>
               {routes.map((route, idx) => (
                 <Route key={idx} path={route.path} element={route.component}></Route>
@@ -21,6 +22,7 @@ const DefaultLayout = () => {
             </Routes>
           </div>
         </div>
+        <PlayList />
       </div>
       <Player />
     </>

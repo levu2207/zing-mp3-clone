@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Option = () => {
+const Option = ({ className = '' }) => {
   return (
-    <div className="option">
+    <div className={`option ${className}`}>
       <svg
         stroke="currentColor"
         fill="currentColor"

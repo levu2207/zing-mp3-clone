@@ -1,0 +1,28 @@
+/* play list */
+.play-list {
+  height: 100% - 90px;
+  overflow-y: auto;
+}
+.play-list::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.play-list::-webkit-scrollbar-track {
+  background-color: #170f23;
+}
+
+.play-list::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: #ffffff1a;
+}
+.left-item:hover {
+  cursor: pointer;
+}
+.play-list .header-left {
+  background-color: #ffffff1a;
+}
+.left-item.active-list {
+  background-color: #ffffff4d;
+  border-radius: 999px;
+}

@@ -3,7 +3,7 @@ import './header.css'
 
 const Header = () => {
   return (
-    <header className="header h-[70px] bg-bg fixed left-60 top-0 right-0 px-[59px] flex justify-center items-center z-50">
+    <header className="header h-[70px] bg-bg fixed left-60 top-0 right-0 px-[50px] flex justify-center items-center z-50 mr-[330px]">
       <div className="level">
         <div className="header-left">
           <button className="pr-5">
@@ -118,7 +118,7 @@ const Header = () => {
             <div className="header-title">Cài đặt</div>
           </button>
 
-          <button className="header-btn mr-3 w-10 h-10 flex justify-center items-center">
+          <button className="header-btn w-10 h-10 flex justify-center items-center">
             <i className="fa-solid fa-user text-xl text-text-sidebar"></i>
           </button>
         </div>

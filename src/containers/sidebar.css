@@ -24,6 +24,9 @@
 .zm-menu-item {
   border-left: 3px solid transparent;
 }
+.zm-menu-item:hover {
+  color: #9b4de0;
+}
 
 .active {
   background-color: #373041;
