@@ -1,10 +1,8 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import ZmCard from './ZmCard'
 import './zmSection.css'
 
-const ZmSection = () => {
-  const section = useSelector((state) => state.home.dayDes)
+const ZmSection = ({ section }) => {
   const sectionItems = section.items
 
   return (

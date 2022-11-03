@@ -9,7 +9,6 @@ import 'swiper/css'
 const TopSinger = () => {
   const singer = useSelector((state) => state.home.topSinger)
   const singerItems = singer.items
-  console.log(singerItems)
 
   return (
     <div className="zm-singer mt-12">
@@ -21,7 +20,7 @@ const TopSinger = () => {
         <div className="singer-content">
           <Swiper spaceBetween={20} slidesPerView={4} navigation>
             {singerItems.map((item) => (
-              <SwiperSlide key={item.encodeId} className="singer-item">
+              <SwiperSlide key={item.encodeId}>
                 <Singer item={item} />
               </SwiperSlide>
             ))}

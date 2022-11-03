@@ -16,7 +16,15 @@ import AddLibrary from '../AddLibrary/AddLibrary'
 import Loading from '../Loading/Loading'
 import Option from '../Option/Option'
 
-const SongItem = ({ song, height = 'full', notDate = false, library, playList = false }) => {
+const SongItem = ({
+  song,
+  height = 'full',
+  notDate = false,
+  library,
+  playList = false,
+  option,
+  hover = '',
+}) => {
   const [loadMusic, setLoadMusic] = useState(false)
   const playItem = useSelector((state) => state.play.playItem)
   const isPlaying = useSelector((state) => state.play.isPlaying)
@@ -68,7 +76,7 @@ const SongItem = ({ song, height = 'full', notDate = false, library, playList = 
 
   return (
     <div
-      className={`song-item h-full ${
+      className={`song-item ${hover} h-full ${
         playItem.encodeId === song.encodeId ? (playList ? 'active-play-list' : 'active-play') : ''
       } p-2.5 flex justify-between`}
     >
@@ -77,7 +85,7 @@ const SongItem = ({ song, height = 'full', notDate = false, library, playList = 
           <img className={`h-${height} rounded`} src={song.thumbnail} alt="song" />
           <div
             onClick={() => handlePlay(song)}
-            className="play-icon w-full h-full absolute top-0 z-10 flex justify-center items-center text-2xl "
+            className="play-icon text-white w-full h-full absolute top-0 z-10 flex justify-center items-center text-2xl "
           >
             {playItem.encodeId === song.encodeId && isPlaying ? (
               <img className="w-[18px] h-[18px]" src={gifPlay} alt="gifPlay" />
@@ -93,7 +101,7 @@ const SongItem = ({ song, height = 'full', notDate = false, library, playList = 
           </div>
         </div>
 
-        <div className="song-info">
+        <div className="song-info text-white flex flex-col justify-center">
           <span className="song-title inline-block ">
             {song.streamingStatus === 2 ? (
               <>
@@ -153,7 +161,7 @@ const SongItem = ({ song, height = 'full', notDate = false, library, playList = 
 
       <div className="song-bonus items-center hidden">
         <AddLibrary className={library ? '' : 'hidden'} />
-        <Option />
+        <Option className={option ? '' : 'hidden'} />
       </div>
     </div>
   )

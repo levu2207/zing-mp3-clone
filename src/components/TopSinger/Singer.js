@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 const Singer = ({ item }) => {
+  const songs = item.song.items
+  let images = []
+
+  for (let i = 0; i < songs.length - 1; i++) {
+    images.push(songs[i].thumbnailM)
+  }
+
   return (
-    <div className="singer-item-wrapper">
+    <div className="singer-item">
       <div className="card-img relative">
         <Link to="">
           <img src={item.thumbnailM} alt="" />
@@ -26,11 +33,19 @@ const Singer = ({ item }) => {
         </div>
       </div>
 
-      <div className="singer-content">
-        <div className="mt-3 mb-1 font-bold">
-          <Link to="" title={item.title}>
-            {item.title}
+      <div className="singer-info px-1">
+        <div className="mt-3 mb-1 font-bold flex flex-col justify-center">
+          <Link to="" title={item.artistsNames} className="singer-name text-center">
+            {item.artistsNames}
           </Link>
+
+          <div className="thumbs grid grid-cols-3 gap-1 mt-2">
+            {images.map((image) => (
+              <div key={image.toString()} className="thumb">
+                <img src={image} alt="" className="rounded" />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

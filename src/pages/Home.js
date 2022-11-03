@@ -1,10 +1,10 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Banner from '../components/Banner/Banner'
 import Loader from '../components/Loading/Loader'
 import NewRelease from '../components/NewRelease/NewRelease'
 import TopSinger from '../components/TopSinger/TopSinger'
+import ZingChart from '../components/ZingChart/ZingChart'
 import ZmSection from '../components/ZmSection/ZmSection'
 import {
   loadAfterNewSong,
@@ -28,6 +28,9 @@ import './home.css'
 const Home = () => {
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(true)
+
+  const dayDes = useSelector((state) => state.home.dayDes)
+  const newMusicEveryDay = useSelector((state) => state.home.newMusicEveryDay)
 
   useEffect(() => {
     mp3Service.getHome().then((res) => {
@@ -61,9 +64,13 @@ const Home = () => {
 
           <NewRelease />
 
-          <ZmSection />
+          <ZmSection section={dayDes} />
 
           <TopSinger />
+
+          <ZmSection section={newMusicEveryDay} />
+
+          <ZingChart />
         </div>
       )}
     </>
