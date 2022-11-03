@@ -1,96 +1,135 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
+import Loading from '../../components/Loading/Loading'
 import {
   addPlaySong,
+  endLoadMusic,
   pauseSong,
   playSong,
   randomAction,
   repeatAction,
+  startLoadMusic,
 } from '../../redux/reducers/playSlice'
 import mp3Service from '../../services/mp3Services'
 import ProgressBar from './ProgressBar'
-import { toast } from 'react-toastify'
 
-const AudioControl = ({ song }) => {
+const AudioControl = () => {
+  const currentSong = useSelector((state) => state.play.playItem)
   const listSong = useSelector((state) => state.play.playList)
   const isPlaying = useSelector((state) => state.play.isPlaying)
   const isRandom = useSelector((state) => state.play.isRandom)
   const isRepeat = useSelector((state) => state.play.isRepeat)
+  const isLoadMusic = useSelector((state) => state.play.isLoadMusic)
   const dispatch = useDispatch()
 
-  const [percent, setPercent] = useState(0)
-  const [currentTime, setCurrentTime] = useState(0)
-  const [duration, setDuration] = useState(0)
-
-  const handlePercent = () => {
+  const handleMusicEnd = async () => {
     const audio = document.getElementById('audio')
-    setDuration(audio.duration)
-    setCurrentTime(audio.currentTime)
-    setPercent((audio.currentTime / audio.duration) * 100)
+    dispatch(pauseSong())
 
     // auto next
-    if (audio.currentTime === audio.duration) {
-      if (isRepeat) {
-        audio.currentTime = 0
-        audio.play()
+    if (isRepeat) {
+      audio.currentTime = 0
+      audio.play()
+    } else {
+      if (isRandom) {
+        dispatch(startLoadMusic())
+        await randomSong(listSong, currentSong)
+        dispatch(endLoadMusic())
       } else {
-        if (isRandom) {
-          const newSong = randomSong(listSong, song)
-          if (newSong.source) {
-            dispatch(addPlaySong(newSong))
-            audio.src = song.source
-            audio.play()
-            dispatch(playSong())
-          } else {
-            toast.error('load nhạc bị lỗi')
-          }
-        } else {
-          nextSong(listSong, song)
-          audio.src = song.source
-          audio.play()
-          dispatch(playSong())
-        }
+        dispatch(startLoadMusic())
+        await nextSong(listSong, currentSong)
+        dispatch(endLoadMusic())
       }
     }
   }
 
-  const getSongSource = (id) => {
-    mp3Service.getSong(id).then((res) => {
-      if (res.err === 0) {
-        const source = res.data
-        return Object.values(source)
-      } else return -1
-    })
+  const getSongSource = async (item) => {
+    const data = await mp3Service.getSong(item.encodeId)
+    if (data.err === 0) {
+      const source = data.data['128']
+      const newSong = {
+        ...item,
+        source,
+      }
+
+      dispatch(addPlaySong(newSong))
+      return newSong
+    } else if (data.err === -1110) {
+      toast.error('Không load được link nhạc từ sever của mp3...do mình gà quá')
+      return -1
+    }
   }
 
-  const randomSong = (list, current) => {
-    const currentIndex = list.findIndex((item) => item.id === current.id)
+  const randomSong = async (list, current) => {
+    const audio = document.getElementById('audio')
+
+    const currentIndex = list.findIndex((item) => item.encodeId === current.encodeId)
     let newIndex
-    let linkMusic
+    let newSong
     do {
       newIndex = Math.floor(Math.random() * list.length)
-      linkMusic = getSongSource(list[newIndex].encodeId)
-      console.log(linkMusic)
-    } while (newIndex === currentIndex || linkMusic === -1)
+      newSong = await getSongSource(list[newIndex])
+    } while (newIndex === currentIndex || newSong === -1)
 
-    return {
-      ...list[newIndex],
-      source: linkMusic[0],
+    if (newSong !== -1) {
+      audio.play()
+      dispatch(playSong())
+    } else {
+      toast.error('load nhạc bị lỗi')
     }
   }
 
-  const nextSong = (list, current) => {
-    const index = list.findIndex((item) => item.id === current.id)
-    if (index >= list.length - 1) {
+  const nextSong = async (list, current) => {
+    const audio = document.getElementById('audio')
+    audio.pause()
+    dispatch(pauseSong())
+
+    let index = list.findIndex((item) => item.encodeId === current.encodeId)
+    let newSong
+
+    do {
+      if (index >= list.length - 1) {
+        index = 0
+        newSong = await getSongSource(list[index])
+      } else {
+        index++
+        newSong = await getSongSource(list[index])
+      }
+    } while (newSong === -1)
+
+    if (newSong !== -1) {
+      audio.play()
+      dispatch(playSong())
+    } else {
+      toast.error('load nhạc bị lỗi')
     }
   }
 
-  const prevSong = (list, current) => {
-    const index = list.findIndex((item) => item.id === current.id)
-    if (index === 0) {
-      dispatch(addPlaySong(list[list.length - 1]))
+  const prevSong = async (list, current) => {
+    const audio = document.getElementById('audio')
+    audio.pause()
+    dispatch(pauseSong())
+
+    let index = list.findIndex((item) => item.encodeId === current.encodeId)
+    let newSong
+
+    do {
+      if (index === 0) {
+        index = list.length - 1
+        newSong = await getSongSource(list[index])
+      } else {
+        index--
+        newSong = await getSongSource(list[index])
+      }
+    } while (newSong === -1)
+
+    if (newSong !== -1) {
+      audio.play()
+      dispatch(playSong())
+    } else {
+      toast.error('load nhạc bị lỗi')
     }
-    dispatch(addPlaySong(list[index - 1]))
   }
 
   useEffect(() => {
@@ -118,9 +157,17 @@ const AudioControl = ({ song }) => {
     dispatch(randomAction())
   }
 
-  const handlePrev = (e) => {}
+  const handlePrev = async (e) => {
+    dispatch(startLoadMusic())
+    await prevSong(listSong, currentSong)
+    dispatch(endLoadMusic())
+  }
 
-  const handleNext = (e) => {}
+  const handleNext = async (e) => {
+    dispatch(startLoadMusic())
+    await nextSong(listSong, currentSong)
+    dispatch(endLoadMusic())
+  }
 
   const handleRepeat = (e) => {
     dispatch(repeatAction())
@@ -136,7 +183,14 @@ const AudioControl = ({ song }) => {
         <button onClick={(e) => handlePrev(e)} className="audio-prev audio-btn">
           <i className="fa-solid fa-backward-step"></i>
         </button>
-        <button className="audio-play" onClick={() => handlePlay()}>
+        <button className="audio-play relative" onClick={() => handlePlay()}>
+          {isLoadMusic ? (
+            <div className="w-full h-full absolute top-0 flex items-center justify-center">
+              <Loading width="25px" height="25px" color="#9b4de0" />
+            </div>
+          ) : (
+            ''
+          )}
           {isPlaying ? (
             <svg
               stroke="currentColor"
@@ -174,11 +228,16 @@ const AudioControl = ({ song }) => {
       </div>
       {/* audio player */}
       <div id="playMusic">
-        <audio autoPlay onTimeUpdate={() => handlePercent()} id="audio" src={song.source}></audio>
+        <audio
+          autoPlay
+          onEnded={() => handleMusicEnd()}
+          id="audio"
+          src={currentSong.source}
+        ></audio>
       </div>
 
       {/* progress bar */}
-      <ProgressBar percent={percent} totalTimeAudio={duration} currentTimeAudio={currentTime} />
+      <ProgressBar />
     </>
   )
 }

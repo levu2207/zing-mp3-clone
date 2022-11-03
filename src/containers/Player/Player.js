@@ -17,7 +17,7 @@ const Player = () => {
           <PlayerItem song={song} width={16} height={16} />
         </Col>
         <Col className="gutter-row" span={10}>
-          <AudioControl song={song} />
+          <AudioControl />
         </Col>
         <Col className="gutter-row" span={7}>
           <PlayerSub />

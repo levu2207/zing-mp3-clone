@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux'
 import Banner from '../components/Banner/Banner'
 import Loader from '../components/Loading/Loader'
 import NewRelease from '../components/NewRelease/NewRelease'
+import TopSinger from '../components/TopSinger/TopSinger'
+import ZmSection from '../components/ZmSection/ZmSection'
 import {
   loadAfterNewSong,
   loadAlbumArtist,
@@ -58,6 +60,10 @@ const Home = () => {
           <Banner />
 
           <NewRelease />
+
+          <ZmSection />
+
+          <TopSinger />
         </div>
       )}
     </>

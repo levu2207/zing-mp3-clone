@@ -10,6 +10,9 @@
   padding: 0;
   font: inherit;
 }
+a:hover {
+  color: #9b4de0;
+}
 boby {
   overflow: hidden !important;
 }

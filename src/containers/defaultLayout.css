@@ -1,12 +1,11 @@
 /* default layout */
 .zm-main {
-  /* width: calc(100% - 570px); */
   width: 100%;
   min-height: 100%;
-  margin-left: 240px;
-  margin-right: 330px;
+  padding-left: 240px;
+  padding-right: 330px;
 }
-.container {
+.zm-container {
   width: 100%;
   margin-top: 70px;
   height: calc(100vh - 160px);

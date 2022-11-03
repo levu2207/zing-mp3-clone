@@ -11,6 +11,7 @@ module.exports = {
         hover: '#c273ed',
         'player-bg': '#130c1c',
         'text-sidebar': '#dadada',
+        'text-second': '#FFFFFF80',
         'active-sidebar': 'rgba(41,21,71,0.8)',
         'border-sidebar': '#9b4de0',
         'hover-player-bg': '#c273ed',

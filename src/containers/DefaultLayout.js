@@ -14,7 +14,7 @@ const DefaultLayout = () => {
       <div className="flex w-full relative">
         <Sidebar />
         <div className="zm-main relative">
-          <div className="container">
+          <div className="zm-container">
             <Routes>
               {routes.map((route, idx) => (
                 <Route key={idx} path={route.path} element={route.component}></Route>

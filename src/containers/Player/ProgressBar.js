@@ -1,36 +1,47 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import totalTime from '../../utils/totalTime'
 
-const ProgressBar = ({ percent, totalTimeAudio, currentTimeAudio }) => {
+const ProgressBar = () => {
+  const [currentTime, setCurrentTime] = useState(0)
+  const [duration, setDuration] = useState(0)
+
   const handleProgress = (e) => {
     const audio = document.getElementById('audio')
     const progressSlider = document.querySelector('.progress-slider')
     const width = e.offsetX
-    const maxWidth = e.currentTarget
-    const progressSliderWidth = (width / maxWidth.clientWidth) * 100
+    const maxWidth = e.currentTarget.clientWidth
+    const progressSliderWidth = (width / maxWidth) * 100
     progressSlider.style.width = `${progressSliderWidth}%`
-    audio.currentTime = (width / maxWidth.clientWidth) * totalTimeAudio
+    audio.currentTime = (width / maxWidth) * audio.duration
+    setCurrentTime(audio.currentTime)
   }
-  useEffect(() => {
-    const progress = document.querySelector('.progress-slider')
-    progress.style.width = `${percent}%`
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [percent])
+  const handleTimeUpdate = () => {
+    const audio = document.getElementById('audio')
+    const percent = (audio.currentTime / audio.duration) * 100
+    setDuration(audio.duration)
+    setCurrentTime(audio.currentTime)
+
+    const progressSlider = document.querySelector('.progress-slider')
+    progressSlider.style.width = `${percent}%`
+  }
 
   useEffect(() => {
     const progressBar = document.getElementById('progress')
+    const audio = document.getElementById('audio')
     progressBar.addEventListener('click', handleProgress)
+    audio.addEventListener('timeupdate', handleTimeUpdate)
 
     return () => {
       progressBar.removeEventListener('click', handleProgress)
+      audio.removeEventListener('timeupdate', handleTimeUpdate)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <div className="music-duration flex text-white text-xs items-center">
-      <span className="current-time mr-2 text-[#cccccc]">{totalTime(currentTimeAudio)}</span>
+      <span className="current-time mr-2 text-[#cccccc]">{totalTime(currentTime)}</span>
 
       <div id="progress" className="progress-bar">
         <div className="progress-slider">
@@ -38,7 +49,7 @@ const ProgressBar = ({ percent, totalTimeAudio, currentTimeAudio }) => {
         </div>
       </div>
 
-      <span className="total-time ml-2">{totalTime(totalTimeAudio)}</span>
+      <span className="total-time ml-2">{totalTime(duration)}</span>
     </div>
   )
 }

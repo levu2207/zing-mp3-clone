@@ -1,9 +1,9 @@
 import React from 'react'
 import './library.css'
 
-const AddLibrary = ({ className }) => {
+const AddLibrary = ({ className = '' }) => {
   return (
-    <div className={`add-library mr-3 ${className}`}>
+    <div className={`add-library ${className}`}>
       <i className="fa-regular fa-heart"></i>
     </div>
   )

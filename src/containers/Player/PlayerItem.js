@@ -4,7 +4,6 @@ import Option from '../../components/Option/Option'
 import truncateText from '../../utils/truncateText'
 
 const PlayerItem = ({ song }) => {
-  console.log('render current song')
   if (song === {}) return
   return (
     <div className="player-item flex items-center justify-between">

@@ -1,0 +1,39 @@
+/* zm section */
+
+/* zm card */
+.card-img {
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 5px;
+}
+.card-img img {
+  width: 100%;
+  height: auto;
+  transition-duration: 0.5s;
+}
+.card-img:hover img {
+  transform: scale(1.1);
+  opacity: 0.5;
+}
+.card-bonus {
+  display: none;
+  width: 100%;
+  height: 100%;
+  justify-content: space-around;
+  align-items: center;
+  top: 0;
+}
+.card-bonus svg[name='play'] {
+  font-size: 45px;
+  color: white;
+}
+.card-bonus svg:hover {
+  color: #ddd;
+}
+.card-img:hover .card-bonus {
+  display: flex;
+  cursor: pointer;
+}
+.zm-card-content p {
+  color: #ffffff80;
+}
