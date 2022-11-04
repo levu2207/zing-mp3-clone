@@ -33,13 +33,13 @@ const Singer = ({ item }) => {
         </div>
       </div>
 
-      <div className="singer-info px-1">
+      <div className="singer-info px-2">
         <div className="mt-3 mb-1 font-bold flex flex-col justify-center">
           <Link to="" title={item.artistsNames} className="singer-name text-center">
             {item.artistsNames}
           </Link>
 
-          <div className="thumbs grid grid-cols-3 gap-1 mt-2">
+          <div className="thumbs grid grid-cols-3 gap-2 mt-2 mb-1">
             {images.map((image) => (
               <div key={image.toString()} className="thumb">
                 <img src={image} alt="" className="rounded" />

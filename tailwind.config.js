@@ -15,6 +15,7 @@ module.exports = {
         'active-sidebar': 'rgba(41,21,71,0.8)',
         'border-sidebar': '#9b4de0',
         'hover-player-bg': '#c273ed',
+        'hover-chart-bg': 'hsla(0,0%,100%,0.3)',
         'text-chart-bg': 'hsla(0,0%,100%,0.1)',
       },
 

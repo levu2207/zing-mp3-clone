@@ -9,7 +9,7 @@ import Sidebar from './Sidebar'
 
 const DefaultLayout = () => {
   return (
-    <>
+    <div className="w-full">
       <Header />
       <div className="flex w-full relative">
         <Sidebar />
@@ -25,7 +25,7 @@ const DefaultLayout = () => {
         <PlayList />
       </div>
       <Player />
-    </>
+    </div>
   )
 }
 

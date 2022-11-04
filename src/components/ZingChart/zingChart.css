@@ -1,6 +1,6 @@
 /* zing chart */
 .z-chart-home {
-  height: 400px;
+  min-height: 400px;
   padding: 20px;
   border-radius: 8px;
   overflow: hidden;
@@ -58,4 +58,34 @@
 }
 .numbber-item.is-top1 {
   -webkit-text-stroke: 1px #4a90e2;
+}
+.numbber-item.is-top2 {
+  -webkit-text-stroke: 1px #50e3c2;
+}
+.numbber-item.is-top3 {
+  -webkit-text-stroke: 1px #e35050;
+}
+.singer-item:hover {
+  background-color: hsla(0, 0%, 100%, 0.3);
+}
+.more-btn {
+  margin-top: 10px;
+  border-radius: 999px;
+  color: white;
+  border: 1px solid white;
+  padding: 8px 25px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.more-btn:hover {
+  color: white !important;
+  background-color: hsla(0, 0%, 100%, 0.1);
+}
+.chart-content-right canvas {
+  padding-right: 20px;
+}
+.zm-chart-tooltip {
+  top: 0;
+  left: 0;
 }
