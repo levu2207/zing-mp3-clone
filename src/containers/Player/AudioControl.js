@@ -31,6 +31,7 @@ const AudioControl = () => {
     if (isRepeat) {
       audio.currentTime = 0
       audio.play()
+      dispatch(playSong())
     } else {
       if (isRandom) {
         dispatch(startLoadMusic())

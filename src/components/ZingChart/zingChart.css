@@ -3,7 +3,6 @@
   min-height: 400px;
   padding: 20px;
   border-radius: 8px;
-  overflow: hidden;
   margin-top: 48px;
   position: relative;
 }
@@ -16,6 +15,7 @@
   right: 0;
   bottom: 0;
   left: 0;
+  border-radius: 8px;
 }
 .bg-gra {
   background-image: linear-gradient(180deg, #740091, #2d1a4c);
@@ -25,6 +25,7 @@
   right: 0;
   bottom: 0;
   left: 0;
+  border-radius: 8px;
 }
 .z-chart-header {
   position: relative;
@@ -48,7 +49,7 @@
   border-radius: 50%;
   background: white;
 }
-.numbber-item {
+.number-item {
   width: 22px;
   font-size: 32px;
   font-weight: 900;
@@ -56,16 +57,16 @@
   text-align: center;
   color: rgba(74, 144, 226, 0);
 }
-.numbber-item.is-top1 {
+.number-item.is-top1 {
   -webkit-text-stroke: 1px #4a90e2;
 }
-.numbber-item.is-top2 {
+.number-item.is-top2 {
   -webkit-text-stroke: 1px #50e3c2;
 }
-.numbber-item.is-top3 {
+.number-item.is-top3 {
   -webkit-text-stroke: 1px #e35050;
 }
-.singer-item:hover {
+.chart-singer-item:hover {
   background-color: hsla(0, 0%, 100%, 0.3);
 }
 .more-btn {
@@ -82,10 +83,17 @@
   color: white !important;
   background-color: hsla(0, 0%, 100%, 0.1);
 }
-.chart-content-right canvas {
-  padding-right: 20px;
-}
 .zm-chart-tooltip {
   top: 0;
   left: 0;
+}
+.tooltip-caret {
+  position: absolute;
+  left: calc(50% - 10px);
+  z-index: 0;
+  content: '';
+  top: 98%;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid;
 }

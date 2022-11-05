@@ -8,7 +8,7 @@ const Song = ({ songs }) => {
       <Row gutter={16}>
         {songs.map((song) => (
           <Col key={song.encodeId} xs={24} md={12} xl={8} style={{ height: '80px' }}>
-            <SongItem song={song} library={false} />
+            <SongItem song={song} library={false} option={true} />
           </Col>
         ))}
       </Row>

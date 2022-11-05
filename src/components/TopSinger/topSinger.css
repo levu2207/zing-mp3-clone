@@ -1,6 +1,24 @@
 /* top singer */
-.singer-item {
+.seection-singer-item {
   position: relative;
+}
+.section-card-bonus {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.section-card-bonus svg {
+  width: 45px;
+  height: 45px;
+  color: white;
+  display: none;
+}
+.section-card-bonus:hover {
+  cursor: pointer;
+}
+.section-card-bonus:hover svg {
+  display: block;
 }
 .singer-info {
   position: absolute;

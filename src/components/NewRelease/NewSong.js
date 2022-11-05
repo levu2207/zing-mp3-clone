@@ -1,10 +1,10 @@
 import React from 'react'
-import ZmCard from './ZmCard'
-import './zmSection.css'
-import { SwiperSlide, Swiper } from 'swiper/react'
 import 'swiper/css'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import NewSongCard from './NewSongCard'
+import { Link } from 'react-router-dom'
 
-const ZmSection = ({ section }) => {
+const NewSong = ({ section }) => {
   const sectionItems = section.items
 
   return (
@@ -19,29 +19,36 @@ const ZmSection = ({ section }) => {
             spaceBetween={20}
             breakpoints={{
               640: {
-                slidesPerView: 2,
+                slidesPerView: 1,
                 spaceBetween: 20,
               },
               1024: {
-                slidesPerView: 3,
+                slidesPerView: 2,
                 spaceBetween: 20,
               },
               1280: {
-                slidesPerView: 4,
+                slidesPerView: 3,
                 spaceBetween: 20,
               },
               1536: {
-                slidesPerView: 5,
+                slidesPerView: 3,
                 spaceBetween: 20,
               },
             }}
             navigation
           >
-            {sectionItems.map((item) => (
+            {sectionItems.map((item, index) => (
               <SwiperSlide key={item.encodeId}>
-                <ZmCard item={item} artistName={true} />
+                <NewSongCard item={item} index={index + 1} />
               </SwiperSlide>
             ))}
+            <SwiperSlide>
+              <div className="bg-[#FFFFFF1A] w-full h-[150px] rounded flex justify-center items-center text-white text-base">
+                <Link to="" className="view-all">
+                  Xem tất cả
+                </Link>
+              </div>
+            </SwiperSlide>
           </Swiper>
         </div>
       </div>
@@ -49,4 +56,4 @@ const ZmSection = ({ section }) => {
   )
 }
 
-export default ZmSection
+export default NewSong

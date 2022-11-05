@@ -3,7 +3,7 @@ import './header.css'
 
 const Header = () => {
   return (
-    <header className="header h-[70px] bg-bg fixed left-60 top-0 right-0 px-[50px] flex justify-center items-center z-50 mr-[330px]">
+    <header className="header h-[70px] bg-bg fixed left-0 top-0 right-0 pl-[290px] flex justify-center items-center z-20 pr-[380px] transition-all duration-700">
       <div className="level">
         <div className="header-left">
           <button className="pr-5">

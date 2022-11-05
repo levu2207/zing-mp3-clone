@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import Banner from '../components/Banner/Banner'
 import Loader from '../components/Loading/Loader'
 import NewRelease from '../components/NewRelease/NewRelease'
+import NewSong from '../components/NewRelease/NewSong'
 import TopSinger from '../components/TopSinger/TopSinger'
+import WeekChart from '../components/WeekChart/WeekChart'
 import ZingChart from '../components/ZingChart/ZingChart'
 import ZmSection from '../components/ZmSection/ZmSection'
 import {
@@ -31,6 +33,10 @@ const Home = () => {
 
   const dayDes = useSelector((state) => state.home.dayDes)
   const newMusicEveryDay = useSelector((state) => state.home.newMusicEveryDay)
+  const top100 = useSelector((state) => state.home.top100)
+  const xoneConner = useSelector((state) => state.home.albumArtist)
+  const newSong = useSelector((state) => state.home.newSong)
+  const afterNewSong = useSelector((state) => state.home.afterNewSong)
 
   useEffect(() => {
     mp3Service.getHome().then((res) => {
@@ -71,6 +77,16 @@ const Home = () => {
           <ZmSection section={newMusicEveryDay} />
 
           <ZingChart />
+
+          <WeekChart />
+
+          <ZmSection section={top100} />
+
+          <ZmSection section={xoneConner} />
+
+          <NewSong section={newSong} />
+
+          <ZmSection section={afterNewSong} />
         </div>
       )}
     </>

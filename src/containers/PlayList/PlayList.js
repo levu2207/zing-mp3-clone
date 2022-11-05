@@ -8,6 +8,7 @@ const PlayList = () => {
   const [tab, setTab] = useState('1')
   const listMusic = useSelector((state) => state.play.playList)
   const recentMusic = useSelector((state) => state.play.recentMusic)
+  const show = useSelector((state) => state.play.showPlaylist)
 
   const handleTabClick = (e) => {
     setTab(e.target.id)
@@ -18,7 +19,9 @@ const PlayList = () => {
   return (
     <div
       id="playList"
-      className="play-list w-[330px] fixed z-20 top-0 right-0 bottom-[90px] text-white text-xs border-l border-border"
+      className={`play-list transition-all duration-700 ${
+        show ? '!translate-x-0' : ''
+      } w-[330px] fixed z-20 top-0 right-0 bottom-[90px] text-white text-xs border-l border-border`}
     >
       {/* header */}
       <div className="play-list-header p-[14px] flex relative justify-around">

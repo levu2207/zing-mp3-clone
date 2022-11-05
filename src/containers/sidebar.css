@@ -6,6 +6,7 @@
   left: 0;
   bottom: 90px;
   z-index: 50;
+  transition: all 0.7s;
 }
 
 .zm-side-wrapper {

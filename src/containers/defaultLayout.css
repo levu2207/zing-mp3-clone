@@ -4,6 +4,7 @@
   min-height: 100%;
   padding-left: 240px;
   padding-right: 330px;
+  transition: all 0.7s;
 }
 .zm-container {
   width: 100%;

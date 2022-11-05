@@ -4,6 +4,7 @@ const playSlice = createSlice({
   name: 'play',
 
   initialState: {
+    showPlaylist: false,
     volume: 100,
     isMute: false,
     isLoadMusic: false,
@@ -16,6 +17,12 @@ const playSlice = createSlice({
   },
 
   reducers: {
+    showPlaylist(state) {
+      state.showPlaylist = true
+    },
+    hidePlaylist(state) {
+      state.showPlaylist = false
+    },
     changeVolume(state, action) {
       state.volume = action.payload
     },
@@ -68,6 +75,8 @@ const playSlice = createSlice({
 })
 
 export const {
+  showPlaylist,
+  hidePlaylist,
   changeVolume,
   addPlaySong,
   playSong,

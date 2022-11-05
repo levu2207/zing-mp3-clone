@@ -18,6 +18,11 @@
   background-color: #9b4de0;
   border-radius: 8px;
 }
+.song-item.active-chart {
+  background-color: hsla(0, 0%, 100%, 0.3);
+  border-radius: 8px;
+  width: 100%;
+}
 .play-icon:hover {
   cursor: pointer;
 }
@@ -41,4 +46,31 @@
 }
 .album-item:hover i {
   display: block;
+}
+/* new song card */
+
+.new-card-img {
+  overflow: hidden;
+  border-radius: 4px;
+  transition: all 0.5s;
+}
+.new-card-link img {
+  min-width: 120px;
+  transform: scale(1);
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+.new-card-img:hover img {
+  object-fit: cover;
+  transform: scale(1.1);
+  transition: transform linear 0.5s;
+  opacity: 0.5;
+}
+.card-content-number {
+  opacity: 0.4;
+  -webkit-text-stroke: 1px #fff;
+  font-size: 40px;
+  font-weight: 900;
+  color: transparent;
+  line-height: 1;
 }

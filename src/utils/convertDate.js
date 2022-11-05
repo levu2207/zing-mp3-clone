@@ -8,4 +8,13 @@ const releaseDate = (time) => {
   return `${Math.floor(convertDate)} ngày trước`
 }
 
-export default releaseDate
+const releaseDateFormat = (time) => {
+  const date = new Date(time).toLocaleDateString('en-GB')
+  const newDate = date.replace('/', '.')
+  return newDate.replace('/', '.')
+}
+
+export const convertDate = {
+  releaseDate,
+  releaseDateFormat,
+}

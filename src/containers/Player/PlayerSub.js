@@ -1,10 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeMute, changeVolume, offMute, onMute } from '../../redux/reducers/playSlice'
+import {
+  changeVolume,
+  hidePlaylist,
+  offMute,
+  onMute,
+  showPlaylist,
+} from '../../redux/reducers/playSlice'
 
 const PlayerSub = () => {
   const volume = useSelector((state) => state.play.volume)
   const isMute = useSelector((state) => state.play.isMute)
+  const show = useSelector((state) => state.play.showPlaylist)
   const dispatch = useDispatch()
 
   const handleVolume = (e) => {
@@ -49,6 +56,10 @@ const PlayerSub = () => {
     isMute ? dispatch(offMute()) : dispatch(onMute())
   }
 
+  const handleShowPlaylist = () => {
+    show ? dispatch(hidePlaylist()) : dispatch(showPlaylist())
+  }
+
   return (
     <div className="player-sub flex items-center justify-end text-white">
       <button className="sub-item audio-btn">
@@ -83,6 +94,19 @@ const PlayerSub = () => {
             <div className="volume-dot"></div>
           </div>
         </div>
+
+        <span className="divide h-[33px] w-[1px] mx-5 bg-text-chart-bg hidden"></span>
+
+        <button
+          onClick={() => {
+            handleShowPlaylist()
+          }}
+          className={`playlist-btn py-1 px-1.5  rounded ${
+            show ? 'bg-purple' : 'bg-text-chart-bg'
+          } hidden`}
+        >
+          <i className="fa-solid fa-list"></i>
+        </button>
       </div>
     </div>
   )

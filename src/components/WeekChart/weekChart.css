@@ -1,0 +1,8 @@
+/* week chart */
+.week-chart-item img {
+  transition: transform 0.5s;
+}
+.week-chart-item img:hover {
+  transform: scale(1.1);
+  transition: transform 0.5s;
+}

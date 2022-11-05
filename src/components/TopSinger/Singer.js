@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Singer = ({ item }) => {
@@ -10,13 +10,13 @@ const Singer = ({ item }) => {
   }
 
   return (
-    <div className="singer-item">
+    <div className="section-singer-item">
       <div className="card-img relative">
         <Link to="">
-          <img src={item.thumbnailM} alt="" />
+          <img className="rounded" src={item.thumbnailM} alt="" />
         </Link>
 
-        <div className="card-bonus absolute">
+        <div className="section-card-bonus absolute flex justify-center items-center">
           <svg
             name="play"
             stroke="currentColor"

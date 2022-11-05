@@ -18,7 +18,29 @@ const TopSinger = () => {
         </div>
 
         <div className="singer-content">
-          <Swiper spaceBetween={20} slidesPerView={4} navigation>
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={20}
+            breakpoints={{
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              1024: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+              },
+              1280: {
+                slidesPerView: 4,
+                spaceBetween: 20,
+              },
+              1536: {
+                slidesPerView: 5,
+                spaceBetween: 20,
+              },
+            }}
+            navigation
+          >
             {singerItems.map((item) => (
               <SwiperSlide key={item.encodeId}>
                 <Singer item={item} />

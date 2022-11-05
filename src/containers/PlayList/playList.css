@@ -3,6 +3,8 @@
   height: 100% - 90px;
   overflow-y: auto;
   background-color: #170f23;
+  transition: all 0.5s;
+  z-index: 30;
 }
 .play-list::-webkit-scrollbar {
   width: 4px;

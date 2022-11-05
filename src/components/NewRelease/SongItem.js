@@ -10,7 +10,7 @@ import {
   startLoadMusic,
 } from '../../redux/reducers/playSlice'
 import mp3Service from '../../services/mp3Services'
-import releaseDate from '../../utils/releaseDate'
+import { convertDate } from '../../utils/convertDate'
 import truncateText from '../../utils/truncateText'
 import AddLibrary from '../AddLibrary/AddLibrary'
 import Loading from '../Loading/Loading'
@@ -19,10 +19,13 @@ import Option from '../Option/Option'
 const SongItem = ({
   song,
   height = 'full',
+  number = 0,
   notDate = false,
-  library,
+  library = false,
   playList = false,
-  option,
+  chart = false,
+  option = false,
+  score = 0,
   hover = '',
 }) => {
   const [loadMusic, setLoadMusic] = useState(false)
@@ -76,12 +79,23 @@ const SongItem = ({
 
   return (
     <div
-      className={`song-item ${hover} h-full ${
-        playItem.encodeId === song.encodeId ? (playList ? 'active-play-list' : 'active-play') : ''
-      } p-2.5 flex justify-between`}
+      className={`song-item ${hover} h-full w-full ${
+        playItem.encodeId === song.encodeId
+          ? playList
+            ? 'active-play-list'
+            : chart
+            ? 'active-chart'
+            : 'active-play'
+          : ''
+      } p-2.5 flex justify-between items-center`}
     >
-      <div className="flex">
-        <div className="song-img mr-2.5 relative">
+      <div className="flex items-center h-full">
+        {number !== 0 ? (
+          <span className={`number-item is-top${number} mr-3 ml-1`}>{number}</span>
+        ) : (
+          ''
+        )}
+        <div className="song-img h-full mr-2.5 relative">
           <img className={`h-${height} rounded`} src={song.thumbnail} alt="song" />
           <div
             onClick={() => handlePlay(song)}
@@ -101,7 +115,7 @@ const SongItem = ({
           </div>
         </div>
 
-        <div className="song-info text-white flex flex-col justify-center">
+        <div className="song-info text-white flex flex-col justify-center items-start">
           <span className="song-title inline-block ">
             {song.streamingStatus === 2 ? (
               <>
@@ -155,7 +169,9 @@ const SongItem = ({
           </span>
 
           <p className="mb-1 text-xs text-[#FFFFFF80]">{truncateText(song.artistsNames, 20)}</p>
-          {!notDate && <p className="text-xs text-[#FFFFFF80]">{releaseDate(song.releaseDate)}</p>}
+          {!notDate && (
+            <p className="text-xs text-[#FFFFFF80]">{convertDate.releaseDate(song.releaseDate)}</p>
+          )}
         </div>
       </div>
 
@@ -163,6 +179,13 @@ const SongItem = ({
         <AddLibrary className={library ? '' : 'hidden'} />
         <Option className={option ? '' : 'hidden'} />
       </div>
+      <span
+        className={`singers-score text-white text-[16px] font-bold ${
+          score !== 0 ? 'block' : 'hidden'
+        }`}
+      >
+        {score}
+      </span>
     </div>
   )
 }

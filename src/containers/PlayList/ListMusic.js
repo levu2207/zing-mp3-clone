@@ -9,7 +9,14 @@ const ListMusic = ({ list }) => {
       ) : (
         list.map((item) => (
           <div key={item.encodeId} className="list-music px-2">
-            <SongItem song={item} notDate={true} height={10} library={true} playList={true} />
+            <SongItem
+              song={item}
+              notDate={true}
+              height={10}
+              library={true}
+              playList={true}
+              option={true}
+            />
           </div>
         ))
       )}

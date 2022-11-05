@@ -1,5 +1,5 @@
 import React from 'react'
-import releaseDate from '../../utils/releaseDate'
+import { convertDate } from '../../utils/convertDate'
 import truncateText from '../../utils/truncateText'
 import albumDisk from '../../assets/album-disk.png'
 
@@ -21,7 +21,7 @@ const AlbumItem = ({ album }) => {
       <div className="album-info ml-3 flex flex-col justify-center">
         <p className="mb-2">{truncateText(album.title, 24)}</p>
         <p className="mb-2 text-xs text-[#FFFFFF80]">{truncateText(album.artistsNames, 24)}</p>
-        <p className="text-xs text-[#FFFFFF80]">{releaseDate(album.releaseDate)}</p>
+        <p className="text-xs text-[#FFFFFF80]">{convertDate.releaseDate(album.releaseDate)}</p>
       </div>
     </div>
   )
