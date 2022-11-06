@@ -67,31 +67,30 @@ const NewSongCard = ({ item, index }) => {
 
   return (
     <div className="section-new-song h-[150px] bg-[#FFFFFF1A] rounded p-1">
-      <div className="new-song-card text-white p-2.5 grid grid-cols-12 gap-2">
-        <div className="new-card-img relative col-span-5">
-          <Link className="new-card-link" to="">
+      <div className="new-song-card h-full text-white p-2.5 flex justify-between">
+        <div className="new-card-img mr-4">
+          <Link className="new-card-link relative" to="">
             <img className="w-[120px] h-[120px] rounded" src={item.thumbnail} alt="" />
+            <div
+              onClick={() => handlePlay(item)}
+              className="play-icon text-white w-full h-full absolute top-0 z-10 flex justify-center items-center text-2xl "
+            >
+              {playItem.encodeId === item.encodeId && isPlaying ? (
+                <img className="w-[24px] h-[24px]" src={gifPlay} alt="gifPlay" />
+              ) : loadMusic ? (
+                <Loading width="24px" height="24px" color="#FFFFFF" />
+              ) : (
+                <i
+                  className={`fa-solid fa-play ${
+                    playItem.encodeId === item.encodeId && !isPlaying ? '' : 'hidden'
+                  }`}
+                />
+              )}
+            </div>
           </Link>
-
-          <div
-            onClick={() => handlePlay(item)}
-            className="play-icon text-white w-full h-full absolute top-0 z-10 flex justify-center items-center text-2xl "
-          >
-            {playItem.encodeId === item.encodeId && isPlaying ? (
-              <img className="w-[18px] h-[18px]" src={gifPlay} alt="gifPlay" />
-            ) : loadMusic ? (
-              <Loading width="18px" height="18px" color="#FFFFFF" />
-            ) : (
-              <i
-                className={`fa-solid fa-play ${
-                  playItem.encodeId === item.encodeId && !isPlaying ? '' : 'hidden'
-                }`}
-              />
-            )}
-          </div>
         </div>
 
-        <div className="new-card-content col-span-7 h-full w-full flex flex-col justify-between">
+        <div className="new-card-content h-full w-full flex flex-col justify-between">
           <div className="card-content-top">
             <div className="mb-1 text-base font-bold">
               <Link to="" title={item.title}>

@@ -1,6 +1,7 @@
 /* home */
 .section {
   padding: 0 50px;
+  color: #fff;
   overflow: auto;
 }
 .section::-webkit-scrollbar {

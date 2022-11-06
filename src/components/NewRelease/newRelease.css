@@ -50,12 +50,12 @@
 /* new song card */
 
 .new-card-img {
+  min-width: 120px;
   overflow: hidden;
   border-radius: 4px;
   transition: all 0.5s;
 }
 .new-card-link img {
-  min-width: 120px;
   transform: scale(1);
   object-fit: cover;
   transition: transform 0.5s;
@@ -67,8 +67,8 @@
   opacity: 0.5;
 }
 .card-content-number {
-  opacity: 0.4;
   -webkit-text-stroke: 1px #fff;
+  opacity: 0.4;
   font-size: 40px;
   font-weight: 900;
   color: transparent;

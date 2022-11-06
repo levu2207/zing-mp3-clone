@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { toast } from 'react-toastify'
-import gifPlay from '../../assets/icon-playing.gif'
+import { useSelector, useDispatch } from 'react-redux'
 import {
   addPlaySong,
   endLoadMusic,
@@ -10,25 +8,16 @@ import {
   startLoadMusic,
 } from '../../redux/reducers/playSlice'
 import mp3Service from '../../services/mp3Services'
-import { convertDate } from '../../utils/convertDate'
+import { toast } from 'react-toastify'
+import gifPlay from '../../assets/icon-playing.gif'
+import Loading from '../../components/Loading/Loading'
+import { Row, Col } from 'antd'
 import truncateText from '../../utils/truncateText'
-import AddLibrary from '../AddLibrary/AddLibrary'
-import Loading from '../Loading/Loading'
-import Option from '../Option/Option'
-import checkIsFavorite from './../../utils/checkIsFavorite'
+import totalTime from './../../utils/totalTime'
+import AddLibrary from '../../components/AddLibrary/AddLibrary'
+import checkIsFavorite from '../../utils/checkIsFavorite'
 
-const SongItem = ({
-  song,
-  height = 'full',
-  number = 0,
-  notDate = false,
-  library = false,
-  playList = false,
-  chart = false,
-  option = false,
-  score = 0,
-  hover = '',
-}) => {
+const FavoriteSongItem = ({ song }) => {
   const [loadMusic, setLoadMusic] = useState(false)
   const playItem = useSelector((state) => state.play.playItem)
   const isPlaying = useSelector((state) => state.play.isPlaying)
@@ -80,25 +69,11 @@ const SongItem = ({
   }
 
   return (
-    <div
-      className={`song-item ${hover} h-full w-full ${
-        playItem.encodeId === song.encodeId
-          ? playList
-            ? 'active-play-list'
-            : chart
-            ? 'active-chart'
-            : 'active-play'
-          : ''
-      } p-2.5 flex justify-between items-center`}
-    >
-      <div className="flex items-center h-full">
-        {number !== 0 ? (
-          <span className={`number-item is-top${number} mr-3 ml-1`}>{number}</span>
-        ) : (
-          ''
-        )}
+    <Row className="favorite-song-item p-2.5 flex justify-between items-center hover:bg-[#3A3344] rounded">
+      <Col span={12} className="flex items-center">
         <div className="song-img h-full mr-2.5 relative">
-          <img className={`h-${height} rounded`} src={song.thumbnail} alt="song" />
+          <img className="h-10 w-10 rounded" src={song.thumbnail} alt="" />
+
           <div
             onClick={() => handlePlay(song)}
             className="play-icon text-white w-full h-full absolute top-0 z-10 flex justify-center items-center text-2xl "
@@ -171,30 +146,26 @@ const SongItem = ({
           </span>
 
           <p className="mb-1 text-xs text-[#FFFFFF80]">{truncateText(song.artistsNames, 20)}</p>
-          {!notDate && (
-            <p className="text-xs text-[#FFFFFF80]">{convertDate.releaseDate(song.releaseDate)}</p>
-          )}
         </div>
-      </div>
+      </Col>
 
-      <div className="song-bonus items-center hidden">
-        <AddLibrary
-          className={`${library ? '' : 'hidden'} ${
-            checkIsFavorite(favoriteSongs, song) ? 'bg-purple' : ''
-          }`}
-          song={song}
-        />
-        <Option className={option ? '' : 'hidden'} />
-      </div>
-      <span
-        className={`singers-score text-white text-[16px] font-bold ${
-          score !== 0 ? 'block' : 'hidden'
-        }`}
-      >
-        {score}
-      </span>
-    </div>
+      <Col span={0} md={8} className="song-album">
+        <p className="text-xs text-text-second hover:underline hover:cursor-pointer">
+          {song.album?.title}
+        </p>
+      </Col>
+
+      <Col span={4} className="song-duration text-xs text-text-second">
+        <div className="flex items-center">
+          <AddLibrary
+            song={song}
+            className={checkIsFavorite(favoriteSongs, song) ? 'bg-purple' : ''}
+          />
+          <span className="ml-3">{totalTime(song.duration)}</span>
+        </div>
+      </Col>
+    </Row>
   )
 }
 
-export default SongItem
+export default FavoriteSongItem

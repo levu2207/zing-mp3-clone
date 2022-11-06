@@ -18,12 +18,12 @@ const NewSong = ({ section }) => {
             slidesPerView={1}
             spaceBetween={20}
             breakpoints={{
-              640: {
-                slidesPerView: 1,
+              780: {
+                slidesPerView: 2,
                 spaceBetween: 20,
               },
               1024: {
-                slidesPerView: 2,
+                slidesPerView: 3,
                 spaceBetween: 20,
               },
               1280: {

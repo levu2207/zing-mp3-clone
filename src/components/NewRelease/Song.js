@@ -7,7 +7,7 @@ const Song = ({ songs }) => {
     <div className="text-white">
       <Row gutter={16}>
         {songs.map((song) => (
-          <Col key={song.encodeId} xs={24} md={12} xl={8} style={{ height: '80px' }}>
+          <Col key={song.encodeId} xs={24} sm={12} lg={8} style={{ height: '80px' }}>
             <SongItem song={song} library={false} option={true} />
           </Col>
         ))}

@@ -1,0 +1,11 @@
+/* profile */
+.profile-nav-item {
+  border-bottom: 2px solid transparent;
+}
+.profile-nav-item.active-profile {
+  border-bottom: 2px solid #9b4de0;
+  color: #9b4de0;
+}
+.profile {
+  height: 800px;
+}

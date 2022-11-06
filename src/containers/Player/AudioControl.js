@@ -89,6 +89,7 @@ const AudioControl = () => {
     let index = list.findIndex((item) => item.encodeId === current.encodeId)
     let newSong
 
+    // if(index < 0) index = 0
     do {
       if (index >= list.length - 1) {
         index = 0

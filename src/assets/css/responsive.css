@@ -23,7 +23,7 @@
   }
 }
 
-@media (max-width: 1134px) {
+@media (max-width: 1266px) {
   .zm-main {
     padding-left: 70px;
     transition: all 0.7s;
@@ -34,7 +34,122 @@
   }
   .zm-sidebar {
     width: 70px;
-    /* display: none; */
+    transition: all 0.5s;
+  }
+  .zm-menu-item {
+    height: 54px;
+  }
+  .sidebar-divide {
+    margin: 10px 0;
+  }
+  .zm-sidebar-wrapper {
+    width: 70px;
     transition: all 0.7s;
+  }
+  .zm-sidebar-wrapper a {
+    padding: 0 8px;
+    justify-content: center;
+  }
+  .zm-menu-item span {
+    opacity: 0;
+    display: none;
+  }
+  .zm-brand img[name='icon'] {
+    display: block;
+  }
+  .zm-brand img[name='logo'] {
+    display: none;
+  }
+  .sidebar-library {
+    display: none;
+  }
+  button.sidebar-playlist {
+    display: none;
+  }
+  button.show-sidebar {
+    display: block;
+  }
+}
+
+@media (max-width: 1024px) {
+  .section {
+    padding: 0 30px;
+  }
+  .header {
+    padding-left: 100px;
+    padding-right: 30px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .gallery-item {
+    width: 50%;
+    padding: 0 20px;
+    left: 0;
+  }
+  .gallery-item:nth-child(1) {
+    transform: translateX(0);
+    opacity: 1;
+    z-index: 20;
+  }
+  .gallery-item:nth-child(2) {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 10;
+  }
+  .gallery-item:nth-child(3) {
+    transform: translateX(75%);
+    opacity: 0;
+  }
+  .gallery-item:nth-child(4) {
+    transform: translateX(50%);
+    opacity: 0;
+  }
+  .gallery-item:nth-child(5) {
+    transform: translateX(25%);
+    opacity: 0;
+  }
+  .gallery-item:nth-child(n + 6) {
+    transform: translateX(25%);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 0 20px;
+  }
+  .gallery-container {
+    overflow: hidden;
+  }
+  .gallery-item {
+    width: 100%;
+    padding: 0 30px;
+    left: 0;
+  }
+  .gallery-item:nth-child(1) {
+    transform: translateX(0);
+    opacity: 1;
+    z-index: 20;
+  }
+  .gallery-item:nth-child(2) {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  .gallery-item:nth-child(3) {
+    transform: translateX(50%);
+    opacity: 0;
+  }
+  .gallery-item:nth-child(4) {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  .gallery-item:nth-child(5) {
+    transform: translateX(-50%);
+    opacity: 0;
+  }
+  .gallery-item:nth-child(n + 6) {
+    transform: translateX(-100%);
+    opacity: 1;
   }
 }

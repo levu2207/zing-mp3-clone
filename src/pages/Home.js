@@ -4,6 +4,7 @@ import Banner from '../components/Banner/Banner'
 import Loader from '../components/Loading/Loader'
 import NewRelease from '../components/NewRelease/NewRelease'
 import NewSong from '../components/NewRelease/NewSong'
+import Partners from '../components/Partners/Partners'
 import TopSinger from '../components/TopSinger/TopSinger'
 import WeekChart from '../components/WeekChart/WeekChart'
 import ZingChart from '../components/ZingChart/ZingChart'
@@ -87,6 +88,18 @@ const Home = () => {
           <NewSong section={newSong} />
 
           <ZmSection section={afterNewSong} />
+
+          <Partners />
+
+          <div className="author flex flex-col justify-center items-center text-center m-10 text-md text-text-second">
+            <div className="flex">
+              <span>Made with</span>
+              <span className="mx-1 text-red-900">
+                <i className="fa-solid fa-heart"></i>
+              </span>
+            </div>
+            <span>Clone Zing MP3 Powered by Lê Vũ</span>
+          </div>
         </div>
       )}
     </>

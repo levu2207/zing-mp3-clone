@@ -61,7 +61,7 @@ const Header = () => {
 
               <div className="input-wrapper w-full">
                 <input
-                  className="w-full bg-transparent text-white py-1"
+                  className="w-full bg-transparent text-white py-1 outline-none"
                   type="text"
                   placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát..."
                 />

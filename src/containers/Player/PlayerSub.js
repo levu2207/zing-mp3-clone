@@ -101,7 +101,7 @@ const PlayerSub = () => {
           onClick={() => {
             handleShowPlaylist()
           }}
-          className={`playlist-btn py-1 px-1.5  rounded ${
+          className={`playlist-btn py-1 px-[7px]  rounded ${
             show ? 'bg-purple' : 'bg-text-chart-bg'
           } hidden`}
         >

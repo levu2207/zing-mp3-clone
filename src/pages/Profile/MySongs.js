@@ -1,0 +1,41 @@
+import React from 'react'
+import { useSelector } from 'react-redux'
+import EmptySong from './EmptySong'
+import { Row, Col } from 'antd'
+import FavoriteSongItem from './FavoriteSongItem'
+
+const MySongs = () => {
+  const favoriteSongs = useSelector((state) => state.favorite.favoriteSongs)
+
+  return (
+    <div>
+      {favoriteSongs.length === 0 ? (
+        <EmptySong />
+      ) : (
+        <div className="favorite-list mt-10">
+          <Row className="favorite-list-header p-2.5 border-b border-border justify-between">
+            <Col span={12} className="favorite-list-name uppercase text-xs text-text-second">
+              Bài hát
+            </Col>
+            <Col span={0} md={9} className="favorite-list-album uppercase text-xs text-text-second">
+              Album
+            </Col>
+            <Col span={3} className="favorite-list-time uppercase text-xs text-text-second">
+              Thời gian
+            </Col>
+          </Row>
+
+          <div className="favorite-list-content">
+            {favoriteSongs.map((item) => (
+              <div key={item.encodeId}>
+                <FavoriteSongItem song={item} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default MySongs

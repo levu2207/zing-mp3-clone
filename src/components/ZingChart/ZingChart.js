@@ -302,7 +302,7 @@ const ZingChart = () => {
           <Line options={options} data={data} ref={chartRef} />
 
           {/* tooltip element */}
-          <div className="zm-chart-tooltip h-[50px] w-[175px] absolute z-50">
+          <div className="zm-chart-tooltip h-[50px] w-[175px] absolute z-10">
             <div className="song-data h-full flex justify-between items-center">
               <div className="flex h-full items-center">
                 <div className="song-left h-full">
@@ -317,7 +317,7 @@ const ZingChart = () => {
               <span className="song-score text-[12px]"></span>
             </div>
 
-            <span className="tooltip-caret hidden" />
+            <span className="tooltip-caret border-transparent hidden" />
           </div>
         </div>
       </div>

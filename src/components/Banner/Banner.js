@@ -33,7 +33,7 @@ const Banner = () => {
   }
 
   return (
-    <div className="gallery py-8">
+    <div className="gallery my-8">
       <div className="gallery-wrapper">
         <div onClick={() => handlePrev()} id="banner-prev">
           <i className="fa-solid fa-chevron-left"></i>

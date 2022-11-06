@@ -26,7 +26,7 @@ const TopSinger = () => {
                 slidesPerView: 2,
                 spaceBetween: 20,
               },
-              1024: {
+              768: {
                 slidesPerView: 3,
                 spaceBetween: 20,
               },

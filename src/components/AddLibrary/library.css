@@ -25,3 +25,6 @@
   background-color: #ffffff1a;
   cursor: pointer;
 }
+.add-library.active-favorite {
+  background-color: #9b4de0;
+}

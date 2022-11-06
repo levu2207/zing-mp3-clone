@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AddLibrary from '../../components/AddLibrary/AddLibrary'
 import Option from '../../components/Option/Option'
 import truncateText from '../../utils/truncateText'
+import { useSelector } from 'react-redux'
+import checkIsFavorite from './../../utils/checkIsFavorite'
 
 const PlayerItem = ({ song }) => {
-  if (song === {}) return
+  const favoriteSongs = useSelector((state) => state.favorite.favoriteSongs)
+
   return (
     <div className="player-item flex items-center justify-start">
       <div className="flex items-center">
@@ -18,7 +21,10 @@ const PlayerItem = ({ song }) => {
         </div>
       </div>
       <div className="flex items-center mr-4">
-        <AddLibrary className="mr-2" />
+        <AddLibrary
+          className={`mr-2 ${checkIsFavorite(favoriteSongs, song) ? 'bg-purple' : ''}`}
+          song={song}
+        />
         <Option />
       </div>
     </div>

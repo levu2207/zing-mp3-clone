@@ -1,5 +1,4 @@
 import Home from '../pages/Home'
-import Profile from '../pages/Profile'
 import NotFound from '../pages/NotFound'
 import ZingChart from '../pages/ZingChart'
 import Radio from '../pages/Radio'
@@ -12,7 +11,6 @@ import MV from '../pages/MV'
 const routes = [
   { path: '/', component: <Home /> },
   { path: '/home', component: <Home /> },
-  { path: '/ca-nhan', component: <Profile /> },
   { path: '/zing-chart', component: <ZingChart /> },
   { path: '/radio', component: <Radio /> },
   { path: '/the-loai-nghe-si', component: <Social /> },

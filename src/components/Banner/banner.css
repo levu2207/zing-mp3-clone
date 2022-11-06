@@ -1,10 +1,18 @@
 /* gallery  banner */
-
-.gallery-wrapper {
+.gallery {
+  max-height: 222px;
+  min-height: 175px;
   position: relative;
 }
+.gallery-wrapper {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .gallery-container {
-  height: calc(0.175 * (100vw - 360px));
+  height: 100%;
   position: relative;
   display: flex;
   justify-content: center;
@@ -20,7 +28,7 @@
 .gallery-item {
   position: absolute;
   width: 33.333%;
-  height: auto;
+  height: 100%;
   display: inline-block;
   padding: 0 15px;
   transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out, z-index 0.7s linear;
@@ -36,55 +44,34 @@
   transform: translateX(-100%);
   opacity: 1;
   z-index: 10;
+  transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out, z-index 0.7s linear;
 }
 .gallery-item:nth-child(2) {
   transform: translateX(0);
   opacity: 1;
   z-index: 10;
+  transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out, z-index 0.7s linear;
 }
 .gallery-item:nth-child(3) {
   transform: translateX(100%);
   opacity: 1;
   z-index: 10;
+  transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out, z-index 0.7s linear;
 }
 .gallery-item:nth-child(4) {
   transform: translateX(20%);
   opacity: 0;
+  transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out, z-index 0.7s linear;
 }
 .gallery-item:nth-child(5) {
   transform: translateX(0);
   opacity: 0;
+  transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out, z-index 0.7s linear;
 }
 .gallery-item:nth-child(n + 6) {
   transform: translateX(-20%);
   opacity: 0;
-}
-.gallery-item.gallery-item-selected {
-  transform: translateX(0);
-  opacity: 1;
-  z-index: 10;
-}
-.gallery-item.gallery-item-first {
-  transform: translateX(-20%);
-  opacity: 0;
-}
-.gallery-item.gallery-item-add {
-  transform: translateX(0);
-  opacity: 0;
-}
-.gallery-item.gallery-item-last {
-  transform: translateX(20%);
-  opacity: 0;
-}
-.gallery-item.gallery-item-next {
-  transform: translateX(100%);
-  opacity: 1;
-  z-index: 10;
-}
-.gallery-item.gallery-item-prev {
-  transform: translateX(-100%);
-  opacity: 1;
-  z-index: 10;
+  transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out, z-index 0.7s linear;
 }
 
 #banner-prev {
@@ -102,7 +89,7 @@
   left: 25px;
   background-color: hsla(0, 0%, 100%, 0.15);
   box-shadow: 0 2px 4px 0 rgb(226 102 102 / 15%);
-  z-index: 20;
+  z-index: 30;
 }
 
 #banner-next {
@@ -120,5 +107,5 @@
   right: 25px;
   background-color: hsla(0, 0%, 100%, 0.15);
   box-shadow: 0 2px 4px 0 rgb(226 102 102 / 15%);
-  z-index: 20;
+  z-index: 30;
 }
