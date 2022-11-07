@@ -1,10 +1,7 @@
 /* player music */
-.player-wrapper .ant-row {
+#zm-player .ant-row {
   height: 100%;
   align-items: center;
-}
-.player-item-img img {
-  height: 64px;
 }
 .audio-btn {
   font-size: 16px;
@@ -67,4 +64,18 @@
   border-radius: 100%;
   z-index: 20;
   background-color: #fff;
+}
+
+/* mobile player */
+.image-spin {
+  animation: imageSpin 5s linear infinite;
+}
+
+@keyframes imageSpin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

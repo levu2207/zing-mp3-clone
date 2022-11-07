@@ -179,10 +179,9 @@ const SongItem = ({
 
       <div className="song-bonus items-center hidden">
         <AddLibrary
-          className={`${library ? '' : 'hidden'} ${
-            checkIsFavorite(favoriteSongs, song) ? 'bg-purple' : ''
-          }`}
+          className={`${library ? '' : 'hidden'} `}
           song={song}
+          isFavorited={checkIsFavorite(favoriteSongs, song)}
         />
         <Option className={option ? '' : 'hidden'} />
       </div>

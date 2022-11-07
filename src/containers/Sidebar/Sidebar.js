@@ -17,6 +17,7 @@ const Sidebar = () => {
 
   return (
     <div className={`zm-sidebar bg-sidebar ${show ? 'show' : ''}`}>
+      {/* pc menu */}
       <div className="zm-sidebar-wrapper flex flex-col h-full">
         {/* logo */}
         <Link to="/" className={`zm-brand ${show ? 'show' : ''}`}>
@@ -27,7 +28,7 @@ const Sidebar = () => {
         {/* menu */}
         <div className="zm-menu text-[13px] font-bold text-text-sidebar">
           <NavLink
-            to="/mymusic"
+            to="/mymusic/song"
             className={`zm-menu-item px-[25px] flex items-center ${show ? 'show' : ''}`}
           >
             <svg

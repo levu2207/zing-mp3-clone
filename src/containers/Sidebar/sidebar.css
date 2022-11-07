@@ -57,7 +57,7 @@
 .zm-menu-item:hover {
   color: #9b4de0;
 }
-.active {
+.zm-menu-item.active {
   background-color: #373041;
   border-left: 3px solid #9b4de0;
 }

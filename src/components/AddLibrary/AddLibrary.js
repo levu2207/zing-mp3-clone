@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import { addFavoriteSong, removeFavoriteSong } from '../../redux/reducers/favoriteSlice'
 import './library.css'
 
-const AddLibrary = ({ song, className = '' }) => {
+const AddLibrary = ({ song, className = '', isFavorited }) => {
   const dispatch = useDispatch()
   const favoriteSongs = useSelector((state) => state.favorite.favoriteSongs)
 
@@ -25,7 +25,11 @@ const AddLibrary = ({ song, className = '' }) => {
 
   return (
     <button onClick={() => handleAddOrRemoveFavorites(song)} className={`add-library ${className}`}>
-      <i className="fa-regular fa-heart "></i>
+      {isFavorited ? (
+        <i className="fa-solid fa-heart !text-purple"></i>
+      ) : (
+        <i className="fa-regular fa-heart "></i>
+      )}
     </button>
   )
 }

@@ -13,19 +13,9 @@
 a:hover {
   color: #9b4de0;
 }
-boby {
-  overflow: hidden !important;
-}
-body::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-}
 
-body::-webkit-scrollbar-track {
-  background-color: #170f23;
-}
-
-body::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: #ffffff1a;
+:root {
+  --toastify-color-success: #34224f;
+  --toastify-color-warning: #34224f;
+  --toastify-color-error: #34224f;
 }

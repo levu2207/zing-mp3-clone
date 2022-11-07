@@ -89,7 +89,6 @@ const AudioControl = () => {
     let index = list.findIndex((item) => item.encodeId === current.encodeId)
     let newSong
 
-    // if(index < 0) index = 0
     do {
       if (index >= list.length - 1) {
         index = 0
@@ -155,23 +154,23 @@ const AudioControl = () => {
     }
   }
 
-  const handleRandom = (e) => {
+  const handleRandom = () => {
     dispatch(randomAction())
   }
 
-  const handlePrev = async (e) => {
+  const handlePrev = async () => {
     dispatch(startLoadMusic())
     await prevSong(listSong, currentSong)
     dispatch(endLoadMusic())
   }
 
-  const handleNext = async (e) => {
+  const handleNext = async () => {
     dispatch(startLoadMusic())
     await nextSong(listSong, currentSong)
     dispatch(endLoadMusic())
   }
 
-  const handleRepeat = (e) => {
+  const handleRepeat = () => {
     dispatch(repeatAction())
   }
 

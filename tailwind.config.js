@@ -2,8 +2,14 @@
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
+    screens: {
+      xs: '500px',
+    },
+
     extend: {
       colors: {
+        'mobile-menu': '#201531',
+        'primary-bg': '#34224f',
         border: '#ffffff1a',
         bg: '#170f23',
         sidebar: '#2a213a',

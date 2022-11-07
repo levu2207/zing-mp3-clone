@@ -37,40 +37,35 @@ const FavoriteSongItem = ({ song }) => {
     } else {
       audio.pause()
       dispatch(pauseSong())
-      dispatch(startLoadMusic())
 
       // get source music
-      if (item.source) {
+      setLoadMusic(true)
+      dispatch(startLoadMusic())
+      mp3Service.getSong(item.encodeId).then((res) => {
+        if (res.err === 0) {
+          const source = res.data['128']
+
+          dispatch(
+            addPlaySong({
+              ...item,
+              source,
+            })
+          )
+        } else if (res.err === -1110) {
+          toast.success('Không load được link nhạc từ sever của mp3...do mình gà quá')
+        }
+
+        audio.play()
         dispatch(playSong())
-      } else {
-        setLoadMusic(true)
-        dispatch(addPlaySong(item))
-        mp3Service.getSong(item.encodeId).then((res) => {
-          if (res.err === 0) {
-            const source = res.data['128']
-
-            dispatch(
-              addPlaySong({
-                ...item,
-                source,
-              })
-            )
-          } else if (res.err === -1110) {
-            toast.success('Không load được link nhạc từ sever của mp3...do mình gà quá')
-          }
-
-          audio.play()
-          dispatch(playSong())
-          setLoadMusic(false)
-          dispatch(endLoadMusic())
-        })
-      }
+        setLoadMusic(false)
+        dispatch(endLoadMusic())
+      })
     }
   }
 
   return (
     <Row className="favorite-song-item p-2.5 flex justify-between items-center hover:bg-[#3A3344] rounded">
-      <Col span={12} className="flex items-center">
+      <Col span={16} md={12} className="flex items-center">
         <div className="song-img h-full mr-2.5 relative">
           <img className="h-10 w-10 rounded" src={song.thumbnail} alt="" />
 
@@ -155,13 +150,10 @@ const FavoriteSongItem = ({ song }) => {
         </p>
       </Col>
 
-      <Col span={4} className="song-duration text-xs text-text-second">
+      <Col span={8} md={4} className="song-duration text-xs text-text-second">
         <div className="flex items-center">
-          <AddLibrary
-            song={song}
-            className={checkIsFavorite(favoriteSongs, song) ? 'bg-purple' : ''}
-          />
-          <span className="ml-3">{totalTime(song.duration)}</span>
+          <AddLibrary song={song} isFavorited={checkIsFavorite(favoriteSongs, song)} />
+          <span className="ml-6">{totalTime(song.duration)}</span>
         </div>
       </Col>
     </Row>

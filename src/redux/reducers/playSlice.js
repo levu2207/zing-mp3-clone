@@ -76,6 +76,8 @@ const playSlice = createSlice({
     },
     clearPlayList(state) {
       state.playList = []
+    },
+    clearRecentList(state) {
       state.recentMusic = []
     },
   },
@@ -99,5 +101,6 @@ export const {
   offMute,
   startLoadMusic,
   endLoadMusic,
+  clearRecentList,
 } = playSlice.actions
 export default playSlice.reducer

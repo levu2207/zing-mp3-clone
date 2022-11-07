@@ -5,14 +5,14 @@ import truncateText from '../../utils/truncateText'
 import { useSelector } from 'react-redux'
 import checkIsFavorite from './../../utils/checkIsFavorite'
 
-const PlayerItem = ({ song }) => {
+const PlayerItem = ({ song, className = '', animations, options = false }) => {
   const favoriteSongs = useSelector((state) => state.favorite.favoriteSongs)
 
   return (
-    <div className="player-item flex items-center justify-start">
+    <div className="player-item flex items-center justify-start p-1">
       <div className="flex items-center">
         <div className="player-item-img mr-2.5 relative">
-          <img className="rounded" src={song.thumbnail} alt="song" />
+          <img className={className} src={song.thumbnail} alt="song" />
         </div>
 
         <div className="song-info flex flex-col justify-center mr-5">
@@ -20,12 +20,13 @@ const PlayerItem = ({ song }) => {
           <p className="mb-1 text-xs text-[#FFFFFF80]">{truncateText(song.artistsNames, 24)}</p>
         </div>
       </div>
-      <div className="flex items-center mr-4">
+      <div className="flex items-center">
         <AddLibrary
-          className={`mr-2 ${checkIsFavorite(favoriteSongs, song) ? 'bg-purple' : ''}`}
+          className="mr-2"
           song={song}
+          isFavorited={checkIsFavorite(favoriteSongs, song)}
         />
-        <Option />
+        {options && <Option />}
       </div>
     </div>
   )

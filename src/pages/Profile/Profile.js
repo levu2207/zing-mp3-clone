@@ -1,9 +1,10 @@
 import React from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
-import './profile.css'
 import { useDispatch } from 'react-redux'
-import { clearFavoriteSongs, clearFavoriteVideos } from '../../redux/reducers/favoriteSlice'
+import { NavLink, Outlet } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { clearFavoriteSongs, clearFavoriteVideos } from '../../redux/reducers/favoriteSlice'
+import { clearRecentList } from '../../redux/reducers/playSlice'
+import './profile.css'
 
 const Profile = () => {
   const dispatch = useDispatch()
@@ -11,10 +12,15 @@ const Profile = () => {
   let activeClassName = 'profile-nav-item uppercase py-4 mr-10 active-profile'
 
   const handleClearList = () => {
-    dispatch(clearFavoriteSongs())
-    dispatch(clearFavoriteVideos())
+    const url = window.location
+    if (url.pathname === '/mymusic/history') {
+      dispatch(clearRecentList())
+    } else if (url.pathname === '/mymusic/song') {
+      dispatch(clearFavoriteSongs())
+    } else {
+      dispatch(clearFavoriteVideos())
+    }
     toast.success('Xóa thành công')
-    console.log('da xoa')
   }
 
   return (
