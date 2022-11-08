@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   addPlaySong,
   endLoadMusic,
+  hideKaraoke,
   pauseSong,
   playSong,
+  showKaraoke,
   startLoadMusic,
 } from '../../redux/reducers/playSlice'
 import { toast } from 'react-toastify'
@@ -18,6 +20,7 @@ const MobilePlayer = () => {
   const playList = useSelector((state) => state.play.playList)
   const currentSong = useSelector((state) => state.play.playItem)
   const isLoading = useSelector((state) => state.play.isLoadMusic)
+  const isShowKaraoke = useSelector((state) => state.play.showKaraoke)
 
   const dispatch = useDispatch()
 
@@ -113,12 +116,22 @@ const MobilePlayer = () => {
     dispatch(endLoadMusic())
   }
 
+  const handleShowKaraoke = () => {
+    isShowKaraoke ? dispatch(hideKaraoke()) : dispatch(showKaraoke())
+  }
+
   return (
     <div className="mobile-player h-[60px] fixed z-50 left-0 right-0 bottom-[60px] bg-mobile-menu hidden border-b border-border-bg">
       <div className="mobile-player-wrapper h-full flex items-center justify-between px-2">
-        <PlayerItem song={song} className="w-[46px] h-[46px] rounded-full" />
+        <PlayerItem song={song} className="w-[46px] h-[46px] rounded-full" numberText={18} />
 
         <div className="flex items-center">
+          <button
+            onClick={() => handleShowKaraoke()}
+            className="mobile-play-btn pr-3 text-white text-[20px]"
+          >
+            <i className="fa-solid fa-microphone"></i>
+          </button>
           <div className="mobile-play-btn text-white text-[20px]">
             <button className="py-4 px-3" onClick={() => handlePlayMobile()}>
               {isPlaying ? (

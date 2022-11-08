@@ -104,10 +104,15 @@
   color: white;
 }
 
-.lyrics-text::-webkit-scrollbar {
+.lyrics-text ul::-webkit-scrollbar {
   display: none;
 }
 .lyrics-text li {
   letter-spacing: -1;
   line-height: 1.2;
+}
+.header-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

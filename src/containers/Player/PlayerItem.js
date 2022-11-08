@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import AddLibrary from '../../components/AddLibrary/AddLibrary'
 import Option from '../../components/Option/Option'
 import truncateText from '../../utils/truncateText'
-import { useSelector } from 'react-redux'
 import checkIsFavorite from './../../utils/checkIsFavorite'
 
-const PlayerItem = ({ song, className = '', animations, options = false }) => {
+const PlayerItem = ({ song, className = '', animations, options = false, numberText }) => {
   const favoriteSongs = useSelector((state) => state.favorite.favoriteSongs)
 
   return (
@@ -16,8 +16,10 @@ const PlayerItem = ({ song, className = '', animations, options = false }) => {
         </div>
 
         <div className="song-info flex flex-col justify-center mr-5">
-          <p className="mb-1 text-white font-normal">{truncateText(song.title, 24)}</p>
-          <p className="mb-1 text-xs text-[#FFFFFF80]">{truncateText(song.artistsNames, 24)}</p>
+          <p className="mb-1 text-white font-normal">{truncateText(song.title, numberText)}</p>
+          <p className="mb-1 text-xs text-[#FFFFFF80]">
+            {truncateText(song.artistsNames, numberText)}
+          </p>
         </div>
       </div>
       <div className="flex items-center">

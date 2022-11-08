@@ -21,7 +21,12 @@ const Player = () => {
       >
         <Row gutter={16}>
           <Col className={`${isShowKaraoke && 'opacity-0'}`} span={7}>
-            <PlayerItem song={song} className="w-[60px] h-[60px] rounded" options={true} />
+            <PlayerItem
+              song={song}
+              className="w-[60px] h-[60px] rounded"
+              options={true}
+              numberText={24}
+            />
           </Col>
           <Col span={10}>
             <AudioControl />

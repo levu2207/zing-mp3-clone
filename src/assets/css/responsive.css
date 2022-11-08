@@ -176,6 +176,9 @@
   .lyrics-text li {
     font-size: 28px;
   }
+  .header-tabs {
+    width: 240px;
+  }
 }
 
 @media (max-width: 500px) {
@@ -208,5 +211,9 @@
   }
   .mobile-player {
     display: block;
+  }
+  .lyrics-text li {
+    font-size: 20px;
+    padding: 16px 0;
   }
 }
