@@ -32,7 +32,7 @@ const Profile = () => {
         </button>
       </div>
 
-      <div className="profile-nav border-b border-border text-white flex justify-between items-center font-medium">
+      <div className="profile-nav border-b border-border-bg text-white flex justify-between items-center font-medium">
         <div className="flex justify-center items-center">
           <NavLink
             to="song"
@@ -62,7 +62,7 @@ const Profile = () => {
 
         <button
           onClick={() => handleClearList()}
-          className="px-3 py-1 border border-border rounded-full hover:bg-text-chart-bg text-xs"
+          className="px-3 py-1 border border-border-bg rounded-full hover:bg-text-chart-bg text-xs"
         >
           Xóa danh sách
         </button>

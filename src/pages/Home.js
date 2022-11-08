@@ -91,7 +91,7 @@ const Home = () => {
 
           <Partners />
 
-          <div className="author flex flex-col justify-center items-center text-center m-10 text-md text-text-second">
+          <div className="author flex flex-col justify-center items-center text-center p-8 text-md text-text-second">
             <div className="flex">
               <span>Made with</span>
               <span className="mx-1 text-red-900">

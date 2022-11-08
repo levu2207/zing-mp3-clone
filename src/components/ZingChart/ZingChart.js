@@ -17,6 +17,7 @@ import calcPercentScore from '../../utils/calcPercentScore'
 import truncateText from '../../utils/truncateText'
 import SongItem from '../NewRelease/SongItem'
 import './zingChart.css'
+import { Row, Col } from 'antd'
 
 const ZingChart = () => {
   const zingChart = useSelector((state) => state.home.zingChart)
@@ -269,8 +270,8 @@ const ZingChart = () => {
         </button>
       </div>
 
-      <div className="z-chart-content grid grid-cols-10 xl:grid-cols-10">
-        <div className="chart-content-left col-span-10 gap-x-3 xl:col-span-4 px-3 relative order-last xl:order-first">
+      <Row gutter={12} className="z-chart-content">
+        <Col span={24} order={2} xl={{ order: 1, span: 9 }} className="chart-content-left relative">
           <div className="list-singe w-full">
             {listSong.map((item, idx) => (
               <div
@@ -293,11 +294,14 @@ const ZingChart = () => {
           </div>
 
           <button className="more-btn">Xem thêm</button>
-        </div>
+        </Col>
 
-        <div
+        <Col
+          span={24}
+          order={1}
+          xl={{ order: 2, span: 15 }}
           id="zm-chart"
-          className="chart-content-right w-full mb-3 col-span-10 xl:col-span-6 px-3 relative"
+          className="chart-content-right w-full mb-4 relative"
         >
           <Line options={options} data={data} ref={chartRef} />
 
@@ -319,8 +323,8 @@ const ZingChart = () => {
 
             <span className="tooltip-caret border-transparent hidden" />
           </div>
-        </div>
-      </div>
+        </Col>
+      </Row>
     </div>
   )
 }

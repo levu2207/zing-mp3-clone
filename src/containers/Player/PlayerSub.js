@@ -2,9 +2,11 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   changeVolume,
+  hideKaraoke,
   hidePlaylist,
   offMute,
   onMute,
+  showKaraoke,
   showPlaylist,
 } from '../../redux/reducers/playSlice'
 
@@ -12,6 +14,7 @@ const PlayerSub = () => {
   const volume = useSelector((state) => state.play.volume)
   const isMute = useSelector((state) => state.play.isMute)
   const show = useSelector((state) => state.play.showPlaylist)
+  const isShowKaraoke = useSelector((state) => state.play.showKaraoke)
   const dispatch = useDispatch()
 
   const handleVolume = (e) => {
@@ -38,8 +41,6 @@ const PlayerSub = () => {
   useEffect(() => {
     const audio = document.getElementById('audio')
     const volumeSlider = document.querySelector('.volume-slider')
-    // audio.volume = volume / 100
-    // volumeSlider.style.width = `${volume}%`
 
     if (isMute) {
       audio.volume = 0
@@ -60,13 +61,17 @@ const PlayerSub = () => {
     show ? dispatch(hidePlaylist()) : dispatch(showPlaylist())
   }
 
+  const handleShowKaraoke = () => {
+    isShowKaraoke ? dispatch(hideKaraoke()) : dispatch(showKaraoke())
+  }
+
   return (
     <div className="player-sub flex items-center justify-end text-white">
       <button className="sub-item audio-btn">
         <i className="fa-solid fa-film"></i>
       </button>
 
-      <button className="sub-item audio-btn">
+      <button onClick={() => handleShowKaraoke()} className="sub-item karaoke audio-btn">
         <svg
           stroke="currentColor"
           fill="currentColor"

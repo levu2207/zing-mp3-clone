@@ -79,3 +79,35 @@
     transform: rotate(360deg);
   }
 }
+
+/* karaoke */
+.zm-karaoke {
+  z-index: 40;
+  transform: translateY(100%);
+  transition: transform 0.7s ease-in-out;
+  overflow: hidden;
+}
+.bg-blur-karaoke {
+  background: url(../../assets/bg-chart.jpg) top/cover no-repeat;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.2;
+  filter: blur(50px);
+}
+.karaoke-content:hover .close-karaoke {
+  display: flex;
+}
+.karaoke-btn.active {
+  background-color: hsla(0, 0%, 100%, 0.3);
+  color: white;
+}
+
+.lyrics-text::-webkit-scrollbar {
+  display: none;
+}
+.lyrics-text li {
+  letter-spacing: -1;
+  line-height: 1.2;
+}

@@ -21,7 +21,7 @@ const PlayList = () => {
       id="playList"
       className={`play-list transition-all duration-700 ${
         show ? '!translate-x-0' : ''
-      } w-[330px] fixed z-20 top-0 right-0 bottom-[90px] text-white text-xs border-l border-border`}
+      } w-[330px] fixed z-20 top-0 right-0 bottom-[90px] text-white text-xs border-l border-border-bg`}
     >
       {/* header */}
       <div className="play-list-header p-[14px] flex relative justify-around">

@@ -114,7 +114,7 @@ const MobilePlayer = () => {
   }
 
   return (
-    <div className="mobile-player h-[60px] fixed z-50 left-0 right-0 bottom-[60px] bg-mobile-menu hidden border-b border-border">
+    <div className="mobile-player h-[60px] fixed z-50 left-0 right-0 bottom-[60px] bg-mobile-menu hidden border-b border-border-bg">
       <div className="mobile-player-wrapper h-full flex items-center justify-between px-2">
         <PlayerItem song={song} className="w-[46px] h-[46px] rounded-full" />
 

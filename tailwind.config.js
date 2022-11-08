@@ -10,7 +10,7 @@ module.exports = {
       colors: {
         'mobile-menu': '#201531',
         'primary-bg': '#34224f',
-        border: '#ffffff1a',
+        'border-bg': '#ffffff1a',
         bg: '#170f23',
         sidebar: '#2a213a',
         purple: '#9b4de0',

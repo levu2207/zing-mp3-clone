@@ -7,6 +7,7 @@ const url = {
   song: '/song',
   songInfo: '/song-info',
   top100: '/top100',
+  lyrics: '/lyric',
 }
 
 const instance = axios.create({

@@ -13,7 +13,7 @@ const MySongs = () => {
         <EmptySong />
       ) : (
         <div className="favorite-list mt-10">
-          <Row className="favorite-list-header p-2.5 border-b border-border justify-between">
+          <Row className="favorite-list-header p-2.5 border-b border-border-bg justify-between">
             <Col
               span={16}
               md={12}

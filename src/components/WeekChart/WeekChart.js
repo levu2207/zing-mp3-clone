@@ -12,8 +12,8 @@ const WeekChart = () => {
       <Row gutter={24} justify="center">
         {weekChart.items?.map((item) => (
           <Col key={item.cover} sm={8}>
-            <div className="week-chart-item mb-5">
-              <Link className="rounded-lg overflow-hidden" to="">
+            <div className="week-chart-item mb-5 overflow-hidden rounded-lg">
+              <Link className="rounded-lg" to="">
                 <img className="rounded-lg" src={item.cover} alt="" />
               </Link>
             </div>
