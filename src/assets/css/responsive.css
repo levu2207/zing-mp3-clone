@@ -124,11 +124,25 @@
   .karaoke-header .header-tabs button {
     padding: 4px 20px;
   }
+  .even-line,
+  .odd-line {
+    font-size: 40px;
+  }
+  .karaoke-text {
+    height: 300px;
+  }
 }
 
 @media (max-width: 900px) {
   .header .header-right button:not(:nth-child(n + 4)) {
     display: none;
+  }
+  .even-line,
+  .odd-line {
+    font-size: 30px;
+  }
+  .karaoke-text {
+    height: 250px;
   }
 }
 
@@ -178,6 +192,13 @@
   }
   .header-tabs {
     width: 240px;
+  }
+  .even-line,
+  .odd-line {
+    font-size: 20px;
+  }
+  .karaoke-text {
+    height: 200px;
   }
 }
 

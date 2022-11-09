@@ -73,6 +73,7 @@ const PlayerSub = () => {
 
       <button onClick={() => handleShowKaraoke()} className="sub-item karaoke audio-btn">
         <svg
+          className="text-xl"
           stroke="currentColor"
           fill="currentColor"
           strokeWidth={0}

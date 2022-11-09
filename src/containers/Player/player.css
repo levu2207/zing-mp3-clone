@@ -8,9 +8,10 @@
   margin: 0 10px;
 }
 .audio-play {
+  height: 50px;
+  width: 60px;
   font-size: 40px;
   font-weight: 200;
-  margin: 0 10px;
 }
 .audio-play:hover {
   color: #c273ed;
@@ -115,4 +116,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.even-line,
+.odd-line {
+  font-size: 50px;
+  font-weight: 700;
+}
+.even-line li span,
+.odd-line li span {
+  text-shadow: 2px 2px 6px #000;
 }

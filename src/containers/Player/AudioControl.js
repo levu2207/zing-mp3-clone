@@ -1,8 +1,11 @@
+import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import Loading from '../../components/Loading/Loading'
 import {
+  addKaraoke,
+  addLyrics,
   addPlaySong,
   endLoadMusic,
   pauseSong,
@@ -11,7 +14,9 @@ import {
   repeatAction,
   startLoadMusic,
 } from '../../redux/reducers/playSlice'
+import api from '../../services/api'
 import mp3Service from '../../services/mp3Services'
+import { lyricsData } from '../../utils/lyricsData'
 import ProgressBar from './ProgressBar'
 
 const AudioControl = () => {
@@ -46,20 +51,36 @@ const AudioControl = () => {
   }
 
   const getSongSource = async (item) => {
-    const data = await mp3Service.getSong(item.encodeId)
-    if (data.err === 0) {
-      const source = data.data['128']
-      const newSong = {
-        ...item,
-        source,
-      }
+    const currentSong = mp3Service.getSong(item.encodeId)
+    const currentLyrics = mp3Service.getLyrics(item.encodeId)
+    let newSong
 
-      dispatch(addPlaySong(newSong))
-      return newSong
-    } else if (data.err === -1110) {
-      toast.error('Không load được link nhạc từ sever của mp3...do mình gà quá')
-      return -1
-    }
+    await api.promise([currentSong, currentLyrics]).then(
+      api.spread((...res) => {
+        if (res[0].err === 0) {
+          const source = res[0].data['128']
+
+          newSong = {
+            ...item,
+            source,
+          }
+
+          dispatch(addPlaySong(newSong))
+
+          if (res[1].err === 0) {
+            axios.get(`${res[1].data.file}`).then((res) => {
+              const lyrics = lyricsData.parseLyric(res.data)
+              dispatch(addLyrics(lyrics))
+            })
+            dispatch(addKaraoke(res[1].data.sentences))
+          }
+        } else {
+          toast.success('Không load được link nhạc từ sever của mp3...do mình gà quá')
+          newSong = -1
+        }
+      })
+    )
+    return newSong
   }
 
   const randomSong = async (list, current) => {
@@ -87,7 +108,7 @@ const AudioControl = () => {
     dispatch(pauseSong())
 
     let index = list.findIndex((item) => item.encodeId === current.encodeId)
-    let newSong
+    let newSong = 0
 
     do {
       if (index >= list.length - 1) {
@@ -184,15 +205,15 @@ const AudioControl = () => {
         <button onClick={(e) => handlePrev(e)} className="audio-prev audio-btn">
           <i className="fa-solid fa-backward-step"></i>
         </button>
-        <button className="audio-play relative" onClick={() => handlePlay()}>
+        <button
+          className="audio-play relative flex items-center justify-center"
+          onClick={() => handlePlay()}
+        >
           {isLoadMusic ? (
-            <div className="w-full h-full absolute top-0 flex items-center justify-center">
+            <div className="w-[40px] h-full absolute top-0 left-1/2 -translate-x-1/2 flex items-center justify-center">
               <Loading width="25px" height="25px" color="#9b4de0" />
             </div>
-          ) : (
-            ''
-          )}
-          {isPlaying ? (
+          ) : isPlaying ? (
             <svg
               stroke="currentColor"
               fill="currentColor"

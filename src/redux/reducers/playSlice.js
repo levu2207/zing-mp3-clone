@@ -4,7 +4,8 @@ const playSlice = createSlice({
   name: 'play',
 
   initialState: {
-    lyrics: [],
+    karaoke: [],
+    lyrics: '',
     showKaraoke: false,
     showSidebar: false,
     showPlaylist: false,
@@ -20,6 +21,9 @@ const playSlice = createSlice({
   },
 
   reducers: {
+    addKaraoke(state, action) {
+      state.karaoke = action.payload
+    },
     addLyrics(state, action) {
       state.lyrics = action.payload
     },
@@ -95,6 +99,7 @@ const playSlice = createSlice({
 })
 
 export const {
+  addKaraoke,
   addLyrics,
   showKaraoke,
   hideKaraoke,

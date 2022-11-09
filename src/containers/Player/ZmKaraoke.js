@@ -7,7 +7,7 @@ import LyricsTab from './LyricsTab'
 const ZmKaraoke = ({ song }) => {
   const isShowKaraoke = useSelector((state) => state.play.showKaraoke)
   const dispatch = useDispatch()
-  const [tabSelected, setTabSelected] = useState('tab 1')
+  const [tabSelected, setTabSelected] = useState('tab 2')
 
   const handleCloseKaraoke = () => {
     dispatch(hideKaraoke())
@@ -51,7 +51,9 @@ const ZmKaraoke = ({ song }) => {
                   onClick={(e) => {
                     handleTabSelected(e)
                   }}
-                  className="karaoke-btn hover:bg-hover-chart-bg  py-1 px-10 rounded-full"
+                  className={`karaoke-btn hover:bg-hover-chart-bg  py-1 px-10 rounded-full ${
+                    tabSelected === 'tab 2' && 'active'
+                  }`}
                 >
                   Lời bài hát
                 </button>
@@ -65,7 +67,11 @@ const ZmKaraoke = ({ song }) => {
             </div>
 
             <div className="karaoke-lyrics w-full h-full flex justify-center items-center text-white text-xl">
-              {tabSelected === 'tab 1' ? <KaraokeTab /> : <LyricsTab song={song} />}
+              {/* <KaraokeTab song={song} className={`${tabSelected === 'tab 3' ? '' : 'hidden'}`} /> */}
+              {tabSelected === 'tab 1' && (
+                <div className="text-2xl font-bold text-text-second">Tính năng đang phát triển</div>
+              )}
+              <LyricsTab song={song} className={`${tabSelected === 'tab 2' ? '' : 'hidden'}`} />
             </div>
 
             <div className="karaoke-info flex justify-center">

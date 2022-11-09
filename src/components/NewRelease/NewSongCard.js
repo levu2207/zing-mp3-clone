@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import truncateText from '../../utils/truncateText'
 import { toast } from 'react-toastify'
 import {
+  addKaraoke,
+  addLyrics,
   addPlaySong,
   endLoadMusic,
   pauseSong,
@@ -14,6 +16,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loading from '../Loading/Loading'
 import gifPlay from '../../assets/icon-playing.gif'
 import { convertDate } from '../../utils/convertDate'
+import api from '../../services/api'
+import axios from 'axios'
+import { lyricsData } from '../../utils/lyricsData'
 
 const NewSongCard = ({ item, index }) => {
   const [loadMusic, setLoadMusic] = useState(false)
@@ -21,7 +26,7 @@ const NewSongCard = ({ item, index }) => {
   const isPlaying = useSelector((state) => state.play.isPlaying)
   const dispatch = useDispatch()
 
-  const handlePlay = (item) => {
+  const handlePlay = async (item) => {
     const audio = document.getElementById('audio')
     if (playItem.encodeId === item.encodeId) {
       if (isPlaying) {
@@ -37,14 +42,15 @@ const NewSongCard = ({ item, index }) => {
       dispatch(startLoadMusic())
 
       // get source music
-      if (item.source) {
-        dispatch(playSong())
-      } else {
-        setLoadMusic(true)
-        dispatch(addPlaySong(item))
-        mp3Service.getSong(item.encodeId).then((res) => {
-          if (res.err === 0) {
-            const source = res.data['128']
+      setLoadMusic(true)
+      dispatch(addPlaySong(item))
+
+      const currentSong = mp3Service.getSong(item.encodeId)
+      const currentLyrics = mp3Service.getLyrics(item.encodeId)
+      await api.promise([currentSong, currentLyrics]).then(
+        api.spread((...res) => {
+          if (res[0].err === 0) {
+            const source = res[0].data['128']
 
             dispatch(
               addPlaySong({
@@ -52,6 +58,14 @@ const NewSongCard = ({ item, index }) => {
                 source,
               })
             )
+
+            if (res[1].err === 0) {
+              axios.get(`${res[1].data.file}`).then((res) => {
+                const lyrics = lyricsData.parseLyric(res.data)
+                dispatch(addLyrics(lyrics))
+              })
+              dispatch(addKaraoke(res[1].data.sentences))
+            }
           } else if (res.err === -1110) {
             toast.success('Không load được link nhạc từ sever của mp3...do mình gà quá')
           }
@@ -61,7 +75,7 @@ const NewSongCard = ({ item, index }) => {
           setLoadMusic(false)
           dispatch(endLoadMusic())
         })
-      }
+      )
     }
   }
 

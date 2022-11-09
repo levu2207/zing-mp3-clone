@@ -8,6 +8,7 @@ const url = {
   songInfo: '/song-info',
   top100: '/top100',
   lyrics: '/lyric',
+  chartPage: '/chart-home',
 }
 
 const instance = axios.create({
@@ -40,10 +41,8 @@ const api = {
   url,
   instance,
   get: instance.get,
-  post: instance.post,
-  put: instance.put,
-  delete: instance.delete,
-  patch: instance.patch,
+  promise: axios.all,
+  spread: axios.spread,
 }
 
 export default api

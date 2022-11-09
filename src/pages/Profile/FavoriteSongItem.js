@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
+  addKaraoke,
+  addLyrics,
   addPlaySong,
   endLoadMusic,
   pauseSong,
@@ -16,8 +18,11 @@ import truncateText from '../../utils/truncateText'
 import totalTime from './../../utils/totalTime'
 import AddLibrary from '../../components/AddLibrary/AddLibrary'
 import checkIsFavorite from '../../utils/checkIsFavorite'
+import api from '../../services/api'
+import axios from 'axios'
+import { lyricsData } from '../../utils/lyricsData'
 
-const FavoriteSongItem = ({ song }) => {
+const FavoriteSongItem = ({ song, number = 0 }) => {
   const [loadMusic, setLoadMusic] = useState(false)
   const playItem = useSelector((state) => state.play.playItem)
   const isPlaying = useSelector((state) => state.play.isPlaying)
@@ -37,53 +42,73 @@ const FavoriteSongItem = ({ song }) => {
     } else {
       audio.pause()
       dispatch(pauseSong())
+      dispatch(startLoadMusic())
 
       // get source music
       setLoadMusic(true)
-      dispatch(startLoadMusic())
-      mp3Service.getSong(item.encodeId).then((res) => {
-        if (res.err === 0) {
-          const source = res.data['128']
+      dispatch(addPlaySong(item))
 
-          dispatch(
-            addPlaySong({
-              ...item,
-              source,
+      const currentSong = mp3Service.getSong(item.encodeId)
+      const currentLyrics = mp3Service.getLyrics(item.encodeId)
+      api.promise([currentSong, currentLyrics]).then(
+        api.spread((...res) => {
+          console.log(...res)
+          if (res[0].err === 0) {
+            const source = res[0].data['128']
+
+            dispatch(
+              addPlaySong({
+                ...item,
+                source,
+              })
+            )
+          } else if (res.err === -1110) {
+            toast.success('Không load được link nhạc từ sever của mp3...do mình gà quá')
+          }
+          if (res[1].err === 0) {
+            axios.get(`${res[1].data.file}`).then((res) => {
+              const lyrics = lyricsData.parseLyric(res.data)
+              dispatch(addLyrics(lyrics))
             })
-          )
-        } else if (res.err === -1110) {
-          toast.success('Không load được link nhạc từ sever của mp3...do mình gà quá')
-        }
+            dispatch(addKaraoke(res[1].data.sentences))
+          }
 
-        audio.play()
-        dispatch(playSong())
-        setLoadMusic(false)
-        dispatch(endLoadMusic())
-      })
+          audio.play()
+          dispatch(playSong())
+          setLoadMusic(false)
+          dispatch(endLoadMusic())
+        })
+      )
     }
   }
 
   return (
     <Row className="favorite-song-item p-2.5 flex justify-between items-center hover:bg-[#3A3344] rounded">
       <Col span={16} md={12} className="flex items-center">
-        <div className="song-img h-full mr-2.5 relative">
-          <img className="h-10 w-10 rounded" src={song.thumbnail} alt="" />
+        <div className="flex items-center">
+          {number !== 0 && (
+            <span className={`w-[70px] number-item is-top${number} mr-3 ml-1`}>{number}</span>
+          )}
 
-          <div
-            onClick={() => handlePlay(song)}
-            className="play-icon text-white w-full h-full absolute top-0 z-10 flex justify-center items-center text-2xl "
-          >
-            {playItem.encodeId === song.encodeId && isPlaying ? (
-              <img className="w-[18px] h-[18px]" src={gifPlay} alt="gifPlay" />
-            ) : loadMusic ? (
-              <Loading width="18px" height="18px" color="#FFFFFF" />
-            ) : (
-              <i
-                className={`fa-solid fa-play ${
-                  playItem.encodeId === song.encodeId && !isPlaying ? '' : 'hidden'
-                }`}
-              />
-            )}
+          <div className="song-img h-full mr-2.5 relative">
+            <img className="h-10 w-10 rounded" src={song.thumbnail} alt="" />
+
+            <div
+              onClick={() => handlePlay(song)}
+              className="play-icon text-white w-full h-full absolute top-0 z-10 flex justify-center items-center text-2xl "
+            >
+              {playItem.encodeId === song.encodeId && isPlaying ? (
+                <img className="w-[18px] h-[18px]" src={gifPlay} alt="gifPlay" />
+              ) : loadMusic ? (
+                <Loading width="18px" height="18px" color="#FFFFFF" />
+              ) : (
+                <i
+                  className={`fa-solid fa-play ${
+                    playItem.encodeId === song.encodeId && !isPlaying ? '' : 'hidden'
+                  }`}
+                />
+              )}
+            </div>
           </div>
         </div>
 

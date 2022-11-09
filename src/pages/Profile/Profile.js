@@ -24,7 +24,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="section profile pt-16 h-100vh">
+    <div className="section profile h-100vh">
       <div className="profile-header h-12 flex justify-start items-center mb-12">
         <div className="text-[40px] font-bold text-white mr-2">Thư viện</div>
         <button className="w-10 h-10 flex justify-center items-center bg-purple rounded-full hover:bg-opacity-80">

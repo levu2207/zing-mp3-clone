@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './header.css'
 
 const Header = () => {
   return (
-    <header className="header h-[70px] bg-bg fixed left-0 top-0 right-0 pl-[290px] flex justify-center items-center z-20 pr-[380px] transition-all duration-700">
+    <header
+      className={`header ${
+        true && 'bg-bg'
+      } h-[70px] fixed left-0 top-0 right-0 pl-[290px] flex justify-center items-center z-20 pr-[380px] transition-all duration-700`}
+    >
       <div className="level">
         <div className="header-left">
           <button className="pr-5">

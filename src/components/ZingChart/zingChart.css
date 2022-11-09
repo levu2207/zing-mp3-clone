@@ -55,6 +55,7 @@
   line-height: 1;
   text-align: center;
   color: rgba(74, 144, 226, 0);
+  -webkit-text-stroke: 1px #fff;
 }
 .number-item.is-top1 {
   -webkit-text-stroke: 1px #4a90e2;
