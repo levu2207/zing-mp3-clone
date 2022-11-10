@@ -8,6 +8,7 @@ import {
   addKaraoke,
   addLyrics,
   addPlaySong,
+  addRecentList,
   clearKaraoke,
   clearLyrics,
 } from '../../redux/reducers/listSlice'
@@ -84,6 +85,7 @@ const NewSongCard = ({ item, index }) => {
           dispatch(playSong())
           setLoadMusic(false)
           dispatch(endLoadMusic())
+          dispatch(addRecentList(playItem))
         })
       )
     }

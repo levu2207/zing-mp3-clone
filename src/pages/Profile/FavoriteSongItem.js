@@ -10,6 +10,7 @@ import {
   addKaraoke,
   addLyrics,
   addPlaySong,
+  addRecentList,
   clearKaraoke,
   clearLyrics,
 } from '../../redux/reducers/listSlice'
@@ -88,6 +89,7 @@ const FavoriteSongItem = ({ song, number = 0 }) => {
           dispatch(playSong())
           setLoadMusic(false)
           dispatch(endLoadMusic())
+          dispatch(addRecentList(playItem))
         })
       )
     }

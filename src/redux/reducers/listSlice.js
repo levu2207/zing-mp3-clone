@@ -15,23 +15,23 @@ const listSlice = createSlice({
     addPlaySong(state, action) {
       const song = action.payload
       state.playItem = song
-
-      if (state.recentMusic.length === 0) {
-        state.recentMusic.push(song)
-      } else {
-        if (state.recentMusic[0] === null) {
-          state.recentMusic = []
-          state.recentMusic.push(song)
-        } else {
-          const index = state.recentMusic?.findIndex((item) => item?.encodeId === song?.encodeId)
-          if (index !== -1) return
-          state.recentMusic.push(song)
-        }
-      }
     },
     clearPlayItem(state) {
       state.isPlaying = false
       state.playItem = {}
+    },
+    // recentList
+    addRecentList(state, action) {
+      const song = action.payload
+      if (state.recentMusic.length === 0) {
+        state.recentMusic.push(song)
+      }
+      const index = state.recentMusic.findIndex((item) => item.encodeId === song.encodeId)
+      if (index !== -1) return
+      state.recentMusic.push(song)
+    },
+    clearRecentList(state) {
+      state.recentMusic = []
     },
     // add playlist
     addPlayList(state, action) {
@@ -39,9 +39,6 @@ const listSlice = createSlice({
     },
     clearPlayList(state) {
       state.playList = []
-    },
-    clearRecentList(state) {
-      state.recentMusic = []
     },
 
     addKaraoke(state, action) {
@@ -68,6 +65,7 @@ export const {
   clearPlayItem,
   addPlayList,
   clearPlayList,
+  addRecentList,
   clearRecentList,
 } = listSlice.actions
 export default listSlice.reducer

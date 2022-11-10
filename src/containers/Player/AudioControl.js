@@ -7,6 +7,7 @@ import {
   addKaraoke,
   addLyrics,
   addPlaySong,
+  addRecentList,
   clearKaraoke,
   clearLyrics,
 } from '../../redux/reducers/listSlice'
@@ -114,6 +115,7 @@ const AudioControl = () => {
     if (newSong !== -1) {
       audio.src = newSong.source
       dispatch(playSong())
+      dispatch(addRecentList(newSong))
     } else {
       toast.error('load nhạc bị lỗi')
     }
@@ -141,6 +143,7 @@ const AudioControl = () => {
     if (newSong !== -1) {
       audio.src = newSong.source
       dispatch(playSong())
+      dispatch(addRecentList(newSong))
     } else {
       toast.error('load nhạc bị lỗi')
     }
@@ -168,6 +171,7 @@ const AudioControl = () => {
     if (newSong !== -1) {
       audio.src = newSong.source
       dispatch(playSong())
+      dispatch(addRecentList(newSong))
     } else {
       toast.error('load nhạc bị lỗi')
     }
@@ -198,6 +202,7 @@ const AudioControl = () => {
 
       if (newSong !== -1) {
         dispatch(addPlaySong(newSong))
+        dispatch(addRecentList(newSong))
         audio.src = newSong.source
         dispatch(playSong())
         dispatch(endLoadMusic())
