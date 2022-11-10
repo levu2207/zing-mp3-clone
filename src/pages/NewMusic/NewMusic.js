@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import LoadList from '../../components/Loading/LoadList'
-import { addPlayList } from '../../redux/reducers/playSlice'
 import mp3Service from '../../services/mp3Services'
 import FavoriteSongItem from '../Profile/FavoriteSongItem'
-import './chartHome.css'
-import ChartPage from './ChartPage'
+import './newMusic.css'
+import { Link } from 'react-router-dom'
+import LoadList from '../../components/Loading/LoadList'
 import { useDispatch } from 'react-redux'
+import { addPlayList } from '../../redux/reducers/playSlice'
 
-const ChartHome = () => {
+const NewMusic = () => {
   const [loading, setLoading] = useState(true)
   const [dataChart, setDataChart] = useState([])
   const [index, setIndex] = useState(10)
   const [isCompleted, setIsCompleted] = useState(false)
-  const initialList = dataChart?.RTChart?.items.slice(0, index)
+  const initialList = dataChart?.items?.slice(0, index)
 
   const dispatch = useDispatch()
 
@@ -27,11 +26,11 @@ const ChartHome = () => {
   }
 
   useEffect(() => {
-    mp3Service.getListChartPage().then((res) => {
+    mp3Service.getNewSongList().then((res) => {
       if (res.err === 0) {
         setDataChart(res.data)
         setLoading(false)
-        dispatch(addPlayList(res.data.RTChart.items))
+        dispatch(addPlayList(res.data.items))
       }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -40,18 +39,17 @@ const ChartHome = () => {
   return (
     <div className="chart-page">
       <div className="chart-page-wrapper relative w-full pt-[50px] px-[50px]">
-        <div className="bg-blur-chart-page"></div>
-        <div className="bg-alpha z-0"></div>
-        <div className="bg-alpha-1 z-0"></div>
+        <div className="bg-blur-new-song"></div>
+        <div className="bg-alpha  h-[380px]"></div>
+        <div className="bg-alpha-1  h-[380px]"></div>
         <div className="chart-page-header text-white text-[40px]">
-          <Link to="/zingchart">#zingchart</Link>
+          <Link to="/">Nhạc Mới</Link>
           <button className="w-[40px] h-[40px]">
             <i className="fa-solid fa-play text-white text-lg"></i>
           </button>
         </div>
-
-        <ChartPage />
       </div>
+
       {loading ? (
         <LoadList className="w-[80px] h-[80px]" />
       ) : (
@@ -75,4 +73,5 @@ const ChartHome = () => {
     </div>
   )
 }
-export default ChartHome
+
+export default NewMusic

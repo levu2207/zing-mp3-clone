@@ -12,6 +12,10 @@ const getLyrics = (id) => api.get(`${api.url.lyrics}/${id}`)
 
 const getListChartPage = () => api.get(api.url.chartPage)
 
+const getNewSongList = () => api.get(api.url.newSong)
+
+const getListVideo = (params) => api.get(api.url.listVideo, { params })
+
 const mp3Service = {
   getHome,
   getTop100,
@@ -19,6 +23,8 @@ const mp3Service = {
   getSongInfo,
   getLyrics,
   getListChartPage,
+  getNewSongList,
+  getListVideo,
 }
 
 export default mp3Service

@@ -6,6 +6,9 @@ const playSlice = createSlice({
   initialState: {
     karaoke: [],
     lyrics: '',
+    playItem: {},
+    playList: [],
+    recentMusic: [],
     showKaraoke: false,
     showSidebar: false,
     showPlaylist: false,
@@ -15,9 +18,6 @@ const playSlice = createSlice({
     isPlaying: false,
     isRandom: false,
     isRepeat: false,
-    playItem: {},
-    playList: [],
-    recentMusic: [],
   },
 
   reducers: {
@@ -52,9 +52,11 @@ const playSlice = createSlice({
       const song = action.payload
       state.playItem = song
 
-      const index = state.recentMusic.findIndex((item) => item.encodeId === song.encodeId)
-      if (index !== -1) return
-      else state.recentMusic.push(song)
+      if (state.recentMusic.length > 0 && state.recentMusic[0] !== null) {
+        const index = state.recentMusic.findIndex((item) => item.encodeId === song.encodeId)
+        if (index !== -1) return
+        else state.recentMusic.push(song)
+      } else state.recentMusic.push(song)
     },
     playSong(state) {
       state.isPlaying = true

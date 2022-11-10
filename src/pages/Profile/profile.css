@@ -7,5 +7,14 @@
   color: #9b4de0;
 }
 .profile {
+  padding-top: 50px;
+  min-height: 800px;
+}
+.song-img-fav .play-icon {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.favorite-list {
   min-height: 800px;
 }

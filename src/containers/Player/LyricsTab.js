@@ -79,13 +79,15 @@ const LyricsTab = ({ song, className }) => {
           xl={15}
           className="lyrics-text flex justify-center items-center"
         >
-          <ul className="max-h-[460px] overflow-y-auto">
-            {lyrics.map((item) => (
-              <li key={item.time.toString()} className="py-5 text-[40px] font-bold blur]">
-                {item.text}
-              </li>
-            ))}
-          </ul>
+          {lyrics.length > 0 && (
+            <ul className="max-h-[460px] overflow-y-auto">
+              {lyrics?.map((item) => (
+                <li key={item.time.toString()} className="py-5 text-[40px] font-bold blur]">
+                  {item.text}
+                </li>
+              ))}
+            </ul>
+          )}
         </Col>
       </Row>
     </div>

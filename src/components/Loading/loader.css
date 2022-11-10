@@ -101,3 +101,48 @@
     transform: rotate(360deg);
   }
 }
+/* load list */
+.load-list {
+  display: grid;
+  border: 4.5px solid #0000;
+  border-radius: 50%;
+  border-color: hsla(0, 0%, 100%, 0.3) #0000;
+  animation: load-list-animate 1s infinite linear;
+}
+
+.load-list::before,
+.load-list::after {
+  content: '';
+  grid-area: 1/1;
+  margin: 2.2px;
+  border: inherit;
+  border-radius: 50%;
+}
+
+.load-list::before {
+  border-color: #9b4de0 #0000;
+  animation: inherit;
+  animation-duration: 0.5s;
+  animation-direction: reverse;
+}
+
+.load-list::after {
+  margin: 8.9px;
+}
+
+@keyframes load-list-animate {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+/* skeleton */
+.react-loading-skeleton::after {
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0),
+    hsla(0, 0%, 100%, 0.05),
+    hsla(0, 0%, 100%, 0)
+  ) !important;
+  filter: blur(8px) !important;
+}

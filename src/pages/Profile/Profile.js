@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { clearFavoriteSongs, clearFavoriteVideos } from '../../redux/reducers/favoriteSlice'
 import { clearRecentList } from '../../redux/reducers/playSlice'
@@ -8,8 +8,14 @@ import './profile.css'
 
 const Profile = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   let activeClassName = 'profile-nav-item uppercase py-4 mr-10 active-profile'
+
+  useEffect(() => {
+    navigate('/mymusic/song')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleClearList = () => {
     const url = window.location

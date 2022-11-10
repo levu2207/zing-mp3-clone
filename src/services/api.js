@@ -9,6 +9,8 @@ const url = {
   top100: '/top100',
   lyrics: '/lyric',
   chartPage: '/chart-home',
+  newSong: '/new-chart',
+  listVideo: '/video',
 }
 
 const instance = axios.create({

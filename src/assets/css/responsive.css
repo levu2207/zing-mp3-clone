@@ -203,8 +203,28 @@
 }
 
 @media (max-width: 500px) {
+  .video-page {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .video-nav {
+    padding: 0 !important;
+  }
+  .video-nav a {
+    margin: 0 10px;
+  }
+  .video-list {
+    margin-bottom: 60px;
+  }
+  .profile {
+    padding-top: 50px;
+  }
+  .author {
+    padding-bottom: 82px;
+  }
   .section {
-    padding: 0 20px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
   .zm-main {
     padding: 0;
@@ -213,7 +233,9 @@
     padding: 0 20px;
   }
   .zm-container {
-    height: calc(100vh - 190px);
+    height: calc(100vh - 120px);
+    margin-top: 70px;
+    padding-bottom: 0;
   }
   #zm-player {
     display: none;
@@ -236,5 +258,22 @@
   .lyrics-text li {
     font-size: 20px;
     padding: 16px 0;
+  }
+  .chart-page-wrapper {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+  .list-song-chart .ant-col > div {
+    justify-content: flex-end;
+  }
+  .number-item {
+    font-size: 16px;
+    width: 30px;
+  }
+  .chart-page-header a {
+    font-size: 30px;
+  }
+  .list-wrapper {
+    padding: 0;
   }
 }

@@ -84,18 +84,17 @@ const FavoriteSongItem = ({ song, number = 0 }) => {
 
   return (
     <Row className="favorite-song-item p-2.5 flex justify-between items-center hover:bg-[#3A3344] rounded">
-      <Col span={16} md={12} className="flex items-center">
-        <div className="flex items-center">
-          {number !== 0 && (
-            <span className={`w-[70px] number-item is-top${number} mr-3 ml-1`}>{number}</span>
-          )}
-
-          <div className="song-img h-full mr-2.5 relative">
-            <img className="h-10 w-10 rounded" src={song.thumbnail} alt="" />
+      <Col span={18} md={12} className="flex items-center justify-start">
+        {number !== 0 && (
+          <span className={`w-[70px] number-item is-top${number} mr-3 ml-1`}>{number}</span>
+        )}
+        <div className="flex justify-center">
+          <div className="song-img-fav h-10 w-10 relative">
+            <img className="rounded" src={song.thumbnail} alt="" />
 
             <div
               onClick={() => handlePlay(song)}
-              className="play-icon text-white w-full h-full absolute top-0 z-10 flex justify-center items-center text-2xl "
+              className="play-icon w-full h-full text-white absolute top-0 left-0 z-10 flex justify-center items-center text-2xl"
             >
               {playItem.encodeId === song.encodeId && isPlaying ? (
                 <img className="w-[18px] h-[18px]" src={gifPlay} alt="gifPlay" />
@@ -112,7 +111,7 @@ const FavoriteSongItem = ({ song, number = 0 }) => {
           </div>
         </div>
 
-        <div className="song-info text-white flex flex-col justify-center items-start">
+        <div className="song-info text-white flex flex-col justify-center items-start ml-2.5">
           <span className="song-title inline-block ">
             {song.streamingStatus === 2 ? (
               <>
@@ -175,8 +174,8 @@ const FavoriteSongItem = ({ song, number = 0 }) => {
         </p>
       </Col>
 
-      <Col span={8} md={4} className="song-duration text-xs text-text-second">
-        <div className="flex items-center">
+      <Col span={6} md={4} className="song-duration text-xs text-text-second">
+        <div className="flex items-center justify-center">
           <AddLibrary song={song} isFavorited={checkIsFavorite(favoriteSongs, song)} />
           <span className="ml-6">{totalTime(song.duration)}</span>
         </div>

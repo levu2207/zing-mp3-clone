@@ -4,7 +4,7 @@ import './comingSoon.css'
 
 const ComingSoon = () => {
   return (
-    <div className="coming-soon mt-16 text-text-second flex flex-col items-center justify-center text-lg">
+    <div className="coming-soon h-[500px] mt-16 text-text-second flex flex-col items-center justify-center text-lg">
       <div className="empty-img mb-3">
         <img className="w-32 h-32" src={emptyImage} alt="" />
       </div>

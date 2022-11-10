@@ -8,11 +8,11 @@ const MyRecents = () => {
   const recentMusic = useSelector((state) => state.play.recentMusic)
 
   return (
-    <div>
+    <>
       {recentMusic.length === 0 ? (
         <EmptySong />
       ) : (
-        <div className="favorite-list mt-10">
+        <div className="favorite-list mt-10 pb-[90px]">
           <Row className="favorite-list-header p-2.5 border-b border-border-bg justify-between">
             <Col
               span={16}
@@ -42,7 +42,7 @@ const MyRecents = () => {
           </div>
         </div>
       )}
-    </div>
+    </>
   )
 }
 

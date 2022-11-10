@@ -43,7 +43,7 @@ const PlayList = () => {
         </div>
       </div>
       {/* content */}
-      <div className="play-list-content">
+      <div className="play-list-content mb-[90px]">
         {tab === '1' ? <ListMusic list={listMusic} /> : <ListMusic list={recentMusic} />}
       </div>
     </div>

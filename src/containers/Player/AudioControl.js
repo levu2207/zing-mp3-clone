@@ -64,7 +64,6 @@ const AudioControl = () => {
             ...item,
             source,
           }
-
           dispatch(addPlaySong(newSong))
 
           if (res[1].err === 0) {
@@ -164,14 +163,23 @@ const AudioControl = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handlePlay = () => {
+  const handlePlay = async () => {
     const audio = document.getElementById('audio')
     if (isPlaying) {
       audio.pause()
       dispatch(pauseSong())
     } else {
-      audio.play()
-      dispatch(playSong())
+      if ('source' in currentSong) {
+        audio.play()
+        dispatch(playSong())
+      } else {
+        dispatch(startLoadMusic())
+        const newSong = await getSongSource(currentSong)
+        dispatch(addPlaySong(newSong))
+        audio.play()
+        dispatch(playSong())
+        dispatch(endLoadMusic())
+      }
     }
   }
 

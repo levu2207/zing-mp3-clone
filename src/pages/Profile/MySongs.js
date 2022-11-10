@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import EmptySong from './EmptySong'
 import { Row, Col } from 'antd'
@@ -6,6 +6,10 @@ import FavoriteSongItem from './FavoriteSongItem'
 
 const MySongs = () => {
   const favoriteSongs = useSelector((state) => state.favorite.favoriteSongs)
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <div>

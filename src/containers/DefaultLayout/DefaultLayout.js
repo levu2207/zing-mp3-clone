@@ -1,17 +1,20 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
+import ComingSoon from '../../components/ComingSoon/ComingSoon'
+import ListMV from '../../pages/MV/ListMV'
+import MV from '../../pages/MV/MV'
+import MySong from '../../pages/Profile/MySongs'
+import Profile from '../../pages/Profile/Profile'
 import routes from '../../routers/router'
-import './defaultLayout.css'
 import Header from '../Header/Header'
+import MobilePlayer from '../Player/MobilePlayer'
 import Player from '../Player/Player'
 import PlayList from '../PlayList/PlayList'
 import Sidebar from '../Sidebar/Sidebar'
-import Profile from '../../pages/Profile/Profile'
-import MySong from '../../pages/Profile/MySongs'
 import MyRecents from './../../pages/Profile/MyRecents'
 import MyVideo from './../../pages/Profile/MyVideo'
 import MobileMenu from './../Sidebar/MobileMenu'
-import MobilePlayer from '../Player/MobilePlayer'
+import './defaultLayout.css'
 
 const DefaultLayout = () => {
   return (
@@ -27,6 +30,12 @@ const DefaultLayout = () => {
                 <Route path="song" element={<MySong />} />
                 <Route path="mv" element={<MyVideo />} />
                 <Route path="history" element={<MyRecents />} />
+              </Route>
+              <Route path="/the-loai-video" element={<MV />}>
+                <Route path="Viet-Nam" element={<ListMV />} />
+                <Route path="Au-My" element={<ComingSoon />} />
+                <Route path="Han-Quoc" element={<ComingSoon />} />
+                <Route path="Khong-Loi" element={<ComingSoon />} />
               </Route>
               {routes.map((route, idx) => (
                 <Route key={idx} path={route.path} element={route.component}></Route>

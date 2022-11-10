@@ -1,0 +1,11 @@
+/* new music */
+.bg-blur-new-song {
+  height: 380px;
+  position: absolute;
+  background: url(https://zjs.zmdcdn.me/zmp3-desktop/releases/v1.7.60/static/media/new-release-bg.73d8f976.jpg)
+    top/cover no-repeat;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}

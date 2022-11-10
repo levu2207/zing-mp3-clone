@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Banner from '../components/Banner/Banner'
 import Loader from '../components/Loading/Loader'
+import SkeletonLoading from '../components/Loading/SkeletonLoading'
 import NewRelease from '../components/NewRelease/NewRelease'
 import NewSong from '../components/NewRelease/NewSong'
 import Partners from '../components/Partners/Partners'
@@ -25,12 +26,13 @@ import {
   loadWeekChart,
   loadZingChart,
 } from '../redux/reducers/homeSlice'
+import { addPlaySong, clearRecentList } from '../redux/reducers/playSlice'
 import mp3Service from '../services/mp3Services'
 import './home.css'
 
 const Home = () => {
   const dispatch = useDispatch()
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   const dayDes = useSelector((state) => state.home.dayDes)
   const newMusicEveryDay = useSelector((state) => state.home.newMusicEveryDay)
@@ -38,35 +40,48 @@ const Home = () => {
   const xoneConner = useSelector((state) => state.home.albumArtist)
   const newSong = useSelector((state) => state.home.newSong)
   const afterNewSong = useSelector((state) => state.home.afterNewSong)
+  const playList = useSelector((state) => state.play.playList)
+  const playItem = useSelector((state) => state.play.playItem)
 
-  // useEffect(() => {
-  //   mp3Service.getHome().then((res) => {
-  //     dispatch(loadBanner(res.data.items[0]))
-  //     dispatch(loadNewRelease(res.data.items[3]))
-  //     dispatch(loadDayDes(res.data.items[4]))
-  //     dispatch(loadTopSinger(res.data.items[5]))
-  //     dispatch(loadNewMusicEveryDay(res.data.items[6]))
-  //     dispatch(loadZingChart(res.data.items[7]))
-  //     dispatch(loadWeekChart(res.data.items[8]))
-  //     dispatch(loadArtistSpotlight(res.data.items[9]))
-  //     dispatch(loadTop100(res.data.items[10]))
-  //     dispatch(loadNewSong(res.data.items[11]))
-  //     dispatch(loadAfterNewSong(res.data.items[12]))
-  //     dispatch(loadAlbumArtist(res.data.items[14]))
-  //     dispatch(loadRadio(res.data.items[15]))
-  //     dispatch(loadEvent(res.data.items[16]))
-  //     setLoading(false)
-  //   })
+  useEffect(() => {
+    document.querySelector('.zm-container').scrollTo(0, 0)
+  }, [])
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
+  useEffect(() => {
+    mp3Service.getHome().then((res) => {
+      dispatch(loadBanner(res.data.items[0]))
+      dispatch(loadNewRelease(res.data.items[3]))
+      dispatch(loadDayDes(res.data.items[4]))
+      dispatch(loadTopSinger(res.data.items[5]))
+      dispatch(loadNewMusicEveryDay(res.data.items[6]))
+      dispatch(loadZingChart(res.data.items[7]))
+      dispatch(loadWeekChart(res.data.items[8]))
+      dispatch(loadArtistSpotlight(res.data.items[9]))
+      dispatch(loadTop100(res.data.items[10]))
+      dispatch(loadNewSong(res.data.items[11]))
+      dispatch(loadAfterNewSong(res.data.items[12]))
+      dispatch(loadAlbumArtist(res.data.items[14]))
+      dispatch(loadRadio(res.data.items[15]))
+      dispatch(loadEvent(res.data.items[16]))
+      setLoading(false)
+    })
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    if (Object.keys(playItem).length === 0) {
+      dispatch(addPlaySong(playList[0]))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>
       {loading ? (
-        <Loader />
+        <SkeletonLoading />
       ) : (
-        <div className="section home w-full h-full">
+        <div className="section home">
           <Banner />
 
           <NewRelease />
@@ -91,7 +106,7 @@ const Home = () => {
 
           <Partners />
 
-          <div className="author flex flex-col justify-center items-center text-center p-8 text-md text-text-second">
+          <div className="author flex flex-col justify-center items-center text-center pt-8 pb-[122px] text-md text-text-second">
             <div className="flex">
               <span>Made with</span>
               <span className="mx-1 text-red-900">

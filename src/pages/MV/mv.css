@@ -1,0 +1,26 @@
+/* video */
+.video-content {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.video-nav {
+  padding: 0 50px;
+}
+.video-select .ant-select-selector {
+  border-radius: 999px !important;
+  color: #ffffff;
+  background-color: hsla(0, 0%, 100%, 0.1) !important;
+}
+.video-select .ant-select-arrow {
+  color: #ffffff;
+}
+.video-select .ant-select-selector imput {
+  outline: none;
+}
+.video-img img {
+  transition: all 0.7s;
+}
+.video-img:hover img {
+  transform: scale(1.1);
+  transition: all 0.7s;
+}

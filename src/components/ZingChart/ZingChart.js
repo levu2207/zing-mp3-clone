@@ -12,7 +12,7 @@ import {
 import React, { useEffect, useRef } from 'react'
 import { Line } from 'react-chartjs-2'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import calcPercentScore from '../../utils/calcPercentScore'
 import truncateText from '../../utils/truncateText'
 import SongItem from '../NewRelease/SongItem'
@@ -20,6 +20,8 @@ import './zingChart.css'
 import { Row, Col } from 'antd'
 
 const ZingChart = () => {
+  const navigate = useNavigate()
+
   const zingChart = useSelector((state) => state.home.zingChart)
   const chartInfo = zingChart.chart
   const times = chartInfo.times
@@ -293,7 +295,9 @@ const ZingChart = () => {
             ))}
           </div>
 
-          <button className="more-btn">Xem thêm</button>
+          <button onClick={() => navigate('/zing-chart')} className="more-btn">
+            Xem thêm
+          </button>
         </Col>
 
         <Col
