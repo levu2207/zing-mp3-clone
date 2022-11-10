@@ -5,11 +5,14 @@ import Album from './Album'
 import Song from './Song'
 import './newRelease.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { addPlayList } from '../../redux/reducers/listSlice'
+import { addPlayList, addPlaySong } from '../../redux/reducers/listSlice'
 
 const NewRelease = () => {
   const dispatch = useDispatch()
   const newRelease = useSelector((state) => state.home.newRelease)
+  const playItem = useSelector((state) => state.list.playItem)
+  const playList = useSelector((state) => state.list.playList)
+
   const newReleaseList = newRelease.items
   const keys = Object.keys(newReleaseList)
 
@@ -21,6 +24,10 @@ const NewRelease = () => {
       dispatch(addPlayList(tab1))
     } else if (keys[1] === 'vPop') {
       dispatch(addPlayList(tab2))
+    }
+
+    if (JSON.stringify(playItem) === '{}') {
+      dispatch(addPlaySong(playList[0]))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keys[0]])

@@ -68,13 +68,6 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    if (JSON.stringify(playItem) === '{}') {
-      dispatch(addPlaySong(playList[0]))
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   return (
     <>
       {loading ? (
