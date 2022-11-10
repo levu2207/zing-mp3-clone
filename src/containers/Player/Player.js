@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import ZmKaraoke from './ZmKaraoke'
 
 const Player = () => {
-  const song = useSelector((state) => state.list.playItem)
+  const playItem = useSelector((state) => state.list.playItem)
   const isShowKaraoke = useSelector((state) => state.play.showKaraoke)
 
   return (
@@ -22,7 +22,7 @@ const Player = () => {
         <Row gutter={16}>
           <Col className={`${isShowKaraoke && 'opacity-0'}`} span={7}>
             <PlayerItem
-              song={song}
+              song={playItem}
               className="w-[60px] h-[60px] rounded"
               options={true}
               numberText={24}
@@ -38,7 +38,7 @@ const Player = () => {
       </div>
 
       {/* karaoke */}
-      <ZmKaraoke song={song} />
+      <ZmKaraoke song={playItem} />
     </>
   )
 }

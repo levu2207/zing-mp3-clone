@@ -25,7 +25,6 @@ import {
   loadWeekChart,
   loadZingChart,
 } from '../redux/reducers/homeSlice'
-import { addPlaySong } from '../redux/reducers/listSlice'
 import mp3Service from '../services/mp3Services'
 import './home.css'
 
@@ -39,8 +38,6 @@ const Home = () => {
   const xoneConner = useSelector((state) => state.home.albumArtist)
   const newSong = useSelector((state) => state.home.newSong)
   const afterNewSong = useSelector((state) => state.home.afterNewSong)
-  const playList = useSelector((state) => state.list.playList)
-  const playItem = useSelector((state) => state.list.playItem)
 
   useEffect(() => {
     document.querySelector('.zm-container').scrollTo(0, 0)

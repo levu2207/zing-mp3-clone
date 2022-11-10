@@ -187,26 +187,23 @@ const AudioControl = () => {
     const audio = document.getElementById('audio')
     if (isPlaying) {
       audio.pause()
+      audio.src = ''
       dispatch(pauseSong())
     } else {
-      if ('source' in currentSong) {
-        audio.play()
+      if (JSON.stringify(currentSong) === 'undefined' || JSON.stringify(currentSong) === '{}') {
+        dispatch(addPlaySong(listSong[0]))
+      }
+      dispatch(startLoadMusic())
+      const newSong = await getSongSource(listSong[0])
+
+      if (newSong !== -1) {
+        dispatch(addPlaySong(newSong))
+        audio.src = newSong.source
         dispatch(playSong())
+        dispatch(endLoadMusic())
       } else {
-        console.log('first time')
-        dispatch(startLoadMusic())
-        const newSong = await getSongSource(currentSong)
-
-        if (newSong !== -1) {
-          dispatch(addPlaySong(newSong))
-          audio.play()
-          dispatch(playSong())
-
-          dispatch(endLoadMusic())
-        } else {
-          await nextSong()
-          dispatch(endLoadMusic())
-        }
+        await nextSong()
+        dispatch(endLoadMusic())
       }
     }
   }
