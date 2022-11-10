@@ -40,6 +40,7 @@ const parseLyric = (lrc) => {
 // lyrics (Array) - output from parseLyric function
 // time (Number) - current time from audio player
 const syncLyric = (lyrics, time) => {
+  if (!lyrics) return
   const scores = []
 
   lyrics.forEach((lyric) => {

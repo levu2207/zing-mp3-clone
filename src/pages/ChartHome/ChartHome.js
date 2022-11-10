@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import LoadList from '../../components/Loading/LoadList'
-import { addPlayList } from '../../redux/reducers/playSlice'
+import { addPlayList } from '../../redux/reducers/listSlice'
 import mp3Service from '../../services/mp3Services'
 import FavoriteSongItem from '../Profile/FavoriteSongItem'
 import './chartHome.css'

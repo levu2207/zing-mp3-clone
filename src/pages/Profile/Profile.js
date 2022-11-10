@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { clearFavoriteSongs, clearFavoriteVideos } from '../../redux/reducers/favoriteSlice'
-import { clearRecentList } from '../../redux/reducers/playSlice'
+import { clearRecentList } from '../../redux/reducers/listSlice'
 import './profile.css'
 
 const Profile = () => {

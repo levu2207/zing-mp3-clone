@@ -1,6 +1,7 @@
+import { Col, Row } from 'antd'
 import React from 'react'
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
-import { Row, Col } from 'antd'
+import Skeleton from 'react-loading-skeleton'
+import './loader.css'
 
 const SkeletonLoading = () => {
   return (

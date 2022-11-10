@@ -4,11 +4,6 @@ const playSlice = createSlice({
   name: 'play',
 
   initialState: {
-    karaoke: [],
-    lyrics: '',
-    playItem: {},
-    playList: [],
-    recentMusic: [],
     showKaraoke: false,
     showSidebar: false,
     showPlaylist: false,
@@ -21,12 +16,6 @@ const playSlice = createSlice({
   },
 
   reducers: {
-    addKaraoke(state, action) {
-      state.karaoke = action.payload
-    },
-    addLyrics(state, action) {
-      state.lyrics = action.payload
-    },
     showKaraoke(state) {
       state.showKaraoke = true
     },
@@ -48,26 +37,14 @@ const playSlice = createSlice({
     changeVolume(state, action) {
       state.volume = action.payload
     },
-    addPlaySong(state, action) {
-      const song = action.payload
-      state.playItem = song
 
-      if (state.recentMusic.length > 0 && state.recentMusic[0] !== null) {
-        const index = state.recentMusic.findIndex((item) => item.encodeId === song.encodeId)
-        if (index !== -1) return
-        else state.recentMusic.push(song)
-      } else state.recentMusic.push(song)
-    },
     playSong(state) {
       state.isPlaying = true
     },
     pauseSong(state) {
       state.isPlaying = false
     },
-    clearPlayItem(state) {
-      state.isPlaying = false
-      state.playItem = {}
-    },
+
     randomAction(state) {
       state.isRandom = !state.isRandom
     },
@@ -86,23 +63,10 @@ const playSlice = createSlice({
     endLoadMusic(state) {
       state.isLoadMusic = false
     },
-
-    // add playlist
-    addPlayList(state, action) {
-      state.playList = action.payload
-    },
-    clearPlayList(state) {
-      state.playList = []
-    },
-    clearRecentList(state) {
-      state.recentMusic = []
-    },
   },
 })
 
 export const {
-  addKaraoke,
-  addLyrics,
   showKaraoke,
   hideKaraoke,
   showSidebar,
@@ -110,18 +74,13 @@ export const {
   showPlaylist,
   hidePlaylist,
   changeVolume,
-  addPlaySong,
   playSong,
   pauseSong,
-  clearPlayItem,
-  addPlayList,
-  clearPlayList,
   randomAction,
   repeatAction,
   onMute,
   offMute,
   startLoadMusic,
   endLoadMusic,
-  clearRecentList,
 } = playSlice.actions
 export default playSlice.reducer

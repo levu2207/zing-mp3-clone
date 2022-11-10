@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
-import PlayerItem from './PlayerItem'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
+import Loading from '../../components/Loading/Loading'
+import { addPlaySong } from '../../redux/reducers/listSlice'
 import {
-  addPlaySong,
   endLoadMusic,
   hideKaraoke,
   pauseSong,
@@ -10,15 +11,13 @@ import {
   showKaraoke,
   startLoadMusic,
 } from '../../redux/reducers/playSlice'
-import { toast } from 'react-toastify'
 import mp3Service from '../../services/mp3Services'
-import Loading from '../../components/Loading/Loading'
+import PlayerItem from './PlayerItem'
 
 const MobilePlayer = () => {
-  const song = useSelector((state) => state.play.playItem)
   const isPlaying = useSelector((state) => state.play.isPlaying)
-  const playList = useSelector((state) => state.play.playList)
-  const currentSong = useSelector((state) => state.play.playItem)
+  const playList = useSelector((state) => state.list.playList)
+  const currentSong = useSelector((state) => state.list.playItem)
   const isLoading = useSelector((state) => state.play.isLoadMusic)
   const isShowKaraoke = useSelector((state) => state.play.showKaraoke)
 
@@ -123,7 +122,7 @@ const MobilePlayer = () => {
   return (
     <div className="mobile-player h-[60px] fixed z-50 left-0 right-0 bottom-[60px] bg-mobile-menu hidden border-b border-border-bg">
       <div className="mobile-player-wrapper h-full flex items-center justify-between px-2">
-        <PlayerItem song={song} className="w-[46px] h-[46px] rounded-full" numberText={18} />
+        <PlayerItem song={currentSong} className="w-[46px] h-[46px] rounded-full" numberText={18} />
 
         <div className="flex items-center">
           <button

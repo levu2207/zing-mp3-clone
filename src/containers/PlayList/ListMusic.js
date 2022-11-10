@@ -7,7 +7,7 @@ const ListMusic = ({ list }) => {
       {list === [] ? (
         <p className="text-white">Danh sách trống</p>
       ) : (
-        list.map((item) => (
+        list?.map((item) => (
           <div key={item.encodeId} className="list-music px-2">
             <SongItem
               song={item}

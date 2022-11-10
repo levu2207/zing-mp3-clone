@@ -5,7 +5,7 @@ import Album from './Album'
 import Song from './Song'
 import './newRelease.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { addPlayList } from '../../redux/reducers/playSlice'
+import { addPlayList } from '../../redux/reducers/listSlice'
 
 const NewRelease = () => {
   const dispatch = useDispatch()

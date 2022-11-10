@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import Loading from '../../components/Loading/Loading'
@@ -7,6 +7,10 @@ import {
   addKaraoke,
   addLyrics,
   addPlaySong,
+  clearKaraoke,
+  clearLyrics,
+} from '../../redux/reducers/listSlice'
+import {
   endLoadMusic,
   pauseSong,
   playSong,
@@ -20,22 +24,23 @@ import { lyricsData } from '../../utils/lyricsData'
 import ProgressBar from './ProgressBar'
 
 const AudioControl = () => {
-  const currentSong = useSelector((state) => state.play.playItem)
-  const listSong = useSelector((state) => state.play.playList)
+  const currentSong = useSelector((state) => state.list.playItem)
+  const listSong = useSelector((state) => state.list.playList)
   const isPlaying = useSelector((state) => state.play.isPlaying)
   const isRandom = useSelector((state) => state.play.isRandom)
   const isRepeat = useSelector((state) => state.play.isRepeat)
   const isLoadMusic = useSelector((state) => state.play.isLoadMusic)
   const dispatch = useDispatch()
+  const audioRef = useRef()
 
   const handleMusicEnd = async () => {
     const audio = document.getElementById('audio')
     dispatch(pauseSong())
+    audio.src = ''
 
     // auto next
     if (isRepeat) {
-      audio.currentTime = 0
-      audio.play()
+      audio.src = currentSong.source
       dispatch(playSong())
     } else {
       if (isRandom) {
@@ -67,11 +72,21 @@ const AudioControl = () => {
           dispatch(addPlaySong(newSong))
 
           if (res[1].err === 0) {
-            axios.get(`${res[1].data.file}`).then((res) => {
-              const lyrics = lyricsData.parseLyric(res.data)
-              dispatch(addLyrics(lyrics))
-            })
-            dispatch(addKaraoke(res[1].data.sentences))
+            if (res[1].data.file) {
+              axios.get(`${res[1].data.file}`).then((res) => {
+                if (res) {
+                  const lyrics = lyricsData.parseLyric(res.data)
+                  dispatch(addLyrics(lyrics))
+                } else toast.success('Bài hát chưa có lyrics')
+              })
+            } else {
+              dispatch(clearLyrics())
+            }
+            if (res[1].data.sentences) {
+              dispatch(addKaraoke(res[1].data.sentences))
+            } else {
+              dispatch(clearKaraoke())
+            }
           }
         } else {
           toast.success('Không load được link nhạc từ sever của mp3...do mình gà quá')
@@ -84,6 +99,9 @@ const AudioControl = () => {
 
   const randomSong = async (list, current) => {
     const audio = document.getElementById('audio')
+    audio.pause()
+    audio.src = ''
+    dispatch(pauseSong())
 
     const currentIndex = list.findIndex((item) => item.encodeId === current.encodeId)
     let newIndex
@@ -94,7 +112,7 @@ const AudioControl = () => {
     } while (newIndex === currentIndex || newSong === -1)
 
     if (newSong !== -1) {
-      audio.play()
+      audio.src = newSong.source
       dispatch(playSong())
     } else {
       toast.error('load nhạc bị lỗi')
@@ -104,6 +122,7 @@ const AudioControl = () => {
   const nextSong = async (list, current) => {
     const audio = document.getElementById('audio')
     audio.pause()
+    audio.src = ''
     dispatch(pauseSong())
 
     let index = list.findIndex((item) => item.encodeId === current.encodeId)
@@ -120,7 +139,7 @@ const AudioControl = () => {
     } while (newSong === -1)
 
     if (newSong !== -1) {
-      audio.play()
+      audio.src = newSong.source
       dispatch(playSong())
     } else {
       toast.error('load nhạc bị lỗi')
@@ -130,6 +149,7 @@ const AudioControl = () => {
   const prevSong = async (list, current) => {
     const audio = document.getElementById('audio')
     audio.pause()
+    audio.src = ''
     dispatch(pauseSong())
 
     let index = list.findIndex((item) => item.encodeId === current.encodeId)
@@ -146,7 +166,7 @@ const AudioControl = () => {
     } while (newSong === -1)
 
     if (newSong !== -1) {
-      audio.play()
+      audio.src = newSong.source
       dispatch(playSong())
     } else {
       toast.error('load nhạc bị lỗi')
@@ -173,12 +193,20 @@ const AudioControl = () => {
         audio.play()
         dispatch(playSong())
       } else {
+        console.log('first time')
         dispatch(startLoadMusic())
         const newSong = await getSongSource(currentSong)
-        dispatch(addPlaySong(newSong))
-        audio.play()
-        dispatch(playSong())
-        dispatch(endLoadMusic())
+
+        if (newSong !== -1) {
+          dispatch(addPlaySong(newSong))
+          audio.play()
+          dispatch(playSong())
+
+          dispatch(endLoadMusic())
+        } else {
+          await nextSong()
+          dispatch(endLoadMusic())
+        }
       }
     }
   }
@@ -188,15 +216,33 @@ const AudioControl = () => {
   }
 
   const handlePrev = async () => {
-    dispatch(startLoadMusic())
-    await prevSong(listSong, currentSong)
-    dispatch(endLoadMusic())
+    if (isRepeat) {
+      audioRef.current.currentTime = 0
+    } else {
+      dispatch(startLoadMusic())
+      if (isRandom) {
+        await randomSong(listSong, currentSong)
+        dispatch(endLoadMusic())
+      } else {
+        await prevSong(listSong, currentSong)
+        dispatch(endLoadMusic())
+      }
+    }
   }
 
   const handleNext = async () => {
-    dispatch(startLoadMusic())
-    await nextSong(listSong, currentSong)
-    dispatch(endLoadMusic())
+    if (isRepeat) {
+      audioRef.current.currentTime = 0
+    } else {
+      dispatch(startLoadMusic())
+      if (isRandom) {
+        await randomSong(listSong, currentSong)
+        dispatch(endLoadMusic())
+      } else {
+        await nextSong(listSong, currentSong)
+        dispatch(endLoadMusic())
+      }
+    }
   }
 
   const handleRepeat = () => {
@@ -259,6 +305,7 @@ const AudioControl = () => {
       {/* audio player */}
       <div id="playMusic">
         <audio
+          ref={audioRef}
           autoPlay
           onEnded={() => handleMusicEnd()}
           id="audio"

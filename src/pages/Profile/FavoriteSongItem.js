@@ -1,30 +1,29 @@
+import { Col, Row } from 'antd'
+import axios from 'axios'
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
+import gifPlay from '../../assets/icon-playing.gif'
+import AddLibrary from '../../components/AddLibrary/AddLibrary'
+import Loading from '../../components/Loading/Loading'
 import {
   addKaraoke,
   addLyrics,
   addPlaySong,
-  endLoadMusic,
-  pauseSong,
-  playSong,
-  startLoadMusic,
-} from '../../redux/reducers/playSlice'
+  clearKaraoke,
+  clearLyrics,
+} from '../../redux/reducers/listSlice'
+import { endLoadMusic, pauseSong, playSong, startLoadMusic } from '../../redux/reducers/playSlice'
+import api from '../../services/api'
 import mp3Service from '../../services/mp3Services'
-import { toast } from 'react-toastify'
-import gifPlay from '../../assets/icon-playing.gif'
-import Loading from '../../components/Loading/Loading'
-import { Row, Col } from 'antd'
+import checkIsFavorite from '../../utils/checkIsFavorite'
+import { lyricsData } from '../../utils/lyricsData'
 import truncateText from '../../utils/truncateText'
 import totalTime from './../../utils/totalTime'
-import AddLibrary from '../../components/AddLibrary/AddLibrary'
-import checkIsFavorite from '../../utils/checkIsFavorite'
-import api from '../../services/api'
-import axios from 'axios'
-import { lyricsData } from '../../utils/lyricsData'
 
 const FavoriteSongItem = ({ song, number = 0 }) => {
   const [loadMusic, setLoadMusic] = useState(false)
-  const playItem = useSelector((state) => state.play.playItem)
+  const playItem = useSelector((state) => state.list.playItem)
   const isPlaying = useSelector((state) => state.play.isPlaying)
   const favoriteSongs = useSelector((state) => state.favorite.favoriteSongs)
   const dispatch = useDispatch()
@@ -41,6 +40,7 @@ const FavoriteSongItem = ({ song, number = 0 }) => {
       }
     } else {
       audio.pause()
+      audio.src = ''
       dispatch(pauseSong())
       dispatch(startLoadMusic())
 
@@ -62,18 +62,29 @@ const FavoriteSongItem = ({ song, number = 0 }) => {
                 source,
               })
             )
-          } else if (res.err === -1110) {
+
+            if (res[1].err === 0) {
+              if (res[1].data.file) {
+                axios.get(`${res[1].data.file}`).then((res) => {
+                  if (res) {
+                    const lyrics = lyricsData.parseLyric(res.data)
+                    dispatch(addLyrics(lyrics))
+                  } else toast.success('Bài hát chưa có lyrics')
+                })
+              } else {
+                dispatch(clearLyrics())
+              }
+              if (res[1].data.sentences) {
+                dispatch(addKaraoke(res[1].data.sentences))
+              } else {
+                dispatch(clearKaraoke())
+              }
+            }
+          } else if (res[0].err === -1110) {
             toast.success('Không load được link nhạc từ sever của mp3...do mình gà quá')
           }
-          if (res[1].err === 0) {
-            axios.get(`${res[1].data.file}`).then((res) => {
-              const lyrics = lyricsData.parseLyric(res.data)
-              dispatch(addLyrics(lyrics))
-            })
-            dispatch(addKaraoke(res[1].data.sentences))
-          }
 
-          audio.play()
+          audio.src = playItem.source
           dispatch(playSong())
           setLoadMusic(false)
           dispatch(endLoadMusic())

@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { hideKaraoke } from '../../redux/reducers/playSlice'
-import KaraokeTab from './KaraokeTab'
 import LyricsTab from './LyricsTab'
 
 const ZmKaraoke = ({ song }) => {
   const isShowKaraoke = useSelector((state) => state.play.showKaraoke)
+  const lyrics = useSelector((state) => state.list.lyrics)
   const dispatch = useDispatch()
   const [tabSelected, setTabSelected] = useState('tab 2')
 
@@ -71,7 +71,11 @@ const ZmKaraoke = ({ song }) => {
               {tabSelected === 'tab 1' && (
                 <div className="text-2xl font-bold text-text-second">Tính năng đang phát triển</div>
               )}
-              <LyricsTab song={song} className={`${tabSelected === 'tab 2' ? '' : 'hidden'}`} />
+              <LyricsTab
+                song={song}
+                lyrics={lyrics}
+                className={`${tabSelected === 'tab 2' ? '' : 'hidden'}`}
+              />
             </div>
 
             <div className="karaoke-info flex justify-center">

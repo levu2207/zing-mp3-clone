@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
+import LoadList from '../../components/Loading/LoadList'
+import { addPlayList } from '../../redux/reducers/listSlice'
 import mp3Service from '../../services/mp3Services'
 import FavoriteSongItem from '../Profile/FavoriteSongItem'
 import './newMusic.css'
-import { Link } from 'react-router-dom'
-import LoadList from '../../components/Loading/LoadList'
-import { useDispatch } from 'react-redux'
-import { addPlayList } from '../../redux/reducers/playSlice'
 
 const NewMusic = () => {
   const [loading, setLoading] = useState(true)

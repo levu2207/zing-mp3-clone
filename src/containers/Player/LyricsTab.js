@@ -1,10 +1,9 @@
 import { Col, Row } from 'antd'
+import PropTypes from 'prop-types'
 import React, { useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux'
 import { lyricsData } from '../../utils/lyricsData'
 
-const LyricsTab = ({ song, className }) => {
-  const lyrics = useSelector((state) => state.play.lyrics)
+const LyricsTab = ({ song, className, lyrics }) => {
   const cdRef = useRef()
 
   useEffect(() => {
@@ -79,7 +78,9 @@ const LyricsTab = ({ song, className }) => {
           xl={15}
           className="lyrics-text flex justify-center items-center"
         >
-          {lyrics.length > 0 && (
+          {lyrics.length === 0 ? (
+            <p className="text-[40px] text-text-second font-bold">Bài hát chưa có lyrics</p>
+          ) : (
             <ul className="max-h-[460px] overflow-y-auto">
               {lyrics?.map((item) => (
                 <li key={item.time.toString()} className="py-5 text-[40px] font-bold blur]">
@@ -92,6 +93,12 @@ const LyricsTab = ({ song, className }) => {
       </Row>
     </div>
   )
+}
+
+LyricsTab.propTypes = {
+  song: PropTypes.object,
+  className: PropTypes.string,
+  lyrics: PropTypes.array,
 }
 
 export default LyricsTab

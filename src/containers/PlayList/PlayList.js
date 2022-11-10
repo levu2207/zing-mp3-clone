@@ -6,8 +6,8 @@ import './playList.css'
 
 const PlayList = () => {
   const [tab, setTab] = useState('1')
-  const listMusic = useSelector((state) => state.play.playList)
-  const recentMusic = useSelector((state) => state.play.recentMusic)
+  const listMusic = useSelector((state) => state.list.playList)
+  const recentMusic = useSelector((state) => state.list.recentMusic)
   const show = useSelector((state) => state.play.showPlaylist)
 
   const handleTabClick = (e) => {

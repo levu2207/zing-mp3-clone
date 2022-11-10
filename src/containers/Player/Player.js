@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import ZmKaraoke from './ZmKaraoke'
 
 const Player = () => {
-  const song = useSelector((state) => state.play.playItem)
+  const song = useSelector((state) => state.list.playItem)
   const isShowKaraoke = useSelector((state) => state.play.showKaraoke)
 
   return (

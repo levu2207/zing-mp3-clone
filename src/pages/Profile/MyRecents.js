@@ -5,7 +5,7 @@ import { Row, Col } from 'antd'
 import FavoriteSongItem from './FavoriteSongItem'
 
 const MyRecents = () => {
-  const recentMusic = useSelector((state) => state.play.recentMusic)
+  const recentMusic = useSelector((state) => state.list.recentMusic)
 
   return (
     <>

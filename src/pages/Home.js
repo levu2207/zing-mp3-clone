@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Banner from '../components/Banner/Banner'
-import Loader from '../components/Loading/Loader'
 import SkeletonLoading from '../components/Loading/SkeletonLoading'
 import NewRelease from '../components/NewRelease/NewRelease'
 import NewSong from '../components/NewRelease/NewSong'
@@ -26,7 +25,7 @@ import {
   loadWeekChart,
   loadZingChart,
 } from '../redux/reducers/homeSlice'
-import { addPlaySong, clearRecentList } from '../redux/reducers/playSlice'
+import { addPlaySong } from '../redux/reducers/listSlice'
 import mp3Service from '../services/mp3Services'
 import './home.css'
 
@@ -40,8 +39,8 @@ const Home = () => {
   const xoneConner = useSelector((state) => state.home.albumArtist)
   const newSong = useSelector((state) => state.home.newSong)
   const afterNewSong = useSelector((state) => state.home.afterNewSong)
-  const playList = useSelector((state) => state.play.playList)
-  const playItem = useSelector((state) => state.play.playItem)
+  const playList = useSelector((state) => state.list.playList)
+  const playItem = useSelector((state) => state.list.playItem)
 
   useEffect(() => {
     document.querySelector('.zm-container').scrollTo(0, 0)
@@ -70,7 +69,7 @@ const Home = () => {
   }, [])
 
   useEffect(() => {
-    if (Object.keys(playItem).length === 0) {
+    if (JSON.stringify(playItem) === '{}') {
       dispatch(addPlaySong(playList[0]))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

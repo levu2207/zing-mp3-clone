@@ -7,11 +7,10 @@ import {
   addKaraoke,
   addLyrics,
   addPlaySong,
-  endLoadMusic,
-  pauseSong,
-  playSong,
-  startLoadMusic,
-} from '../../redux/reducers/playSlice'
+  clearKaraoke,
+  clearLyrics,
+} from '../../redux/reducers/listSlice'
+import { endLoadMusic, pauseSong, playSong, startLoadMusic } from '../../redux/reducers/playSlice'
 import api from '../../services/api'
 import mp3Service from '../../services/mp3Services'
 import { convertDate } from '../../utils/convertDate'
@@ -35,7 +34,7 @@ const SongItem = ({
   hover = '',
 }) => {
   const [loadMusic, setLoadMusic] = useState(false)
-  const playItem = useSelector((state) => state.play.playItem)
+  const playItem = useSelector((state) => state.list.playItem)
   const isPlaying = useSelector((state) => state.play.isPlaying)
   const favoriteSongs = useSelector((state) => state.favorite.favoriteSongs)
   const dispatch = useDispatch()
@@ -52,12 +51,12 @@ const SongItem = ({
       }
     } else {
       audio.pause()
+      audio.src = ''
       dispatch(pauseSong())
       dispatch(startLoadMusic())
 
       // get source music
       setLoadMusic(true)
-      dispatch(addPlaySong(item))
 
       const currentSong = mp3Service.getSong(item.encodeId)
       const currentLyrics = mp3Service.getLyrics(item.encodeId)
@@ -74,17 +73,27 @@ const SongItem = ({
             )
 
             if (res[1].err === 0) {
-              axios.get(`${res[1].data.file}`).then((res) => {
-                const lyrics = lyricsData.parseLyric(res.data)
-                dispatch(addLyrics(lyrics))
-              })
-              dispatch(addKaraoke(res[1].data.sentences))
+              if (res[1].data.file) {
+                axios.get(`${res[1].data.file}`).then((res) => {
+                  if (res) {
+                    const lyrics = lyricsData.parseLyric(res.data)
+                    dispatch(addLyrics(lyrics))
+                  } else toast.success('Bài hát chưa có lyrics')
+                })
+              } else {
+                dispatch(clearLyrics())
+              }
+              if (res[1].data.sentences) {
+                dispatch(addKaraoke(res[1].data.sentences))
+              } else {
+                dispatch(clearKaraoke())
+              }
             }
-          } else if (res.err === -1110) {
+          } else if (res[0].err === -1110) {
             toast.success('Không load được link nhạc từ sever của mp3...do mình gà quá')
           }
 
-          audio.play()
+          audio.src = playItem.source
           dispatch(playSong())
           setLoadMusic(false)
           dispatch(endLoadMusic())
