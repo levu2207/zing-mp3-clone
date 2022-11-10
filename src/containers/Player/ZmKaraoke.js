@@ -75,9 +75,9 @@ const ZmKaraoke = ({ song }) => {
             </div>
 
             <div className="karaoke-info flex justify-center">
-              <span className="text-white">{song.title}</span>
+              <span className="text-white">{song?.title}</span>
               <span className="text-white px-2"> - </span>
-              <span className="text-text-second">{song.artistsNames}</span>
+              <span className="text-text-second">{song?.artistsNames}</span>
             </div>
           </div>
         </div>

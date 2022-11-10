@@ -262,7 +262,7 @@ const AudioControl = () => {
           autoPlay
           onEnded={() => handleMusicEnd()}
           id="audio"
-          src={currentSong.source}
+          src={currentSong?.source || ''}
         ></audio>
       </div>
 

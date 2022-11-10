@@ -96,7 +96,7 @@ const SongItem = ({
   return (
     <div
       className={`song-item ${hover} h-full w-full ${
-        playItem.encodeId === song.encodeId
+        playItem?.encodeId === song.encodeId
           ? playList
             ? 'active-play-list'
             : chart
@@ -117,14 +117,14 @@ const SongItem = ({
             onClick={() => handlePlay(song)}
             className="play-icon text-white w-full h-full absolute top-0 z-10 flex justify-center items-center text-2xl "
           >
-            {playItem.encodeId === song.encodeId && isPlaying ? (
+            {playItem?.encodeId === song.encodeId && isPlaying ? (
               <img className="w-[18px] h-[18px]" src={gifPlay} alt="gifPlay" />
             ) : loadMusic ? (
               <Loading width="18px" height="18px" color="#FFFFFF" />
             ) : (
               <i
                 className={`fa-solid fa-play ${
-                  playItem.encodeId === song.encodeId && !isPlaying ? '' : 'hidden'
+                  playItem?.encodeId === song.encodeId && !isPlaying ? '' : 'hidden'
                 }`}
               />
             )}

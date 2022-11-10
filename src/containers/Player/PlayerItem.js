@@ -13,13 +13,13 @@ const PlayerItem = ({ song, className = '', animations, options = false, numberT
       <div className="player-item flex items-center justify-start p-1">
         <div className="flex items-center">
           <div className="player-item-img mr-2.5 relative">
-            <img className={className} src={song.thumbnail} alt="song" />
+            <img className={className} src={song?.thumbnail} alt="song" />
           </div>
 
           <div className="song-info flex flex-col justify-center mr-5">
-            <p className="mb-1 text-white font-normal">{truncateText(song.title, numberText)}</p>
+            <p className="mb-1 text-white font-normal">{truncateText(song?.title, numberText)}</p>
             <p className="mb-1 text-xs text-[#FFFFFF80]">
-              {truncateText(song.artistsNames, numberText)}
+              {truncateText(song?.artistsNames, numberText)}
             </p>
           </div>
         </div>

@@ -28,7 +28,7 @@ const NewSongCard = ({ item, index }) => {
 
   const handlePlay = async (item) => {
     const audio = document.getElementById('audio')
-    if (playItem.encodeId === item.encodeId) {
+    if (playItem?.encodeId === item.encodeId) {
       if (isPlaying) {
         audio.pause()
         dispatch(pauseSong())
@@ -89,14 +89,14 @@ const NewSongCard = ({ item, index }) => {
               onClick={() => handlePlay(item)}
               className="play-icon text-white w-full h-full absolute top-0 z-10 flex justify-center items-center text-2xl "
             >
-              {playItem.encodeId === item.encodeId && isPlaying ? (
+              {playItem?.encodeId === item.encodeId && isPlaying ? (
                 <img className="w-[24px] h-[24px]" src={gifPlay} alt="gifPlay" />
               ) : loadMusic ? (
                 <Loading width="24px" height="24px" color="#FFFFFF" />
               ) : (
                 <i
                   className={`fa-solid fa-play ${
-                    playItem.encodeId === item.encodeId && !isPlaying ? '' : 'hidden'
+                    playItem?.encodeId === item.encodeId && !isPlaying ? '' : 'hidden'
                   }`}
                 />
               )}

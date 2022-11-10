@@ -70,7 +70,7 @@ const LyricsTab = ({ song, className }) => {
     <div className={`lyrics-tab w-full h-full ${className}`}>
       <Row className="w-full h-full">
         <Col span={24} lg={10} xl={9} className="lyrics-tab-thumb flex justify-center items-center">
-          <img src={song.thumbnailM} alt="" className="w-[90%]  rounded-full" />
+          <img src={song?.thumbnailM} alt="" className="w-[90%]  rounded-full" />
         </Col>
         <Col
           span={24}
