@@ -25,7 +25,6 @@ import {
   loadWeekChart,
   loadZingChart,
 } from '../redux/reducers/homeSlice'
-import { addPlayList } from '../redux/reducers/listSlice'
 import mp3Service from '../services/mp3Services'
 import './home.css'
 

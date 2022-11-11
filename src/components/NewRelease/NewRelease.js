@@ -20,15 +20,12 @@ const NewRelease = () => {
   const tab2 = newReleaseList[keys[1]]
 
   useEffect(() => {
-    if (playList === undefined || JSON.stringify(playList) === '{}') {
-      if (keys[0] === 'vPop') {
-        dispatch(addPlayList(tab1))
-      } else if (keys[1] === 'vPop') {
-        dispatch(addPlayList(tab2))
-      }
+    if (keys[0] === 'vPop') {
+      dispatch(addPlayList(tab1))
+    } else if (keys[1] === 'vPop') {
+      dispatch(addPlayList(tab2))
     }
-
-    if (JSON.stringify(playItem) === '{}') {
+    if (playItem === undefined || JSON.stringify(playItem) === '{}') {
       dispatch(addPlaySong(playList[0]))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
