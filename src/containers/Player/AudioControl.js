@@ -193,7 +193,7 @@ const AudioControl = () => {
       audio.pause()
       dispatch(pauseSong())
     } else {
-      if (audio.source !== '') {
+      if (audio.src !== '') {
         audio.play()
         dispatch(playSong())
         return

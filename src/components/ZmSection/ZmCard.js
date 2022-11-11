@@ -14,7 +14,7 @@ const ZmCard = ({ item, artistName = false }) => {
           </Link>
 
           <div className="card-bonus absolute">
-            <AddLibrary className="m-0" />
+            {/* <AddLibrary className="m-0" /> */}
 
             <svg
               name="play"
