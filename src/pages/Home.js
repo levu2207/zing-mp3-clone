@@ -50,9 +50,8 @@ const Home = () => {
     mp3Service.getHome().then((res) => {
       dispatch(loadBanner(res.data.items[0]))
       dispatch(loadNewRelease(res.data.items[3]))
-      console.log(res.data.items[3].items.vPop)
       if (playList.length === 0) {
-        dispatch(addPlayList(res.data.items[3]))
+        dispatch(addPlayList(res.data.items[3].items.vPop))
       }
       dispatch(loadDayDes(res.data.items[4]))
       dispatch(loadTopSinger(res.data.items[5]))
