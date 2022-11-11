@@ -25,12 +25,15 @@ import {
   loadWeekChart,
   loadZingChart,
 } from '../redux/reducers/homeSlice'
+import { addPlayList } from '../redux/reducers/listSlice'
 import mp3Service from '../services/mp3Services'
 import './home.css'
 
 const Home = () => {
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(true)
+
+  const playList = useSelector((state) => state.list.playList)
 
   const dayDes = useSelector((state) => state.home.dayDes)
   const newMusicEveryDay = useSelector((state) => state.home.newMusicEveryDay)
@@ -47,6 +50,9 @@ const Home = () => {
     mp3Service.getHome().then((res) => {
       dispatch(loadBanner(res.data.items[0]))
       dispatch(loadNewRelease(res.data.items[3]))
+      if (playList.length === 0) {
+        dispatch(addPlayList(res.data.items[3]))
+      }
       dispatch(loadDayDes(res.data.items[4]))
       dispatch(loadTopSinger(res.data.items[5]))
       dispatch(loadNewMusicEveryDay(res.data.items[6]))
