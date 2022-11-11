@@ -39,7 +39,6 @@ const TopSinger = () => {
                 spaceBetween: 20,
               },
             }}
-            navigation
           >
             {singerItems.map((item) => (
               <SwiperSlide key={item.encodeId}>

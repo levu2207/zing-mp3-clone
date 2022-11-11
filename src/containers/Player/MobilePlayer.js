@@ -1,8 +1,16 @@
-import React, { useEffect } from 'react'
+import axios from 'axios'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import Loading from '../../components/Loading/Loading'
-import { addPlaySong } from '../../redux/reducers/listSlice'
+import {
+  addKaraoke,
+  addLyrics,
+  addPlaySong,
+  addRecentList,
+  clearKaraoke,
+  clearLyrics,
+} from '../../redux/reducers/listSlice'
 import {
   endLoadMusic,
   hideKaraoke,
@@ -11,72 +19,131 @@ import {
   showKaraoke,
   startLoadMusic,
 } from '../../redux/reducers/playSlice'
+import api from '../../services/api'
 import mp3Service from '../../services/mp3Services'
+import { lyricsData } from '../../utils/lyricsData'
 import PlayerItem from './PlayerItem'
 
 const MobilePlayer = () => {
   const isPlaying = useSelector((state) => state.play.isPlaying)
+  const isRepeat = useSelector((state) => state.play.isRepeat)
+  const isRandom = useSelector((state) => state.play.isRandom)
   const playList = useSelector((state) => state.list.playList)
   const currentSong = useSelector((state) => state.list.playItem)
   const isLoading = useSelector((state) => state.play.isLoadMusic)
   const isShowKaraoke = useSelector((state) => state.play.showKaraoke)
 
   const dispatch = useDispatch()
+  const cdRef = useRef()
+  const audioRef = useRef()
 
-  const audioOnPlay = () => {
-    console.log('dang play')
-    // const cdThumb = document.querySelector('.player-item-img img')
-    // if (cdThumb) {
-    //   const cdThumbAnimate = cdThumb.animate([{ transform: 'rotate(360deg)' }], {
-    //     duration: 10000,
-    //     iterations: Infinity,
-    //   })
-    //   cdThumbAnimate.pause()
+  useEffect(() => {
+    const cdThumb = document.querySelector('.mobile-player-wrapper .player-item-img > img')
+    if (cdThumb) {
+      cdRef.current = cdThumb.animate([{ transform: 'rotate(360deg)' }], {
+        duration: 20000,
+        iterations: Infinity,
+        easing: 'linear',
+      })
+      cdRef.current.pause()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  })
 
-    //   if (isPlaying) {
-    //     cdThumbAnimate.play()
-    //   } else {
-    //     cdThumbAnimate.pause()
-    //   }
-    // }
+  const handlethumbRotate = () => {
+    // thumb rotate
+    cdRef.current.play()
+  }
+
+  const handlethumbStop = () => {
+    // thumb stop
+    cdRef.current.pause()
   }
 
   useEffect(() => {
-    const audio = document.getElementById('audio')
-    if (audio) {
-      audio.addEventListener('onplay', audioOnPlay)
-    }
+    audioRef.current = document.getElementById('audio')
+
+    audioRef.current.addEventListener('play', handlethumbRotate)
+    audioRef.current.addEventListener('pause', handlethumbStop)
 
     return () => {
-      audio.removeEventListener('onplay', audioOnPlay)
+      audioRef.current.removeEventListener('play', handlethumbRotate)
+      audioRef.current.removeEventListener('pause', handlethumbStop)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const getSongSource = async (item) => {
-    const data = await mp3Service.getSong(item.encodeId)
-    if (data.err === 0) {
-      const source = data.data['128']
-      const newSong = {
-        ...item,
-        source,
-      }
+    const currentSong = mp3Service.getSong(item.encodeId)
+    const currentLyrics = mp3Service.getLyrics(item.encodeId)
+    let newSong
 
-      dispatch(addPlaySong(newSong))
-      return newSong
-    } else if (data.err === -1110) {
-      toast.error('Không load được link nhạc từ sever của mp3...do mình gà quá')
-      return -1
+    await api.promise([currentSong, currentLyrics]).then(
+      api.spread((...res) => {
+        if (res[0].err === 0) {
+          const source = res[0].data['128']
+
+          newSong = {
+            ...item,
+            source,
+          }
+          dispatch(addPlaySong(newSong))
+
+          if (res[1].err === 0) {
+            if (res[1].data.file) {
+              axios.get(`${res[1].data.file}`).then((res) => {
+                if (res) {
+                  const lyrics = lyricsData.parseLyric(res.data)
+                  dispatch(addLyrics(lyrics))
+                } else toast.success('Bài hát chưa có lyrics')
+              })
+            } else {
+              dispatch(clearLyrics())
+            }
+            if (res[1].data.sentences) {
+              dispatch(addKaraoke(res[1].data.sentences))
+            } else {
+              dispatch(clearKaraoke())
+            }
+          }
+        } else {
+          toast.success('Không load được link nhạc từ sever của mp3...do mình gà quá')
+          newSong = -1
+        }
+      })
+    )
+    return newSong
+  }
+
+  const randomSong = async (list, current) => {
+    audioRef.current.pause()
+    audioRef.current.src = ''
+    dispatch(pauseSong())
+
+    const currentIndex = list.findIndex((item) => item.encodeId === current.encodeId)
+    let newIndex
+    let newSong
+    do {
+      newIndex = Math.floor(Math.random() * list.length)
+      newSong = await getSongSource(list[newIndex])
+    } while (newIndex === currentIndex || newSong === -1)
+
+    if (newSong !== -1) {
+      audioRef.current.src = newSong.source
+      dispatch(playSong())
+      dispatch(addRecentList(newSong))
+    } else {
+      toast.error('load nhạc bị lỗi')
     }
   }
 
   const nextSong = async (list, current) => {
-    const audio = document.getElementById('audio')
-    audio.pause()
+    audioRef.current.pause()
+    audioRef.current.src = ''
     dispatch(pauseSong())
 
     let index = list.findIndex((item) => item.encodeId === current.encodeId)
-    let newSong
+    let newSong = 0
 
     do {
       if (index >= list.length - 1) {
@@ -89,30 +156,52 @@ const MobilePlayer = () => {
     } while (newSong === -1)
 
     if (newSong !== -1) {
-      audio.play()
+      audioRef.current.src = newSong.source
       dispatch(playSong())
+      dispatch(addRecentList(newSong))
     } else {
       toast.error('load nhạc bị lỗi')
     }
   }
 
-  const handlePlayMobile = () => {
-    const audio = document.getElementById('audio')
-    if (audio) {
-      if (isPlaying) {
-        audio.pause()
-        dispatch(pauseSong())
-      } else {
-        audio.play()
-        dispatch(playSong())
+  const handlePlayMobile = async () => {
+    if (isPlaying) {
+      audioRef.current.pause()
+      audioRef.current.src = ''
+      dispatch(pauseSong())
+    } else {
+      if (JSON.stringify(currentSong) === 'undefined' || JSON.stringify(currentSong) === '{}') {
+        dispatch(addPlaySong(playList[0]))
       }
-    } else toast.success('Không tìm thấy audio element')
+      dispatch(startLoadMusic())
+      const newSong = await getSongSource(playList[0])
+
+      if (newSong !== -1) {
+        dispatch(addPlaySong(newSong))
+        dispatch(addRecentList(newSong))
+        audioRef.current.src = newSong.source
+        dispatch(playSong())
+        dispatch(endLoadMusic())
+      } else {
+        await nextSong()
+        dispatch(endLoadMusic())
+      }
+    }
   }
 
   const handleNextMobile = async () => {
-    dispatch(startLoadMusic())
-    await nextSong(playList, currentSong)
-    dispatch(endLoadMusic())
+    if (isRepeat) {
+      audioRef.current.currentTime = 0
+    } else {
+      dispatch(startLoadMusic())
+      if (isRandom) {
+        await randomSong(playList, currentSong)
+        dispatch(endLoadMusic())
+      } else {
+        await nextSong(playList, currentSong)
+        dispatch(endLoadMusic())
+      }
+    }
   }
 
   const handleShowKaraoke = () => {

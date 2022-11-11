@@ -42,6 +42,55 @@ const SongItem = ({
 
   const handlePlay = async (item) => {
     const audio = document.getElementById('audio')
+    if (playItem === undefined || JSON.stringify(playItem) === '{}') {
+      dispatch(addPlaySong(item))
+      // get source music
+      setLoadMusic(true)
+
+      const currentSong = mp3Service.getSong(item.encodeId)
+      const currentLyrics = mp3Service.getLyrics(item.encodeId)
+      await api.promise([currentSong, currentLyrics]).then(
+        api.spread((...res) => {
+          if (res[0].err === 0) {
+            const source = res[0].data['128']
+
+            dispatch(
+              addPlaySong({
+                ...item,
+                source,
+              })
+            )
+
+            if (res[1].err === 0) {
+              if (res[1].data.file) {
+                axios.get(`${res[1].data.file}`).then((res) => {
+                  if (res) {
+                    const lyrics = lyricsData.parseLyric(res.data)
+                    dispatch(addLyrics(lyrics))
+                  } else toast.success('Bài hát chưa có lyrics')
+                })
+              } else {
+                dispatch(clearLyrics())
+              }
+              if (res[1].data.sentences) {
+                dispatch(addKaraoke(res[1].data.sentences))
+              } else {
+                dispatch(clearKaraoke())
+              }
+            }
+          } else if (res[0].err === -1110) {
+            toast.success('Không load được link nhạc từ sever của mp3...do mình gà quá')
+          }
+
+          // audio.src = playItem.source
+          dispatch(playSong())
+          setLoadMusic(false)
+          dispatch(endLoadMusic())
+          dispatch(addRecentList(item))
+        })
+      )
+      return
+    }
     if (playItem.encodeId === item.encodeId) {
       if (isPlaying) {
         audio.pause()

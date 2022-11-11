@@ -1,11 +1,8 @@
 import React from 'react'
 import 'swiper/css'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Autoplay } from 'swiper'
 import ZmCard from './ZmCard'
 import './zmSection.css'
-import 'swiper/css/autoplay'
-import 'swiper/css/navigation'
 
 const ZmSection = ({ section }) => {
   const sectionItems = section.items
@@ -18,8 +15,6 @@ const ZmSection = ({ section }) => {
         </div>
         <div className="section-content">
           <Swiper
-            module={[Navigation, Autoplay]}
-            autoplay={{ delay: 1000 }}
             slidesPerView={1}
             spaceBetween={20}
             breakpoints={{
