@@ -167,9 +167,13 @@ const MobilePlayer = () => {
   const handlePlayMobile = async () => {
     if (isPlaying) {
       audioRef.current.pause()
-      audioRef.current.src = ''
       dispatch(pauseSong())
     } else {
+      if (audioRef.current.source !== '') {
+        audioRef.current.play()
+        dispatch(playSong())
+        return
+      }
       if (JSON.stringify(currentSong) === 'undefined' || JSON.stringify(currentSong) === '{}') {
         dispatch(addPlaySong(playList[0]))
       }
@@ -179,6 +183,7 @@ const MobilePlayer = () => {
       if (newSong !== -1) {
         dispatch(addPlaySong(newSong))
         dispatch(addRecentList(newSong))
+        audioRef.current.src = ''
         audioRef.current.src = newSong.source
         dispatch(playSong())
         dispatch(endLoadMusic())

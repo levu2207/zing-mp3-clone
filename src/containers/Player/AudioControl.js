@@ -191,9 +191,13 @@ const AudioControl = () => {
     const audio = document.getElementById('audio')
     if (isPlaying) {
       audio.pause()
-      audio.src = ''
       dispatch(pauseSong())
     } else {
+      if (audio.source !== '') {
+        audio.play()
+        dispatch(playSong())
+        return
+      }
       if (listSong.length === 0) {
         toast.error('Vui lòng chọn bài hát!')
       }
@@ -206,6 +210,7 @@ const AudioControl = () => {
       if (newSong !== -1) {
         dispatch(addPlaySong(newSong))
         dispatch(addRecentList(newSong))
+        audio.src = ''
         audio.src = newSong.source
         dispatch(playSong())
         dispatch(endLoadMusic())
