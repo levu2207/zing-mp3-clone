@@ -20,10 +20,12 @@ const NewRelease = () => {
   const tab2 = newReleaseList[keys[1]]
 
   useEffect(() => {
-    if (keys[0] === 'vPop') {
-      dispatch(addPlayList(tab1))
-    } else if (keys[1] === 'vPop') {
-      dispatch(addPlayList(tab2))
+    if (playList.length === 0) {
+      if (keys[0] === 'vPop') {
+        dispatch(addPlayList(tab1))
+      } else if (keys[1] === 'vPop') {
+        dispatch(addPlayList(tab2))
+      }
     }
     if (playItem === undefined || JSON.stringify(playItem) === '{}') {
       dispatch(addPlaySong(playList[0]))
