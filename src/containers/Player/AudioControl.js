@@ -194,6 +194,9 @@ const AudioControl = () => {
       audio.src = ''
       dispatch(pauseSong())
     } else {
+      if (listSong.length === 0) {
+        toast.error('Vui lòng chọn bài hát!')
+      }
       if (JSON.stringify(currentSong) === 'undefined' || JSON.stringify(currentSong) === '{}') {
         dispatch(addPlaySong(listSong[0]))
       }
