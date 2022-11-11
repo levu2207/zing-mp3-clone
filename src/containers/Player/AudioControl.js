@@ -24,8 +24,7 @@ import mp3Service from '../../services/mp3Services'
 import { lyricsData } from '../../utils/lyricsData'
 import ProgressBar from './ProgressBar'
 
-const AudioControl = () => {
-  const currentSong = useSelector((state) => state.list.playItem)
+const AudioControl = ({ currentSong }) => {
   const listSong = useSelector((state) => state.list.playList)
   const isPlaying = useSelector((state) => state.play.isPlaying)
   const isRandom = useSelector((state) => state.play.isRandom)
@@ -193,7 +192,8 @@ const AudioControl = () => {
       audio.pause()
       dispatch(pauseSong())
     } else {
-      if (audio.src !== '') {
+      if (currentSong.source) {
+        console.log(audio.src)
         audio.play()
         dispatch(playSong())
         return

@@ -34,7 +34,7 @@ const Player = () => {
             )}
           </Col>
           <Col span={8} lg={10}>
-            <AudioControl />
+            <AudioControl currentSong={playItem} />
           </Col>
           <Col className={`${isShowKaraoke && 'opacity-0'}`} span={8} lg={7}>
             <PlayerSub />
