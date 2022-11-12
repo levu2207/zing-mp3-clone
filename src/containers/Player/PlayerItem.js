@@ -20,8 +20,10 @@ const PlayerItem = ({ song, className = '', animations, options = false, numberT
             </div>
 
             <div className="song-info flex flex-col justify-center mr-5">
-              <p className="mb-1 text-white font-normal">{truncateText(song?.title, numberText)}</p>
-              <p className="mb-1 text-xs text-[#FFFFFF80]">
+              <span className="mb-1 text-white font-normal">
+                {truncateText(song?.title, numberText)}
+              </span>
+              <p className="mb-1 text-xs text-[#FFFFFF80] text-ellipsis">
                 {truncateText(song?.artistsNames, numberText)}
               </p>
             </div>

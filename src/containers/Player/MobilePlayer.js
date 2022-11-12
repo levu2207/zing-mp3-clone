@@ -48,7 +48,7 @@ const MobilePlayer = () => {
       cdRef.current.pause()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  })
+  }, [])
 
   const handlethumbRotate = () => {
     // thumb rotate

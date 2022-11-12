@@ -21,7 +21,7 @@ const Player = () => {
         } `}
       >
         <Row gutter={16}>
-          <Col className={`${isShowKaraoke && 'opacity-0'}`} span={8} lg={7}>
+          <Col className={`${isShowKaraoke && 'opacity-0'}`} span={0} lg={7}>
             {playItem === undefined || JSON.stringify(playItem) === '{}' ? (
               <Skeleton height="68px" className="!bg-[#1a1129]" />
             ) : (
@@ -33,10 +33,10 @@ const Player = () => {
               />
             )}
           </Col>
-          <Col span={8} lg={10}>
+          <Col span={isShowKaraoke ? 24 : 14} lg={10}>
             <AudioControl currentSong={playItem} />
           </Col>
-          <Col className={`${isShowKaraoke && 'opacity-0'}`} span={8} lg={7}>
+          <Col className={`${isShowKaraoke && 'opacity-0'}`} span={isShowKaraoke ? 0 : 10} lg={7}>
             <PlayerSub />
           </Col>
         </Row>

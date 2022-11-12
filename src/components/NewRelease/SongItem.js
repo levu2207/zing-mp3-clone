@@ -54,12 +54,12 @@ const SongItem = ({
           if (res[0].err === 0) {
             const source = res[0].data['128']
 
-            dispatch(
-              addPlaySong({
-                ...item,
-                source,
-              })
-            )
+            const newSong = {
+              ...item,
+              source,
+            }
+            dispatch(addPlaySong(newSong))
+            dispatch(addRecentList(newSong))
 
             if (res[1].err === 0) {
               if (res[1].data.file) {
@@ -86,7 +86,6 @@ const SongItem = ({
           dispatch(playSong())
           setLoadMusic(false)
           dispatch(endLoadMusic())
-          dispatch(addRecentList(item))
         })
       )
       return

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import truncateText from '../../utils/truncateText'
-import AddLibrary from '../AddLibrary/AddLibrary'
 import Option from '../Option/Option'
 
 const ZmCard = ({ item, artistName = false }) => {

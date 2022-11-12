@@ -35,7 +35,6 @@ const NewSong = ({ section }) => {
                 spaceBetween: 20,
               },
             }}
-            navigation
           >
             {sectionItems.map((item, index) => (
               <SwiperSlide key={item.encodeId}>

@@ -54,6 +54,10 @@ const NewRelease = () => {
     setCurrentTab(e.target.id)
   }
 
+  const handleAddPlayList = () => {
+    dispatch(addPlayList(tab1))
+  }
+
   return (
     <div className="new-release">
       <div className="new-release-title">
@@ -70,7 +74,11 @@ const NewRelease = () => {
         <div className="new-release-content">
           <Tabs onClick={(e) => handleTabClick(e)} currentTab={currentTab} tabs={tabs} />
           <div className="content-info mt-4">
-            {currentTab === '1' ? <Song songs={tab1} /> : <Song songs={tab2} />}
+            {currentTab === '1' ? (
+              <Song songs={tab1} onClick={handleAddPlayList} />
+            ) : (
+              <Song songs={tab2} />
+            )}
           </div>
         </div>
       )}
