@@ -1,3 +1,4 @@
+import ArtistsPage from '../pages/Artists/ArtistsPage'
 import ChartHome from '../pages/ChartHome/ChartHome'
 import Home from '../pages/Home'
 import Hub from '../pages/Hub'
@@ -16,6 +17,7 @@ const routes = [
   { path: '/moi-phat-hanh', component: <NewMusic /> },
   { path: '/hub', component: <Hub /> },
   { path: '/top100', component: <Top100 /> },
+  { path: '/nghe-si/:alias', component: <ArtistsPage /> },
   { path: '*', component: <NotFound /> },
 ]
 

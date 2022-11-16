@@ -25,7 +25,11 @@
 }
 
 .search-container {
+  border-radius: 20px;
   background-color: hsla(0, 0%, 100%, 0.1);
+}
+.search-background {
+  background-color: #34224f;
   border-radius: 20px;
 }
 

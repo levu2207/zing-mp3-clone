@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import store from '../redux/store'
 
 const url = {
   baseUrl: process.env.REACT_APP_API_BASE_URL,
@@ -11,12 +10,12 @@ const url = {
   chartPage: '/chart-home',
   newSong: '/new-chart',
   listVideo: '/video',
+  artist: '/artist',
 }
 
 const instance = axios.create({
   baseURL: url.baseUrl,
   header: {
-    // 'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
@@ -24,12 +23,6 @@ const instance = axios.create({
 
 // Add a request interceptor
 instance.interceptors.request.use((request) => {
-  // const state = store.getState()
-
-  // if (state.auth.token) {
-  //   request.headers.token = `${state.auth.token}`
-  // }
-
   return request
 })
 
