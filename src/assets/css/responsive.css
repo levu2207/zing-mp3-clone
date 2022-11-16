@@ -164,7 +164,7 @@
   .gallery-item:nth-child(1) {
     transform: translateX(0);
     opacity: 1;
-    z-index: 20;
+    z-index: 1;
   }
   .gallery-item:nth-child(2) {
     transform: translateX(100%);
