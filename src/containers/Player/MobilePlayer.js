@@ -52,12 +52,12 @@ const MobilePlayer = () => {
 
   const handlethumbRotate = () => {
     // thumb rotate
-    cdRef.current.play()
+    cdRef.current?.play()
   }
 
   const handlethumbStop = () => {
     // thumb stop
-    cdRef.current.pause()
+    cdRef.current?.pause()
   }
 
   useEffect(() => {
