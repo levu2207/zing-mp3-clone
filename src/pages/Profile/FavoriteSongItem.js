@@ -31,31 +31,17 @@ const FavoriteSongItem = ({ song, number = 0 }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const handlePlay = (item) => {
+  const handlePlay = async (item) => {
     const audio = document.getElementById('audio')
-    if (playItem.encodeId === item.encodeId) {
-      if (isPlaying) {
-        audio.pause()
-        dispatch(pauseSong())
-      } else {
-        audio.play()
-        dispatch(playSong())
-      }
-    } else {
-      audio.pause()
-      audio.src = ''
-      dispatch(pauseSong())
-      dispatch(startLoadMusic())
-
+    if (playItem === undefined || JSON.stringify(playItem) === '{}') {
+      dispatch(addPlaySong(item))
       // get source music
       setLoadMusic(true)
-      dispatch(addPlaySong(item))
 
       const currentSong = mp3Service.getSong(item.encodeId)
       const currentLyrics = mp3Service.getLyrics(item.encodeId)
-      api.promise([currentSong, currentLyrics]).then(
+      await api.promise([currentSong, currentLyrics]).then(
         api.spread((...res) => {
-          console.log(...res)
           if (res[0].err === 0) {
             const source = res[0].data['128']
 
@@ -88,6 +74,66 @@ const FavoriteSongItem = ({ song, number = 0 }) => {
           }
 
           // audio.src = playItem.source
+          dispatch(playSong())
+          setLoadMusic(false)
+          dispatch(endLoadMusic())
+        })
+      )
+      return
+    }
+    if (playItem.encodeId === item.encodeId) {
+      if (isPlaying) {
+        audio.pause()
+        dispatch(pauseSong())
+      } else {
+        audio.play()
+        dispatch(playSong())
+      }
+    } else {
+      audio.pause()
+      audio.src = ''
+      dispatch(pauseSong())
+      dispatch(startLoadMusic())
+
+      // get source music
+      setLoadMusic(true)
+
+      const currentSong = mp3Service.getSong(item.encodeId)
+      const currentLyrics = mp3Service.getLyrics(item.encodeId)
+      await api.promise([currentSong, currentLyrics]).then(
+        api.spread((...res) => {
+          if (res[0].err === 0) {
+            const source = res[0].data['128']
+
+            const newSong = {
+              ...item,
+              source,
+            }
+            dispatch(addPlaySong(newSong))
+            dispatch(addRecentList(newSong))
+
+            if (res[1].err === 0) {
+              if (res[1].data.file) {
+                axios.get(`${res[1].data.file}`).then((res) => {
+                  if (res) {
+                    const lyrics = lyricsData.parseLyric(res.data)
+                    dispatch(addLyrics(lyrics))
+                  } else toast.success('Bài hát chưa có lyrics')
+                })
+              } else {
+                dispatch(clearLyrics())
+              }
+              if (res[1].data.sentences) {
+                dispatch(addKaraoke(res[1].data.sentences))
+              } else {
+                dispatch(clearKaraoke())
+              }
+            }
+          } else if (res[0].err === -1110) {
+            toast.success('Không load được link nhạc từ sever của mp3...do mình gà quá')
+          }
+
+          audio.src = playItem.source
           dispatch(playSong())
           setLoadMusic(false)
           dispatch(endLoadMusic())
