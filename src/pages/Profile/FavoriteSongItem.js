@@ -2,6 +2,7 @@ import { Col, Row } from 'antd'
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import gifPlay from '../../assets/icon-playing.gif'
 import AddLibrary from '../../components/AddLibrary/AddLibrary'
@@ -28,6 +29,7 @@ const FavoriteSongItem = ({ song, number = 0 }) => {
   const isPlaying = useSelector((state) => state.play.isPlaying)
   const favoriteSongs = useSelector((state) => state.favorite.favoriteSongs)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handlePlay = (item) => {
     const audio = document.getElementById('audio')
@@ -85,13 +87,21 @@ const FavoriteSongItem = ({ song, number = 0 }) => {
             toast.success('Không load được link nhạc từ sever của mp3...do mình gà quá')
           }
 
-          audio.src = playItem.source
+          // audio.src = playItem.source
           dispatch(playSong())
           setLoadMusic(false)
           dispatch(endLoadMusic())
-          dispatch(addRecentList(playItem))
         })
       )
+    }
+  }
+
+  const handleNavigateToArtist = (data) => {
+    console.log(data.artists[0].link.slice(1, 8))
+    if (data.artists[0].link.slice(1, 8) === 'nghe-si') {
+      navigate(data.artists[0].link)
+    } else {
+      navigate(`/nghe-si${data.artists[0].link}`)
     }
   }
 
@@ -177,7 +187,12 @@ const FavoriteSongItem = ({ song, number = 0 }) => {
             )}
           </span>
 
-          <p className="mb-1 text-xs text-[#FFFFFF80]">{truncateText(song.artistsNames, 20)}</p>
+          <p
+            onClick={() => handleNavigateToArtist(song)}
+            className="mb-1 text-xs text-[#FFFFFF80] hover:cursor-pointer hover:underline"
+          >
+            {truncateText(song.artistsNames, 20)}
+          </p>
         </div>
       </Col>
 

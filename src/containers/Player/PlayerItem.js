@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import AddLibrary from '../../components/AddLibrary/AddLibrary'
 import Option from '../../components/Option/Option'
 import truncateText from '../../utils/truncateText'
@@ -7,6 +8,15 @@ import checkIsFavorite from './../../utils/checkIsFavorite'
 
 const PlayerItem = ({ song, className = '', animations, options = false, numberText }) => {
   const favoriteSongs = useSelector((state) => state.favorite.favoriteSongs)
+  const navigate = useNavigate()
+
+  const handleNavigateToArtist = (data) => {
+    console.log(data.artists[0].link.slice(1, 7))
+    if (data.artists[0].link.slice(1, 7) === 'nghe-si') {
+      navigate(data.artists[0].link)
+    }
+    navigate(`/nghe-si${data.artists[0].link}`)
+  }
 
   return (
     <>
@@ -23,7 +33,10 @@ const PlayerItem = ({ song, className = '', animations, options = false, numberT
               <span className="mb-1 text-white font-normal">
                 {truncateText(song?.title, numberText)}
               </span>
-              <p className="mb-1 text-xs text-[#FFFFFF80] text-ellipsis">
+              <p
+                onClick={() => handleNavigateToArtist(song)}
+                className="mb-1 text-xs text-[#FFFFFF80] text-ellipsis hover:underline hover:cursor-pointer"
+              >
                 {truncateText(song?.artistsNames, numberText)}
               </p>
             </div>

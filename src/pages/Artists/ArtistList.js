@@ -1,12 +1,16 @@
 import React from 'react'
-import 'swiper/css'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import VideoItem from '../../pages/MV/VideoItem'
-import ZmCard from './ZmCard'
-import './zmSection.css'
+import 'swiper/css'
+import { convertDate } from '../../utils/convertDate'
+import { useNavigate } from 'react-router-dom'
 
-const ZmSection = ({ section, album = true }) => {
+const ArtistList = ({ section }) => {
   const sectionItems = section.items
+  const navigate = useNavigate()
+
+  const handleNavigateToArtist = (data) => {
+    navigate(`/nghe-si${data.link}`)
+  }
 
   return (
     <div className="zm-section mt-12">
@@ -42,8 +46,25 @@ const ZmSection = ({ section, album = true }) => {
             }}
           >
             {sectionItems.map((item) => (
-              <SwiperSlide key={item.encodeId}>
-                {album ? <ZmCard item={item} artistName={true} /> : <VideoItem item={item} />}
+              <SwiperSlide key={`${item.encodeId}${Math.random(16)}`}>
+                <div
+                  onClick={() => handleNavigateToArtist(item)}
+                  className="slider-artist-item text-white flex flex-col items-center hover:cursor-pointer"
+                >
+                  <div className="slider-artist-img overflow-hidden rounded-full">
+                    <img
+                      src={item.thumbnailM}
+                      alt=""
+                      className="w-[220px] rounded-full hover:scale-110 transition-all duration-700"
+                    />
+                  </div>
+
+                  <span className="mt-4 mb-2">{item.name}</span>
+
+                  <span className="text-text-second text-xs">{`${convertDate.convertFollow(
+                    item.totalFollow
+                  )} quan tâm`}</span>
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
@@ -53,4 +74,4 @@ const ZmSection = ({ section, album = true }) => {
   )
 }
 
-export default ZmSection
+export default ArtistList

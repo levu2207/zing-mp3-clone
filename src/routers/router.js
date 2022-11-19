@@ -4,6 +4,7 @@ import Home from '../pages/Home'
 import Hub from '../pages/Hub'
 import NewMusic from '../pages/NewMusic/NewMusic'
 import NotFound from '../pages/NotFound'
+import PlaylistPage from '../pages/PlaylistPage/PlaylistPage'
 import Radio from '../pages/Radio'
 import Social from '../pages/Social'
 import Top100 from '../pages/Top100'
@@ -18,6 +19,7 @@ const routes = [
   { path: '/hub', component: <Hub /> },
   { path: '/top100', component: <Top100 /> },
   { path: '/nghe-si/:alias', component: <ArtistsPage /> },
+  { path: '/playlist/:alias', component: <PlaylistPage /> },
   { path: '*', component: <NotFound /> },
 ]
 

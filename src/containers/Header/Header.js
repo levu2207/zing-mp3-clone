@@ -15,7 +15,7 @@ const Header = () => {
   const list = searchList?.songs?.slice(1, 6)
 
   const clickOutSearch = (e) => {
-    if (!e.target.closest('.search-container') && e.target.parentElement) {
+    if (!e.target.closest('.input-wrapper')) {
       setSearchList([])
       setShow(false)
       searchRef.current.value = ''

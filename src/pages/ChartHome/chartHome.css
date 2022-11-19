@@ -26,6 +26,15 @@
   left: 0;
   right: 0;
 }
+.bg-alpha-2 {
+  background-color: rgba(41, 21, 71, 0.8);
+  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 .chart-page-header {
   position: relative;
   display: flex;

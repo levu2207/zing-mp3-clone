@@ -3,9 +3,9 @@ import { convertDate } from '../../utils/convertDate'
 import truncateText from '../../utils/truncateText'
 import albumDisk from '../../assets/album-disk.png'
 
-const AlbumItem = ({ album }) => {
+const AlbumItem = ({ album, realDate = false }) => {
   return (
-    <div className="album-item  p-2.5 pl-4 flex">
+    <div className="album-item p-2.5 pl-4 flex hover:cursor-pointer">
       <div className="album-img w-[87px] h-[87px] mr-2.5 relative">
         <img
           className="w-full h-full absolute z-10 top-0 rounded"
@@ -19,9 +19,11 @@ const AlbumItem = ({ album }) => {
       </div>
 
       <div className="album-info ml-3 flex flex-col justify-center">
-        <p className="mb-2">{truncateText(album.title, 24)}</p>
-        <p className="mb-2 text-xs text-[#FFFFFF80]">{truncateText(album.artistsNames, 24)}</p>
-        <p className="text-xs text-[#FFFFFF80]">{convertDate.releaseDate(album.releaseDate)}</p>
+        <p className="mb-2">{truncateText(album.title, 40)}</p>
+        <p className="mb-2 text-xs text-[#FFFFFF80]">{truncateText(album.artistsNames, 40)}</p>
+        <p className="text-xs text-[#FFFFFF80]">
+          {realDate ? album.releaseDate : convertDate.releaseDate(album.releaseDate)}
+        </p>
       </div>
     </div>
   )

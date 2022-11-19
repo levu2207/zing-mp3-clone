@@ -115,6 +115,9 @@
   }
 }
 @media (max-width: 992px) {
+  .container-all {
+    padding: 0 30px;
+  }
   .lyrics-tab .lyrics-tab-thumb {
     display: none;
   }
@@ -130,6 +133,20 @@
   }
   .karaoke-text {
     height: 300px;
+  }
+  .artist-thumb {
+    display: none;
+  }
+  .hero-info {
+    width: 100%;
+  }
+  .list-song-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .artist-list-song {
+    margin-top: 40px;
+    width: 100%;
   }
 }
 
@@ -147,6 +164,9 @@
 }
 
 @media (max-width: 640px) {
+  .container-all {
+    padding: 0 15px;
+  }
   .header .header-right button:not(:last-child) {
     display: none;
   }
@@ -199,6 +219,9 @@
   }
   .karaoke-text {
     height: 200px;
+  }
+  .artist-content {
+    margin-bottom: 100px;
   }
 }
 

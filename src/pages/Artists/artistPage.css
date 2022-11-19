@@ -1,0 +1,74 @@
+/* artist page */
+.bg-artist {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  filter: blur(50px);
+  overflow: hidden;
+}
+.container-all {
+  padding: 0 50px;
+  width: 100%;
+  height: 100%;
+}
+.hero-artist-name {
+  font-size: 40px;
+}
+.artist-list-song {
+  width: calc(100% - 300px);
+}
+.artist-list-song::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+.artist-list-song::-webkit-scrollbar-track {
+  background-color: #170f23;
+}
+.artist-list-song::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: #ffffff1a;
+}
+
+.artist-desc::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+.artist-desc::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.artist-desc::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: #ffffff1a;
+  display: none;
+}
+.artist-desc:hover::-webkit-scrollbar-thumb {
+  display: block;
+}
+
+/* slider song img */
+.artist-slider-item:nth-child(1) {
+  transform: translateX(0);
+  opacity: 1;
+  z-index: 3;
+  transition: transform 0.7s ease-in-out, opacity 0.5s ease-in-out, z-index 0.7s linear;
+}
+.artist-slider-item:nth-child(2) {
+  transform: translateX(-20%) scale(0.8);
+  opacity: 0.9;
+  z-index: 2;
+  transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out, z-index 0.7s linear;
+}
+.artist-slider-item:nth-child(3) {
+  transform: translateX(-40%) scale(0.6);
+  opacity: 0.8;
+  z-index: 1;
+  transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out, z-index 0.7s linear;
+}
+.artist-slider-item:nth-child(n + 4) {
+  transform: translateX(-40%) scale(0.6);
+  opacity: 0.7;
+  z-index: 0;
+  transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out, z-index 0.7s linear;
+}

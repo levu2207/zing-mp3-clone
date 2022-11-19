@@ -10,7 +10,7 @@ const VideoItem = ({ item }) => {
       </div>
 
       <div className="video-info h-[60px] py-2.5 flex ">
-        <img className="h-full rounded-full" src={item.artist.thumbnail} alt="" />
+        <img className="h-full rounded-full" src={item.artist?.thumbnail} alt="" />
         <div className="video-name flex flex-col justify-between ml-2">
           <span>{truncateText(item.title, 25)}</span>
           <span className="text-xs text-text-second">{truncateText(item.artistsNames, 25)}</span>
