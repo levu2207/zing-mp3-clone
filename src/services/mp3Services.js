@@ -16,6 +16,8 @@ const getNewSongList = () => api.get(api.url.newSong)
 
 const getListVideo = (params) => api.get(api.url.listVideo, { params })
 
+const getVideo = (id) => api.get(`${api.url.video}/${id}`)
+
 const searchSong = (search) => api.get(api.url.song, { params: { search: search } })
 
 const getArtistInfo = (name) => api.get(`${api.url.artist}/${name}`)
@@ -31,6 +33,7 @@ const mp3Service = {
   getListChartPage,
   getNewSongList,
   getListVideo,
+  getVideo,
   searchSong,
   getArtistInfo,
   getAlbum,

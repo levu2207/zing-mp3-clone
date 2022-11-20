@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Banner from '../components/Banner/Banner'
@@ -16,11 +15,9 @@ import {
   loadArtistSpotlight,
   loadBanner,
   loadDayDes,
-  loadEvent,
   loadNewMusicEveryDay,
   loadNewRelease,
   loadNewSong,
-  loadRadio,
   loadTop100,
   loadTopSinger,
   loadWeekChart,
@@ -58,8 +55,6 @@ const Home = () => {
       dispatch(loadNewSong(res.data.items[11]))
       dispatch(loadAfterNewSong(res.data.items[12]))
       dispatch(loadAlbumArtist(res.data.items[14]))
-      dispatch(loadRadio(res.data.items[15]))
-      dispatch(loadEvent(res.data.items[16]))
       setLoading(false)
     })
 

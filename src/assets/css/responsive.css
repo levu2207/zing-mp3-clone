@@ -63,9 +63,7 @@
   .sidebar-library {
     display: none;
   }
-  button.sidebar-playlist {
-    display: none;
-  }
+  
   button.show-sidebar {
     display: block;
   }

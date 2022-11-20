@@ -15,8 +15,6 @@ const homeSlice = createSlice({
     newSong: [],
     afterNewSong: [],
     albumArtist: [],
-    radio: [],
-    event: [],
   },
   reducers: {
     loadBanner(state, action) {
@@ -78,16 +76,6 @@ const homeSlice = createSlice({
       const albumArtist = action.payload
       state.albumArtist = albumArtist
     },
-
-    loadRadio(state, action) {
-      const radio = action.payload
-      state.radio = radio
-    },
-
-    loadEvent(state, action) {
-      const event = action.payload
-      state.event = event
-    },
   },
 })
 
@@ -104,7 +92,5 @@ export const {
   loadNewSong,
   loadAfterNewSong,
   loadAlbumArtist,
-  loadRadio,
-  loadEvent,
 } = homeSlice.actions
 export default homeSlice.reducer

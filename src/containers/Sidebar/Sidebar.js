@@ -366,10 +366,7 @@ const Sidebar = () => {
             <i className="fa-solid fa-chevron-right"></i>
           )}
         </button>
-        <button className="sidebar-playlist h-[54px] w-full px-7 border-t border-border-bg">
-          <i className="fa-regular fa-plus text-[18px] text-white mr-2.5" />
-          <span className="text-white">Tạo playlist mới</span>
-        </button>
+        
       </div>
     </div>
   )
