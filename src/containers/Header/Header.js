@@ -32,7 +32,6 @@ const Header = () => {
         } else {
           toast.success(res.message)
         }
-        console.log(res.data)
         setLoading(false)
       })
     }

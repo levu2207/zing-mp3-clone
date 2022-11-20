@@ -1,9 +1,15 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import truncateText from '../../utils/truncateText'
 import Option from '../Option/Option'
 
 const ZmCard = ({ item, artistName = false }) => {
+  const navigate = useNavigate()
+
+  const handleNavigateToAlbum = (data) => {
+    navigate(data?.link.slice(0, data?.link.length - 5))
+  }
+
   return (
     <div className="section-zm-card relative">
       <div className="zm-card text-white">
@@ -12,9 +18,7 @@ const ZmCard = ({ item, artistName = false }) => {
             <img src={item.thumbnailM} alt="" />
           </Link>
 
-          <div className="card-bonus absolute">
-            {/* <AddLibrary className="m-0" /> */}
-
+          <div onClick={() => handleNavigateToAlbum(item)} className="card-bonus absolute">
             <svg
               name="play"
               stroke="currentColor"

@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import AddPlaylistBtn from '../../components/AddPlaylistBtn/AddPlaylistBtn'
 import LoadList from '../../components/Loading/LoadList'
-import { addPlayList } from '../../redux/reducers/listSlice'
 import mp3Service from '../../services/mp3Services'
 import { convertDate } from '../../utils/convertDate'
 import FavoriteSongItem from '../Profile/FavoriteSongItem'
-import './artistPage.css'
+import AlbumItem from './../../components/NewRelease/AlbumItem'
 import ZmSection from './../../components/ZmSection/ZmSection'
 import ArtistList from './ArtistList'
-import AlbumItem from './../../components/NewRelease/AlbumItem'
+import './artistPage.css'
 
 const ArtistsPage = () => {
-  const dispatch = useDispatch()
   const { alias } = useParams()
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -21,7 +19,6 @@ const ArtistsPage = () => {
     setLoading(true)
     mp3Service.getArtistInfo(alias).then((res) => {
       if (res.err === 0) {
-        console.log(res.data)
         const data = res.data
         setData(data)
         setLoading(false)
@@ -73,12 +70,8 @@ const ArtistsPage = () => {
                   }}
                 ></p>
                 <div className="hero-btn mt-5">
-                  <button
-                    onClick={() => dispatch(addPlayList(data?.sections[0]?.items))}
-                    className="btn uppercase py-2.5 px-6 bg-purple rounded-full mr-4 hover:opacity-80"
-                  >
-                    <i className="fa-solid fa-play mr-3"></i> phát nhạc
-                  </button>
+                  <AddPlaylistBtn data={data} />
+
                   <button className="btn uppercase py-2.5 px-5 bg-purple rounded-full">{`quan tâm • ${convertDate.convertFollow(
                     data.follow
                   )}`}</button>
@@ -128,45 +121,55 @@ const ArtistsPage = () => {
             </div>
 
             {/* list album */}
-            <div className="artist-section">
-              <ZmSection
-                section={data?.sections[1]}
-                album={data?.sections[2].sectionType === 'playlist'}
-              />
-            </div>
-
-            {/* list album */}
-            <div className="artist-section">
-              <ZmSection
-                section={data?.sections[2]}
-                album={data?.sections[2].sectionType === 'playlist'}
-              />
-            </div>
-
-            {/* list MV */}
-            <div className="artist-section">
-              <ZmSection
-                section={data?.sections[3]}
-                album={data?.sections[3].sectionType === 'playlist'}
-              />
-            </div>
-
-            {/* playlist */}
-            {data?.sections[4].sectionType === 'artist' ? (
-              <div className="artist-section">
-                <ArtistList section={data?.sections[4]} />
-              </div>
-            ) : (
+            {data?.sections[1] && (
               <div className="artist-section">
                 <ZmSection
-                  section={data?.sections[4]}
-                  album={data?.sections[4].sectionType === 'playlist'}
+                  section={data?.sections[1]}
+                  album={data?.sections[1].sectionType === 'playlist'}
+                />
+              </div>
+            )}
+
+            {/* list album */}
+            {data?.sections[2] && (
+              <div className="artist-section">
+                <ZmSection
+                  section={data?.sections[2]}
+                  album={data?.sections[2].sectionType === 'playlist'}
+                />
+              </div>
+            )}
+
+            {/* list MV */}
+            {data?.sections[3] && (
+              <div className="artist-section">
+                <ZmSection
+                  section={data?.sections[3]}
+                  album={data?.sections[3].sectionType === 'playlist'}
                 />
               </div>
             )}
 
             {/* playlist */}
-            {data?.sections.length < 6 ? (
+            {data?.sections[4] ? (
+              data?.sections[4].sectionType === 'artist' ? (
+                <div className="artist-section">
+                  <ArtistList section={data?.sections[4]} />
+                </div>
+              ) : (
+                <div className="artist-section">
+                  <ZmSection
+                    section={data?.sections[4]}
+                    album={data?.sections[4].sectionType === 'playlist'}
+                  />
+                </div>
+              )
+            ) : (
+              ''
+            )}
+
+            {/* playlist */}
+            {!data?.sections[5] ? (
               ''
             ) : data?.sections[5]?.sectionType === 'artist' ? (
               <div className="artist-section">

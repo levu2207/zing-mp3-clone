@@ -20,6 +20,8 @@ const searchSong = (search) => api.get(api.url.song, { params: { search: search 
 
 const getArtistInfo = (name) => api.get(`${api.url.artist}/${name}`)
 
+const getAlbum = (id) => api.get(`${api.url.playlist}/${id}`)
+
 const mp3Service = {
   getHome,
   getTop100,
@@ -31,6 +33,7 @@ const mp3Service = {
   getListVideo,
   searchSong,
   getArtistInfo,
+  getAlbum,
 }
 
 export default mp3Service

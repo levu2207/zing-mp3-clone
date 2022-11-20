@@ -75,17 +75,14 @@ const Chart = ({ chart, listSong, totalScore }) => {
     const timeNow = new Date().getHours()
     const index = times.findIndex((item) => item.hour === timeNow.toString())
     chart.setActiveElements([{ datasetIndex: 0, index: index }])
-    console.log(chart)
     if (!tooltip) {
       return
     }
-    console.log(tooltip.getActiveElements().length)
     if (tooltip.getActiveElements().length > 0) {
       tooltip.setActiveElements([], { x: 0, y: 0 })
     } else {
       const x = chart._active[0].element.x
       const y = chart._active[0].element.y
-      console.log(x)
 
       tooltip.setActiveElements(
         [
@@ -170,7 +167,6 @@ const Chart = ({ chart, listSong, totalScore }) => {
   // trigger
   const externalTooltipHandler = (context) => {
     const { chart, tooltip } = context
-    console.log(tooltip, chart)
 
     songInfo = JSON.parse(tooltip.dataPoints[0].dataset.label)
 

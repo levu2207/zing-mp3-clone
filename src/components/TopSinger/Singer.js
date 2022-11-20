@@ -1,12 +1,17 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Singer = ({ item }) => {
+  const navigate = useNavigate()
   const songs = item.song.items
   let images = []
 
   for (let i = 0; i < songs.length - 1; i++) {
     images.push(songs[i].thumbnailM)
+  }
+
+  const handleNavigateToAlbum = (data) => {
+    navigate(data?.link?.slice(0, data?.link.length - 5))
   }
 
   return (
@@ -16,7 +21,10 @@ const Singer = ({ item }) => {
           <img className="rounded" src={item.thumbnailM} alt="" />
         </Link>
 
-        <div className="section-card-bonus absolute flex justify-center items-center">
+        <div
+          onClick={() => handleNavigateToAlbum(item)}
+          className="section-card-bonus absolute flex justify-center items-center"
+        >
           <svg
             name="play"
             stroke="currentColor"

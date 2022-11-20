@@ -21,17 +21,11 @@ const ListMV = ({ empty = false }) => {
   useEffect(() => {
     mp3Service.getListVideo(filter).then((res) => {
       if (res.err === 0) {
-        console.log(res.data)
         setData(res.data)
         setLoading(false)
       }
     })
   }, [filter])
-
-  // const handleSelectTypeVideo = (e) => {
-  //   console.log(e.target.value)
-  //   setId(e.target.value)
-  // }
 
   return (
     <div className="video-list">

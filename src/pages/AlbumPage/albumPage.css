@@ -1,0 +1,5 @@
+/* album page */
+.album-songs {
+  padding-left: 40px;
+  width: calc(100% - 300px);
+}

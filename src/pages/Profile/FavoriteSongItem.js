@@ -143,12 +143,15 @@ const FavoriteSongItem = ({ song, number = 0 }) => {
   }
 
   const handleNavigateToArtist = (data) => {
-    console.log(data.artists[0].link.slice(1, 8))
     if (data.artists[0].link.slice(1, 8) === 'nghe-si') {
       navigate(data.artists[0].link)
     } else {
       navigate(`/nghe-si${data.artists[0].link}`)
     }
+  }
+
+  const handleNavigateToAlbum = (data) => {
+    navigate(data.album?.link.slice(0, data.album?.link.length - 5))
   }
 
   return (
@@ -180,6 +183,7 @@ const FavoriteSongItem = ({ song, number = 0 }) => {
           </div>
         </div>
 
+        {/* song info */}
         <div className="song-info text-white flex flex-col justify-center items-start ml-2.5">
           <span className="song-title inline-block ">
             {song.streamingStatus === 2 ? (
@@ -243,7 +247,10 @@ const FavoriteSongItem = ({ song, number = 0 }) => {
       </Col>
 
       <Col span={0} md={8} className="song-album">
-        <p className="text-xs text-text-second hover:underline hover:cursor-pointer">
+        <p
+          onClick={() => handleNavigateToAlbum(song)}
+          className="text-xs text-text-second hover:underline hover:cursor-pointer"
+        >
           {song.album?.title}
         </p>
       </Col>

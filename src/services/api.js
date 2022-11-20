@@ -11,6 +11,7 @@ const url = {
   newSong: '/new-chart',
   listVideo: '/video',
   artist: '/artist',
+  playlist: '/playlist',
 }
 
 const instance = axios.create({

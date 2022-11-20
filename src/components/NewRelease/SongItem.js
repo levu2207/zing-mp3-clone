@@ -154,7 +154,6 @@ const SongItem = ({
   }
 
   const handleNavigateToArtist = (data) => {
-    console.log(data.artists[0].link.slice(1, 8))
     if (data.artists[0].link.slice(1, 8) === 'nghe-si') {
       navigate(data.artists[0].link)
     } else {

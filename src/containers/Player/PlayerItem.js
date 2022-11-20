@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import AddLibrary from '../../components/AddLibrary/AddLibrary'
@@ -6,16 +6,18 @@ import Option from '../../components/Option/Option'
 import truncateText from '../../utils/truncateText'
 import checkIsFavorite from './../../utils/checkIsFavorite'
 
-const PlayerItem = ({ song, className = '', animations, options = false, numberText }) => {
+const PlayerItem = ({ song, className = '', options = false, numberText }) => {
   const favoriteSongs = useSelector((state) => state.favorite.favoriteSongs)
   const navigate = useNavigate()
 
+  useEffect(() => {}, [song])
+
   const handleNavigateToArtist = (data) => {
-    console.log(data.artists[0].link.slice(1, 7))
-    if (data.artists[0].link.slice(1, 7) === 'nghe-si') {
+    if (data.artists[0].link.slice(1, 8) === 'nghe-si') {
       navigate(data.artists[0].link)
+    } else {
+      navigate(`/nghe-si${data.artists[0].link}`)
     }
-    navigate(`/nghe-si${data.artists[0].link}`)
   }
 
   return (

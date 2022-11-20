@@ -1,3 +1,4 @@
+import AlbumPage from '../pages/AlbumPage/AlbumPage'
 import ArtistsPage from '../pages/Artists/ArtistsPage'
 import ChartHome from '../pages/ChartHome/ChartHome'
 import Home from '../pages/Home'
@@ -20,6 +21,7 @@ const routes = [
   { path: '/top100', component: <Top100 /> },
   { path: '/nghe-si/:alias', component: <ArtistsPage /> },
   { path: '/playlist/:alias', component: <PlaylistPage /> },
+  { path: '/album/:alias/:id', component: <AlbumPage /> },
   { path: '*', component: <NotFound /> },
 ]
 
