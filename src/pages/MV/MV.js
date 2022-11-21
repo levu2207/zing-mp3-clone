@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import DetailVideo from './DetailVideo'
 import './mv.css'
 
 const MV = () => {
@@ -54,6 +55,8 @@ const MV = () => {
       <div className="video-content pt-5">
         <Outlet />
       </div>
+
+      <DetailVideo />
     </>
   )
 }

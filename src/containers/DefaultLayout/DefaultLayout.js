@@ -1,21 +1,20 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import ComingSoon from "../../components/ComingSoon/ComingSoon";
-import DetailVideo from "../../pages/MV/DetailVideo";
-import ListMV from "../../pages/MV/ListMV";
-import MV from "../../pages/MV/MV";
-import MySong from "../../pages/Profile/MySongs";
-import Profile from "../../pages/Profile/Profile";
-import routes from "../../routers/router";
-import Header from "../Header/Header";
-import MobilePlayer from "../Player/MobilePlayer";
-import Player from "../Player/Player";
-import PlayList from "../PlayList/PlayList";
-import Sidebar from "../Sidebar/Sidebar";
-import MyRecents from "./../../pages/Profile/MyRecents";
-import MyVideo from "./../../pages/Profile/MyVideo";
-import MobileMenu from "./../Sidebar/MobileMenu";
-import "./defaultLayout.css";
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+import ComingSoon from '../../components/ComingSoon/ComingSoon'
+import ListMV from '../../pages/MV/ListMV'
+import MV from '../../pages/MV/MV'
+import MySong from '../../pages/Profile/MySongs'
+import Profile from '../../pages/Profile/Profile'
+import routes from '../../routers/router'
+import Header from '../Header/Header'
+import MobilePlayer from '../Player/MobilePlayer'
+import Player from '../Player/Player'
+import PlayList from '../PlayList/PlayList'
+import Sidebar from '../Sidebar/Sidebar'
+import MyRecents from './../../pages/Profile/MyRecents'
+import MyVideo from './../../pages/Profile/MyVideo'
+import MobileMenu from './../Sidebar/MobileMenu'
+import './defaultLayout.css'
 
 const DefaultLayout = () => {
   return (
@@ -39,22 +38,17 @@ const DefaultLayout = () => {
                 <Route path="Khong-Loi" element={<ComingSoon />} />
               </Route>
               {routes.map((route, idx) => (
-                <Route
-                  key={idx}
-                  path={route.path}
-                  element={route.component}
-                ></Route>
+                <Route key={idx} path={route.path} element={route.component}></Route>
               ))}
             </Routes>
           </div>
         </div>
         <PlayList />
       </div>
-      <DetailVideo />
       <MobilePlayer />
       <Player />
     </>
-  );
-};
+  )
+}
 
-export default DefaultLayout;
+export default DefaultLayout

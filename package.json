@@ -24,6 +24,7 @@
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
     "swiper": "^8.4.4",
+    "video.js": "^7.20.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

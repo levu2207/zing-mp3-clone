@@ -16,7 +16,7 @@ const getNewSongList = () => api.get(api.url.newSong)
 
 const getListVideo = (params) => api.get(api.url.listVideo, { params })
 
-const getVideo = (id) => api.get(`${api.url.video}/${id}`)
+const getVideo = (id) => api.get(`${api.url.listVideo}/${id}`)
 
 const searchSong = (search) => api.get(api.url.song, { params: { search: search } })
 

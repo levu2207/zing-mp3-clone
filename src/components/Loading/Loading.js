@@ -1,7 +1,7 @@
 import React from 'react'
 import './loader.css'
 
-const Loading = ({ width, height, color }) => {
+const Loading = ({ width, height, color = 'white' }) => {
   return (
     <div
       style={{

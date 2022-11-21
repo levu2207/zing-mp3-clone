@@ -63,7 +63,7 @@
   .sidebar-library {
     display: none;
   }
-  
+
   button.show-sidebar {
     display: block;
   }
@@ -235,6 +235,12 @@
   }
   .album-content {
     margin-bottom: 100px;
+  }
+  .video-body {
+    margin: 0 10px;
+  }
+  .video-player {
+    width: 100%;
   }
 }
 
