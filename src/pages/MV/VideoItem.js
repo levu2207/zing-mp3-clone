@@ -1,18 +1,24 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Loading from '../../components/Loading/Loading'
+import { pauseSong } from '../../redux/reducers/playSlice'
 import { addCurrentVideo, addVideoList, showVideoModal } from '../../redux/reducers/videoSlice'
 import mp3Service from '../../services/mp3Services'
 import truncateText from './../../utils/truncateText'
 
 const VideoItem = ({ item }) => {
   const dispatch = useDispatch()
+  const isPlaying = useSelector((state) => state.play.isPlaying)
   const [loading, setLoading] = useState(false)
 
   const handlePlayVideo = async (target) => {
+    if (isPlaying) {
+      const audio = document.getElementById('audio')
+      if (audio) audio.pause()
+      dispatch(pauseSong())
+    }
     setLoading(true)
     const { data } = await mp3Service.getVideo(target.encodeId)
-    console.log(data)
     dispatch(addCurrentVideo(data))
     const payload = [data, ...data?.recommends]
     dispatch(addVideoList(payload))

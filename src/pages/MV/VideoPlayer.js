@@ -1,6 +1,5 @@
 import React, { useRef } from 'react'
 import VideoJS from './VideoJS'
-import videojs from 'video.js'
 
 const VideoPlayer = ({ source }) => {
   const playerRef = useRef(null)
@@ -20,10 +19,6 @@ const VideoPlayer = ({ source }) => {
 
   const handlePlayerReady = (player) => {
     playerRef.current = player
-
-    player.on('ended', () => {
-      videojs.log('end video')
-    })
   }
 
   return <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />

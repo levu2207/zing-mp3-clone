@@ -27,12 +27,12 @@ const DetailVideo = () => {
         ></div>
 
         {/* video modal content */}
-        <div className="video-container overflow-x-hidden overflow-y-scroll">
+        <div className="video-container flex flex-col overflow-x-hidden overflow-y-scroll">
           {/* video header */}
-          <div className="video-header h-20 px-5 flex justify-between items-center">
+          <div className="video-header px-5 flex justify-between items-center">
             <div className="video-info h-full py-4 flex ">
               <img
-                className="h-full rounded-full"
+                className="h-[60px] rounded-full"
                 src={currentVideo?.artists[0]?.thumbnail}
                 alt=""
               />
@@ -43,6 +43,7 @@ const DetailVideo = () => {
               </div>
             </div>
 
+            {/* header button */}
             <div className="video-header-btn">
               <button className="download-video w-[44px] h-[44px] bg-text-chart-bg hover:bg-hover-chart-bg  text-white rounded-full mr-4">
                 <a href={currentVideo?.streaming?.hls['720p']} target="_blank" rel="noreferrer">
@@ -85,12 +86,12 @@ const DetailVideo = () => {
           </div>
 
           {/* video recommend */}
-          <div className="video-recommend container-all bg-[#FFFFFF0D] h-[800px]">
+          <div className="video-recommend container-all bg-[#FFFFFF0D]">
             <div className="video-recommend-title py-5">
               <span className="text-xl text-white font-bold capitalize">Đề Xuất Cho Bạn</span>
             </div>
 
-            <div className="video-recommend-list">
+            <div className="video-recommend-list h-auto">
               <Row gutter={30}>
                 {currentVideo?.recommends?.map((item) => (
                   <Col key={item.encodeId} span={24} md={12} lg={8} xl={6}>

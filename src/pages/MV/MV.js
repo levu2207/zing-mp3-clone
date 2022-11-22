@@ -54,7 +54,7 @@ const MV = () => {
         </div>
       </div>
 
-      <div className="video-content pt-5">
+      <div className="video-content container-all pt-5">
         <Outlet />
       </div>
 

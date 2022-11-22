@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 import Loading from '../../components/Loading/Loading'
 import { addCurrentVideo } from '../../redux/reducers/videoSlice'
 import mp3Service from '../../services/mp3Services'
@@ -10,20 +11,24 @@ const VideoPlayingItem = ({ item }) => {
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch()
 
-  const handlePlayVideo = (data) => {
-    console.log('click')
+  const handlePlayVideo = (e, data) => {
     setLoading(true)
     mp3Service.getVideo(data.encodeId).then((res) => {
-      console.log(res.data)
-      dispatch(addCurrentVideo(res.data))
-      setLoading(false)
+      if (res.err === 0) {
+        dispatch(addCurrentVideo(res.data))
+        setLoading(false)
+        e.target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
+      } else {
+        toast.error('Video không còn trong hệ thống!')
+      }
     })
   }
 
   return (
     <>
       <div
-        onClick={() => handlePlayVideo(item)}
+        data-set={item?.encodeId}
+        onClick={(e) => handlePlayVideo(e, item)}
         className={`list-playing-item ${
           item?.encodeId === currentVideo?.encodeId ? 'bg-hover-chart-bg' : ''
         } flex h-[76px] py-[5px] px-5 hover:bg-hover-chart-bg cursor-pointer`}
